@@ -1,0 +1,17 @@
+// Filler
+
+UI/BorderTexture=Assets\Textures\ui_ingame_tutorial_textborder_terr.dds
+UI/BorderTexture_Prot=Assets\Textures\ui_ingame_tutorial_textborder_prot.dds
+UI/BorderTexture_Zerg=Assets\Textures\ui_ingame_tutorial_textborder_zerg.dds
+
+//Standard Panels
+UI/SquareButton_Normal=Assets\Textures\ui_nameless_headsup_squarebutton_normal.dds
+UI/SquareButton_Over=Assets\Textures\ui_nameless_headsup_squarebutton_over.dds
+
+//Level Selection
+
+//Milestones
+UI/Milestones_Border=Assets/Textures/ui_nameless_lvsel_milestone_border.dds
+UI/Milestones_IconMask=Assets/Textures/ui_nameless_lvsel_milestone_mask.dds
+UI/Milestones_ProgressbarUnderlay=Assets/Textures/ui_nameless_lvsel_milestone_progressbar_underlay.dds
+UI/Milestones_ProgressbarFill=Assets/Textures/ui_nameless_lvsel_milestone_progressbar_full.dds

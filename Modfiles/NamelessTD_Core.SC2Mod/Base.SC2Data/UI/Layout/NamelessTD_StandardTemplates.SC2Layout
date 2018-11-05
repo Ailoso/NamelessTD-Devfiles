@@ -9,7 +9,7 @@
 			<Anchor side="Left" relative="$parent" pos="Min" offset="5"/>
 			<Height val="55"/>
 			<Width val="55"/>
-			<Texture val="Assets/Textures/ui_nameless_lvsel_milestone_border.dds"/>
+			<Texture val="@UI/Milestones_Border"/>
 		</Frame>
 						
 		<Frame type="Image" name="Icon">
@@ -20,7 +20,7 @@
 			<Height val="45"/>
 			<Width val="45"/>
 			<Texture val="Assets\Textures\alarakex3_ingame_heroportrait.dds"/>
-			<ImageMaskTexture val="Assets/Textures/ui_nameless_lvsel_milestone_mask.dds"/>
+            <ImageMaskTexture val="@UI/Milestones_IconMask"/>
 		</Frame>
 						
 		<Frame type="Label" name="Title">
@@ -44,7 +44,7 @@
 			
 			<Frame type="Image" name="BorderImage">
 				<Anchor relative="$parent"/>
-				<Texture val="Assets/Textures/ui_nameless_lvsel_milestone_progressbar_underlay.dds"/>
+				<Texture val="@UI/Milestones_ProgressbarUnderlay"/>
 			</Frame>
 			
 			<Frame type="Frame" name="FillImageContainer">
@@ -54,7 +54,7 @@
 				
 				<Frame type="Image" name="FillImage">
 					<Anchor relative="$parent"/>
-					<Texture val="Assets/Textures/ui_nameless_lvsel_milestone_progressbar_full.dds"/>
+					<Texture val="@UI/Milestones_ProgressbarFill"/>
 				</Frame>
 			</Frame>
 		</Frame>
@@ -105,13 +105,13 @@
 
         <Frame type="Image" name="NormalImage">
             <Anchor relative="$parent"/>
-            <Texture val="Assets\Textures\ui_nameless_headsup_squarebutton_normal.dds"/>
+            <Texture val="@UI/SquareButton_Normal"/>
             <TextureType val="NineSlice"/>
         </Frame>
 
         <Frame type="Image" name="HoverImage">
             <Anchor relative="$parent"/>
-            <Texture val="Assets\Textures\ui_nameless_headsup_squarebutton_over.dds"/>
+            <Texture val="@UI/SquareButton_Over"/>
             <TextureType val="NineSlice"/>
         </Frame>
     </Frame>

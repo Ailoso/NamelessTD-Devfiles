@@ -15,20 +15,6 @@
 			<Width val="381"/>
 			<Height val="165"/>
 			<Visible val="False"/>
-			
-			<StateGroup name="VisibilityToggle">
-				<DefaultState val="Visible"/>
-				
-				<State name="Visible">
-                    <When type="AnimationState" frame="$this" VisibilityToggle="Visible"/>
-					<Action type="SetProperty" frame="$this" Visible="True"/>
-				</State>
-			
-				<State name="NotVisible">
-                    <When type="AnimationState" frame="$this" VisibilityToggle="NotVisible"/>
-					<Action type="SendEvent" frame="$this" event="Hide"/>
-				</State>
-			</StateGroup>
 
 			<Animation name="Show/Hide">
 				<Event event="OnShown" action="DirectionForward,Play"/>
@@ -297,20 +283,6 @@
 			<Height val="175"/>
             <Visible val="False"/>
 
-			<StateGroup name="VisibilityToggle">
-				<DefaultState val="Visible"/>
-				
-				<State name="Visible">
-                    <When type="StateGroup" frame="$this" VisibilityToggle="Visible"/>
-					<Action type="SetProperty" frame="$this" Visible="True"/>
-				</State>
-			
-				<State name="NotVisible">
-                    <When type="StateGroup" frame="$this" VisibilityToggle="NotVisible"/>
-					<Action type="SendEvent" frame="$this" event="Hide"/>
-				</State>
-			</StateGroup>
-
 			<Animation name="Show">
 				<Event event="OnShown" action="Reset,Play"/>
 
@@ -324,7 +296,7 @@
 			</Animation>
 
 			<Animation name="Hide">
-				<Event event="Hide" action="Reset,Play"/>
+				<Event event="Hide" action="Play,Reset"/>
 
 				<Controller type="Event" end="Pause" frame="$this/ResourcePanel">
 					<Key type="Event" time="0" event="HidePanel"/>
@@ -334,10 +306,19 @@
 					<Key type="Event" time="0" event="HidePanel"/>
 				</Controller>
 
-				<Controller type="Visibility" end="Pause" frame="$this">
-					<Key type="Bool" time="0" value="False"/>
-					<Key type="Bool" time="0.01" value="True"/>
-					<Key type="Bool" time=".5" value="True"/>
+				<Controller type="Visibility" end="Stop" frame="$this">
+					<Key type="Bool" time="0" value="True"/>
+					<Key type="Bool" time=".5" value="False"/>
+				</Controller>
+
+				<Controller type="Visibility" end="Stop" frame="$this/ResourcePanel">
+					<Key type="Bool" time="0" value="True"/>
+					<Key type="Bool" time=".5" value="False"/>
+				</Controller>
+
+				<Controller type="Visibility" end="Stop" frame="$this/WaveCounterPanel">
+					<Key type="Bool" time="0" value="True"/>
+					<Key type="Bool" time=".5" value="False"/>
 				</Controller>
 			</Animation>
 
@@ -464,7 +445,7 @@
 						<Key type="Curve" time=".5" value="255" in="Slow"/>
 					</Controller>
 				</Animation>
-
+				
 				<Frame type="Image" name="Background">
 					<Anchor relative="$parent"/>
 					<Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
@@ -518,20 +499,6 @@
 				<Style val="NamelessSkipButtonLabel"/>
 			</Frame>
 
-			<StateGroup name="VisibilityToggle">
-				<DefaultState val="Visible"/>
-				
-				<State name="Visible">
-                    <When type="AnimationState" frame="$this" VisibilityToggle="Visible"/>
-					<Action type="SetProperty" frame="$this" Visible="True"/>
-				</State>
-			
-				<State name="NotVisible">
-                    <When type="AnimationState" frame="$this" VisibilityToggle="NotVisible"/>
-					<Action type="SendEvent" frame="$this" event="Hide"/>
-				</State>
-			</StateGroup>
-
 			<Animation name="Show/Hide">
 				<Event event="OnShown" action="DirectionForward,Play"/>
 				<Event event="Hide" action="DirectionReverse,Play"/>
@@ -572,20 +539,6 @@
 			<Width val="70"/>
 			<Height val="70"/>
             <Visible val="False"/>
-
-			<StateGroup name="VisibilityToggle">
-				<DefaultState val="Visible"/>
-				
-				<State name="Visible">
-                    <When type="AnimationState" frame="$this" VisibilityToggle="Visible"/>
-					<Action type="SetProperty" frame="$this" Visible="True"/>
-				</State>
-			
-				<State name="NotVisible">
-                    <When type="AnimationState" frame="$this" VisibilityToggle="NotVisible"/>
-					<Action type="SendEvent" frame="$this" event="Hide"/>
-				</State>
-			</StateGroup>
 
 			<Animation name="Show">
 				<Event event="OnShown" action="DirectionForward,Play"/>
@@ -633,23 +586,9 @@
 			<Height val="250"/>
             <Visible val="False"/>
 
-			<StateGroup name="VisibilityToggle">
-				<DefaultState val="Visible"/>
-				
-				<State name="Visible">
-                    <When type="AnimationState" frame="$this" VisibilityToggle="Visible"/>
-					<Action type="SetProperty" frame="$this" Visible="True"/>
-				</State>
-			
-				<State name="NotVisible">
-                    <When type="AnimationState" frame="$this" VisibilityToggle="NotVisible"/>
-					<Action type="SendEvent" frame="$this" event="Hide"/>
-				</State>
-			</StateGroup>
-
 			<Animation name="Show">
 				<Event event="OnShown" action="DirectionForward,Play"/>
-				<Event event="HidePanel" action="DirectionReverse,Play"/>
+				<Event event="Hide" action="DirectionReverse,Play"/>
 				 
 				<Controller type="Anchor" end="Pause" side="Right" relative="false">
 					<Key type="Curve" time="0" value="180" out="Fast"/>
