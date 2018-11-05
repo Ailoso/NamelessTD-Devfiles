@@ -11,8 +11,8 @@ Development files for Nameless TD
 
 
 ## Missing Features to Alpha
-[ ] Game Startup Functions
-[ ] Victory Functions/UI
-[ ] Defeat Functions/UI
-[ ] Basic Game Hints for tutorial
-[ ] Tutorial Stage
+- [ ] Game Startup Functions
+- [ ] Victory Functions/UI
+- [ ] Defeat Functions/UI
+- [ ] Basic Game Hints for tutorial
+- [ ] Tutorial Stage
