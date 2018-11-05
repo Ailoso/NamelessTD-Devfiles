@@ -1,0 +1,133 @@
+include "TriggerLibs/natives"
+
+//--------------------------------------------------------------------------------------------------
+// Library: NamelessTD
+//--------------------------------------------------------------------------------------------------
+// Preset Declarations
+const int libBBF65E58_ge_UIPanelType_AchievementPanel = 0x00000001;
+const int libBBF65E58_ge_UIPanelType_LevelSelection = 0x00000002;
+const int libBBF65E58_ge_UIPanelType_GameHUD = 0x00000004;
+const int libBBF65E58_ge_HUDPanels_GameStatus = 0x00000001;
+const int libBBF65E58_ge_HUDPanels_PausePanel = 0x00000002;
+const int libBBF65E58_ge_HUDPanels_InfoPanel = 0x00000004;
+const int libBBF65E58_ge_HUDPanels_StartButton = 0x00000008;
+const int libBBF65E58_ge_HUDPanels_HeroPanel = 0x00000010;
+const int libBBF65E58_ge_TransitionType_Full = 0;
+const int libBBF65E58_ge_TransitionType_Half = 1;
+const int libBBF65E58_ge_TD_GameDifficulty_Easy = 0x00000001;
+const int libBBF65E58_ge_TD_GameDifficulty_Normal = 0x00000002;
+const int libBBF65E58_ge_TD_GameDifficulty_Hard = 0x00000004;
+
+// Constants
+const int libBBF65E58_gv_pLAYER_01_USER = 1;
+const string libBBF65E58_gv_tD_BankPrefix = "KL_NamelessBank";
+const string libBBF65E58_gv_tD_PlayerDataConstant = "PlayerData";
+
+// Structures
+struct libBBF65E58_gs_TD_GameUI {
+    int lv_dialog;
+    int lv_gameUI;
+    int lv_levelSelectionContainer;
+    int lv_gameHUDContainer;
+    int lv_achievementContainer;
+    int lv_transitionContainer;
+    int lv_gameMenuContainer;
+    int lv_saveStatusContainer;
+    int lv_transitionDialog;
+    int lv_transitionFull;
+    bool lv_fullExists;
+};
+
+struct libBBF65E58_gs_TD_LevelSelection {
+    int[4] lv_stageSlotButton;
+    int[4] lv_stageSlotPerformance;
+    int lv_title;
+    int lv_previewImage;
+    int lv_completionPanel;
+    int lv_description;
+    int lv_difficultyPulldown;
+    int lv_playButton;
+};
+
+struct libBBF65E58_gs_TD_HeadsUpDisplay {
+    int lv_heroPanel;
+    int lv_gameStatusPanel;
+    int lv_waveStartButton;
+    int lv_pausePanel;
+    int lv_unitInfoPanel;
+    int lv_hintsPanel;
+};
+
+struct libBBF65E58_gs_TD_HUDSettings {
+    bool lv_heroPanelEnabled;
+    bool lv_gameStatusPanelEnabled;
+    bool lv_startButtonEnabled;
+    bool lv_pausePanelEnabled;
+    bool lv_unitInfoPanelEnabled;
+};
+
+// Variable Declarations
+bool libBBF65E58_gv_isGamePaused;
+bool libBBF65E58_gv_isGameActive;
+bool libBBF65E58_gv_isPlayerInGame;
+bool libBBF65E58_gv_gameIsOver;
+bool libBBF65E58_gv_inCinematic;
+int libBBF65E58_gv_kL_CurrentLevel;
+int libBBF65E58_gv_kL_CurrentWave;
+int libBBF65E58_gv_kL_MaxWaves;
+int libBBF65E58_gv_kL_LivingUnits;
+int libBBF65E58_gv_kL_TotalWaveUnits;
+int libBBF65E58_gv_kL_PlayerLives;
+unitgroup libBBF65E58_gv_kL_WaveGroup;
+string libBBF65E58_gv_kL_Path1IDString;
+string libBBF65E58_gv_kL_Path2IDString;
+int libBBF65E58_gv_kL_Path1MaxPoints;
+int libBBF65E58_gv_kL_Path2MaxPoints;
+bank libBBF65E58_gv_tD_PlayerDataBank;
+bool libBBF65E58_gv_tD_GameUIHooked;
+libBBF65E58_gs_TD_GameUI libBBF65E58_gv_tD_GameUI;
+libBBF65E58_gs_TD_LevelSelection libBBF65E58_gv_tD_LevelSelection;
+libBBF65E58_gs_TD_HeadsUpDisplay libBBF65E58_gv_tD_HeadsUpDisplay;
+int libBBF65E58_gv_tD_SelectedLevel;
+libBBF65E58_gs_TD_HUDSettings libBBF65E58_gv_tD_HUDSettings;
+int libBBF65E58_gv_tD_GameDifficulty;
+
+// Function Declarations
+bool libBBF65E58_gf_GamePaused ();
+bool libBBF65E58_gf_GameOver ();
+bool libBBF65E58_gf_GameActive ();
+void libBBF65E58_gf_PreloadBanks ();
+void libBBF65E58_gf_OpenBanks ();
+void libBBF65E58_gf_LoadBankData ();
+void libBBF65E58_gf_SaveBanks ();
+void libBBF65E58_gf_TD_HookupGameUI ();
+void libBBF65E58_gf_DisplayGameUI ();
+void libBBF65E58_gf_ShowHideGameUIPanel (int lp_panel, bool lp_showHide);
+void libBBF65E58_gf_TD_UpdateInfoPanel (string lp_level);
+void libBBF65E58_gf_ShowHideHUD (bool lp_showHide);
+void libBBF65E58_gf_EnableDisableHUDPanels (int lp_panel, bool lp_enableDisable);
+void libBBF65E58_gf_ResetHUDPanelStates ();
+void libBBF65E58_gf_PlayTransitionAnimation (int lp_type, bool lp_showHide);
+void libBBF65E58_gf_TD_SetGameDifficulty (int lp_gameDifficulty);
+string libBBF65E58_gf_ReturnGameDifficultyasInteger ();
+void libBBF65E58_gf_InitializeStage (string lp_gameDifficulty);
+
+// Trigger Declarations
+trigger libBBF65E58_gt_TD_FIrstRunCheck;
+trigger libBBF65E58_gt_KL_DifficultyBtnPress;
+trigger libBBF65E58_gt_KL_UpdateDifficulty;
+trigger libBBF65E58_gt_TD_StageButtonPressed;
+trigger libBBF65E58_gt_Intialization;
+trigger libBBF65E58_gt_DebugFullIn;
+trigger libBBF65E58_gt_DebugFullOut;
+trigger libBBF65E58_gt_DebugHalfIn;
+trigger libBBF65E58_gt_DebugHalfOut;
+trigger libBBF65E58_gt_DebugTestCompleteTransition;
+trigger libBBF65E58_gt_DebugEnableHeroPanel;
+trigger libBBF65E58_gt_DebugDisableHeroPanel;
+trigger libBBF65E58_gt_DebugDisplayHUD;
+trigger libBBF65E58_gt_DebugHideHUD;
+
+// Library Initialization
+void libBBF65E58_InitVariables ();
+

@@ -1,0 +1,1437 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+	<Frame type="Frame" name="MilestonePanelTemplate">
+		<Height val="55"/>
+					
+		<Frame type="Image" name="IconBorder">
+			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="5"/>
+			<Height val="55"/>
+			<Width val="55"/>
+			<Texture val="Assets/Textures/ui_nameless_lvsel_milestone_border.dds"/>
+		</Frame>
+						
+		<Frame type="Image" name="Icon">
+			<Anchor side="Top" relative="$parent/IconBorder" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent/IconBorder" pos="Mid" offset="0"/>
+			<Anchor side="Left" relative="$parent/IconBorder" pos="Mid" offset="0"/>
+			<Anchor side="Right" relative="$parent/IconBorder" pos="Mid" offset="0"/>
+			<Height val="45"/>
+			<Width val="45"/>
+			<Texture val="Assets\Textures\alarakex3_ingame_heroportrait.dds"/>
+			<ImageMaskTexture val="Assets/Textures/ui_nameless_lvsel_milestone_mask.dds"/>
+		</Frame>
+						
+		<Frame type="Label" name="Title">
+			<Anchor side="Top" relative="$parent/Icon" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent/Icon" pos="Max" offset="10"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="15"/>
+			<Text val="Milestone"/>
+			<Style val="NamelessMilestoneTitle"/>
+		</Frame>
+		
+		<Frame type="ProgressBar" name="CompletionBar">
+			<Anchor side="Top" relative="$parent/Title" pos="Max" offset="0"/>
+			<Anchor side="Left" relative="$parent/Icon" pos="Max" offset="8"/>
+			<AcceptsMouse val="False"/>
+			<Width val="135"/>
+			<Height val="15"/>
+			<UseFillContainer val="true"/>
+			<MinValue val="0"/>
+			<MaxValue val="100"/>
+			<Value val="0"/>
+			
+			<Frame type="Image" name="BorderImage">
+				<Anchor relative="$parent"/>
+				<Texture val="Assets/Textures/ui_nameless_lvsel_milestone_progressbar_underlay.dds"/>
+			</Frame>
+			
+			<Frame type="Frame" name="FillImageContainer">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+				
+				<Frame type="Image" name="FillImage">
+					<Anchor relative="$parent"/>
+					<Texture val="Assets/Textures/ui_nameless_lvsel_milestone_progressbar_full.dds"/>
+				</Frame>
+			</Frame>
+		</Frame>
+		
+		<Frame type="TextFormatFrame" name="ProgressValueFormatter">
+			<Anchor relative="$parent"/>
+			<FormatText val="%0% / %1%"/>
+			<Replacement index="0" val="{$parent/CompletionBar/@Value}"/>
+			<Replacement index="1" val="{$parent/CompletionBar/@MaxValue}"/>
+		</Frame>
+		
+		<Frame type="Label" name="ProgressValue">
+			<Anchor side="Top" relative="$parent/CompletionBar" pos="Max" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+			<Text val="{$parent/ProgressValueFormatter/@Text}"/>
+			<Style val="NamelessMilestoneText"/>
+		</Frame>
+	</Frame>
+
+    <Frame type="Button" name="CloseButtonTemplate">
+
+        <Frame type="Image" name="NormalImage">
+            <Anchor relative="$parent"/>
+            <Texture val="Assets\Textures\sc2_ui_glues_icons_closebutton.dds"/>
+        </Frame>
+
+        <Frame type="Image" name="HoverImage">
+            <Anchor relative="$parent"/>
+            <Texture val="Assets\Textures\sc2_ui_glues_icons_closebuttonhover.dds"/>
+        </Frame>
+    </Frame>
+
+    <Frame type="Button" name="CircleButtonTemplate">
+
+        <Frame type="Image" name="NormalImage">
+            <Anchor relative="$parent"/>
+            <Texture val="Assets\Textures\ui_nameless_headsup_standardbutton_normal.dds"/>
+        </Frame>
+
+        <Frame type="Image" name="HoverImage">
+            <Anchor relative="$parent"/>
+            <Texture val="Assets\Textures\ui_nameless_headsup_standardbutton_over.dds"/>
+        </Frame>
+    </Frame>
+
+    <Frame type="Button" name="SquareButtonTemplate">
+
+        <Frame type="Image" name="NormalImage">
+            <Anchor relative="$parent"/>
+            <Texture val="Assets\Textures\ui_nameless_headsup_squarebutton_normal.dds"/>
+            <TextureType val="NineSlice"/>
+        </Frame>
+
+        <Frame type="Image" name="HoverImage">
+            <Anchor relative="$parent"/>
+            <Texture val="Assets\Textures\ui_nameless_headsup_squarebutton_over.dds"/>
+            <TextureType val="NineSlice"/>
+        </Frame>
+    </Frame>
+
+    <Frame type="ProgressBar" name="VitalsBarGenericTemplate">
+        <UseFillContainer val="true"/>
+
+        <Frame type="Image" name="Background">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+            <Texture val="Assets\Textures\sc2_ui_coop_fenix_topbar_bar_full_underlay.dds"/>
+            <ColorAdjustMode val="Colorize"/>
+            <AdjustmentColor val="0096f0"/>
+        </Frame>
+
+        <Frame type="Frame" name="FillImageContainer">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+
+            <Frame type="Image" name="FillImage">
+                <Anchor relative="$parent/$parent"/>
+                <Texture val="Assets\Textures\sc2_ui_coop_fenix_topbar_bar_full.dds"/>
+                <ColorAdjustMode val="Colorize"/>
+                <DarkAdjustColor val="270a36"/>
+                <LightAdjustColor val="ea5eff"/>
+            </Frame>
+        </Frame>
+    </Frame>
+
+    <Frame type="Frame" name="PerformancePanelSmall">
+        <Anchor side="Bottom" relative="$parent/ButtonHitTest" pos="Max" offset="22"/>
+        <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+        <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+        <Width val="97"/>
+        <Height val="35"/>
+
+		<!-- Disabled Remove from code -->
+        <!--Frame type="Image" name="Background">
+            <Anchor relative="$parent"/>
+            <Texture val="Assets/Textures/ui_nameless_headsup_standardpanel.dds"/>
+            <TextureType val="NineSlice"/>
+        </Frame-->
+
+        <StateGroup name="Performance">
+            <DefaultState val="0Star"/>
+            
+            <State name="0Star">
+                <When type="AnimationState" Performance="0Stars"/>
+                <Action type="SetProperty" frame="$this/Star1" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_normal.dds"/>
+                <Action type="SetProperty" frame="$this/Star2" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_normal.dds"/>
+                <Action type="SetProperty" frame="$this/Star3" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_normal.dds"/>
+            </State>
+
+            <State name="1Star">
+                <When type="AnimationState" Performance="1Stars"/>
+                <Action type="SetProperty" frame="$this/Star1" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_over.dds"/>
+                <Action type="SetProperty" frame="$this/Star2" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_normal.dds"/>
+                <Action type="SetProperty" frame="$this/Star3" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_normal.dds"/>
+            </State>
+
+            <State name="2Star">
+                <When type="AnimationState" Performance="2Stars"/>
+                <Action type="SetProperty" frame="$this/Star1" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_over.dds"/>
+                <Action type="SetProperty" frame="$this/Star2" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_over.dds"/>
+                <Action type="SetProperty" frame="$this/Star3" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_normal.dds"/>
+            </State>
+
+            <State name="3Star">
+                <When type="AnimationState" Performance="3Stars"/>
+                <Action type="SetProperty" frame="$this/Star1" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_over.dds"/>
+                <Action type="SetProperty" frame="$this/Star2" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_over.dds"/>
+                <Action type="SetProperty" frame="$this/Star3" texture="Assets\Textures\ui_nameless_stagesel_performancestar_small_over.dds"/>
+            </State>
+        </StateGroup>
+
+        <Frame type="Image" name="Star1">
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+            <Texture val="Assets\Textures\ui_nameless_stagesel_performancestar_small_normal.dds"/>
+            <Width val="28"/>
+            <Height val="28"/>
+        </Frame>
+
+        <Frame type="Image" name="Star2">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Right" relative="$parent/Star1" pos="Min" offset="0"/>
+            <Texture val="Assets\Textures\ui_nameless_stagesel_performancestar_small_normal.dds"/>
+            <Width val="28"/>
+            <Height val="28"/>
+        </Frame>
+
+        <Frame type="Image" name="Star3">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Left" relative="$parent/Star1" pos="Max" offset="0"/>
+            <Texture val="Assets\Textures\ui_nameless_stagesel_performancestar_small_normal.dds"/>
+            <Width val="28"/>
+            <Height val="28"/>
+        </Frame>
+    </Frame>
+
+    <Frame type="Frame" name="StageSlot">
+        <Height val="140"/>
+        <Width val="240"/>
+
+        <Animation name="Show">
+            <Event event="OnShown" action="Reset,Play" frame="$this"/>
+
+            <Controller name="Anchor_0" type="Anchor" end="Pause" side="Bottom" relative="true" unclip="false" frame="$this">
+                <Key type="CurveReal" time="0" inout="Linear,Fast" value="-50"/>
+                <Key type="CurveReal" time="0.8" inout="Slow,Linear" value="0"/>
+            </Controller>
+
+            <Controller name="Fade_0" type="Fade" end="Pause" frame="$this">
+                <Key type="CurveReal" time="0" inout="Linear,Slow" value="0"/>
+                <Key type="CurveReal" time="0.3" inout="Slow,Linear" value="255"/>
+            </Controller>
+        </Animation>
+
+            <Frame type="Image" name="ArrowPointer">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="-5"/>
+                <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                <Texture val="Assets/Textures/ui_nameless_lvsel_pointerarrow.dds"/>
+				<Width val="40"/>
+				<Height val="24"/>
+
+                <Animation name="Bounce">
+                    <Event event="OnShown" action="Play" frame="$this"/>
+
+                    <Controller name="Anchor_0" type="Anchor" end="Loop" side="Bottom" relative="false" unclip="false" frame="$this">
+                        <Key type="CurveReal" time="0" inout="Fast,Slow" value="-5"/>
+                        <Key type="CurveReal" time="0.8" inout="Slow" value="0"/>
+                        <Key type="CurveReal" time="1.6" inout="Fast,Slow" value="-5"/>
+                    </Controller>
+                </Animation>
+            </Frame>
+
+            <Frame type="Button" name="ButtonHitTest">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="-50"/>
+                <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                <Height val="74"/>
+                <Width val="74"/>
+
+                <Frame type="Image" name="NormalImage">
+                    <Anchor relative="$parent"/>
+                    <Texture val="Assets/Textures/ui_nameless_lvsel_stagebutton_normal.dds"/>
+                    <TextureType val="NineSlice"/>
+                </Frame>
+
+                <Frame type="Image" name="HoverImage">
+                    <Anchor relative="$parent"/>
+                    <Texture val="Assets/Textures/ui_nameless_lvsel_stagebutton_over.dds"/>
+                    <TextureType val="NineSlice"/>
+                </Frame>
+
+                <Animation name="Show">
+                    <Event event="OnShown" action="Reset,Play" frame="$this"/>
+
+                    <Controller name="Fade_0" type="Fade" end="Pause" frame="$this">
+                        <Key type="CurveReal" time="0" inout="Linear,Slow" value="0"/>
+                        <Key type="CurveReal" time="0.2" inout="Slow,Linear" value="255"/>
+                    </Controller>
+                </Animation>
+
+                <Animation name="ButtonPress">
+                    <Event event="OnClick" action="Reset,Play" frame="$this"/>
+
+                    <Controller name="Sound_0" type="Sound" end="Stop" frame="$this">
+                        <Key type="Sound" time="0" sound="Assets\Sounds\UI_Void_Click_1.wav" direction="Both"/>
+                    </Controller>
+                </Animation>
+            </Frame>
+
+        <Frame type="Frame" name="PerformancePanel" template="NamelessTD_StandardTemplates/PerformancePanelSmall">
+        </Frame>
+
+            <Frame type="Image" name="Icon">
+                <Anchor side="Top" relative="$parent/ButtonHitTest" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/ButtonHitTest" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/ButtonHitTest" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent/ButtonHitTest" pos="Mid" offset="0"/>
+                <Texture val="Assets\Textures\ui_nova_storymode_briefing_icon_cave.dds"/>
+                <Height val="48"/>
+                <Width val="48"/>
+            </Frame>
+
+            <Frame type="Label" name="Label">
+                <Anchor side="Top" relative="$parent/ButtonHitTest" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/ButtonHitTest" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/ButtonHitTest" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent/ButtonHitTest" pos="Mid" offset="0"/>
+                <Style val="NamelessStageCallout"/>
+                <Alpha val="0"/>
+            </Frame>
+        </Frame>
+
+    <Frame type="Frame" name="StatPanelTemplate">
+        <Height val="20"/>
+        <Width val="70"/>
+        <CollapseLayout val="True"/>
+        <Visible val="False"/>
+
+        <Frame type="Image" name="Icon">
+            <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+            <Width val="20"/>
+            <Height val="20"/>
+        </Frame>
+    </Frame>
+
+    <Frame type="CommandButton" name="GlobalCastingButtonTemplate">
+        <Width val="55"/>
+        <Height val="55"/>
+
+        <Frame type="Image" name="NormalImage">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="7"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="-7"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="7"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="-7"/>
+            <LayerCount val="3"/>
+            <TextureType val="Normal" layer="0"/>
+            <LayerAlpha val="0" layer="0" />
+            <LayerVisible val="False" layer="0" />
+
+            <TextureType val="Normal" layer="1"/>
+            <TextureCoords top="0.0" left="0.0" bottom="0.125" right="0.0625" layer="1"/>
+            <Texture val="@UI/ButtonCooldown" layer="1"/>
+            <LayerAlpha val="255" layer="1"/>
+            <LayerColor val="255,150,0" layer="1"/>
+            <AnimColumns val="16" layer="1"/>
+            <AnimCount val="128" layer="1"/>
+            <Animating val="True" layer="1"/>
+            <ManagedAnim val="False" layer="1"/>
+            <LayerVisible val="False" layer="1" />
+            <TextureType val="Normal" layer="2"/>
+            <TextureCoords top="0.0" left="0.0" bottom="0.125" right="0.0625" layer="2"/>
+            <Texture val="Assets/Textures/White.dds" layer="2"/>
+            <LayerAlpha val="255" layer="2"/>
+            <AnimColumns val="16" layer="2"/>
+            <AnimCount val="128" layer="2"/>
+            <Animating val="True" layer="2"/>
+            <ManagedAnim val="False" layer="2"/>
+            <LayerVisible val="False" layer="2" />
+            <RenderPriority val="512"/>
+            <DescFlags val=""/>
+        </Frame>
+
+        <Frame type="Image" name="HoverImage">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="7"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="-7"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="7"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="-7"/>
+            <LayerCount val="3"/>
+            <TextureType val="Normal" layer="0"/>
+            <LayerAlpha val="0" layer="0" />
+            <!--
+            <TextureCoords top="0.0" left="0.0" bottom="0.01" right="0.01" layer="0"/>
+            -->
+            <TextureType val="Normal" layer="1"/>
+            <TextureCoords top="0.0" left="0.0" bottom="0.125" right="0.0625" layer="1"/>
+            <Texture val="@UI/ButtonCooldown" layer="1"/>
+            <AnimColumns val="16" layer="1"/>
+            <AnimCount val="128" layer="1"/>
+            <Animating val="True" layer="1"/>
+            <ManagedAnim val="False" layer="1"/>
+            <LayerVisible val="False" layer="1" />
+            <TextureType val="Normal" layer="2"/>
+            <TextureCoords top="0.0" left="0.0" bottom="0.125" right="0.0625" layer="2"/>
+            <Texture val="@UI/ButtonCooldownCharge" layer="2"/>
+            <AnimColumns val="16" layer="2"/>
+            <AnimCount val="128" layer="2"/>
+            <Animating val="True" layer="2"/>
+            <ManagedAnim val="False" layer="2"/>
+            <LayerVisible val="False" layer="2" />
+            <RenderPriority val="512"/>
+            <DescFlags val=""/>
+        </Frame>
+
+        <Frame type="Image" name="AutoCastImage">
+            <Anchor relative="$parent"/>
+            <TextureType val="Normal" layer="0"/>
+            <TextureCoords top="0.0" left="0.0" bottom="0.25" right="0.125" layer="0"/>
+            <Texture val="@UI/ButtonAutocast" layer="0"/>
+            <AnimColumns val="8" layer="0"/>
+            <AnimCount val="32" layer="0"/>
+            <AnimDuration val="1000" layer="0"/>
+            <Animating val="True" layer="0"/>
+            <ManagedAnim val="True" layer="0"/>
+            <LayerVisible val="False" layer="0" />
+            <RenderPriority val="514"/>
+        </Frame>
+        
+        <Frame type="Label" name="CooldownLabel">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="5"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="-5"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="5"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="-5"/>
+            <Style val="GameButtonCooldown"/>
+            <RenderPriority val="516"/>
+        </Frame>
+
+        <Frame type="Label" name="ChargeLabel">
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="-8"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="-8"/>
+            <Style val="GameButtonCharge"/>
+            <RenderPriority val="516"/>
+        </Frame>
+
+        <Frame type="Image" name="CooldownFinishedImage">
+            <Anchor relative="$parent"/>
+            <TextureCoords top="0.0" left="0.0" bottom="1" right="0.125"/>
+            <Texture val="@UI/ButtonCoolDownBurst"/>
+            <AnimDuration val="250"/>
+            <AnimColumns val="8"/>
+            <AnimCount val="8"/>
+            <Animating val="true"/>
+            <ManagedAnim val="true"/>
+            <LoopingAnim val="false"/>
+            <RenderPriority val="518"/>
+            <BlendMode val="Add"/>
+        </Frame>
+
+        <Frame type="CommandHotkeyFrame" name="HotkeyFrame" template="StandardTemplates/HotkeyFrameTemplate">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="6"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="6"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+            <RenderPriority val="520"/>
+
+            <Frame type="Image" name="HotkeyLabelBackground">
+                <RenderPriority val="520"/>
+            </Frame>
+
+            <Frame type="Label" name="HotkeyLabel">
+                <RenderPriority val="520"/>
+            </Frame>
+        </Frame>
+
+        <Frame type="Image" name="ButtonBorder">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="-12"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="-12"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="12"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="12"/>
+            <TextureType val="NineSlice" layer="0"/>
+            <LayerCount val="1"/>
+            <Texture val="Assets/Textures/ui_nameless_commandbutton_normal.dds" layer="0"/>
+            <RenderPriority val="600"/>
+            <Alpha val="255"/>
+            <Unclipped val="True"/>
+            
+            <Animation name="Hover">
+                <Event event="OnMouseEnter" action="Reset,Play" frame="$parent"/>
+                <Event event="OnMouseExit" action="Reset,Stop" frame="$parent"/>
+                 
+                <Controller type="Texture" end="Pause">
+                    <Key type="Image" time="0" image="Assets/Textures/ui_nameless_commandbutton_over.dds"/>
+                </Controller>
+            </Animation>
+        </Frame>
+    </Frame>
+
+    <Frame type="Image" name="QuadrantAnimationTemplate">
+        <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+        <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+        <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+        <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+        <TextureType val="NineSlice"/>
+        <Texture val="Assets/Textures/ui_nameless_transition_quadrant.dds"/>
+        <Alpha val="255"/>
+		
+            <Frame type="Image" name="GridPattern">
+                <Anchor relative="$parent"/>
+                <Texture val="Assets\Textures\ui_nova_storymode_bggrid.dds"/>
+                <Tiled val="true"/>
+                <ColorAdjustMode val="Colorize"/>
+                <LightAdjustColor val="5,89,123"/>
+                <Alpha val="50"/>
+            </Frame>
+
+        <Animation name="RenderIn">
+            <Event event="Show" action="Reset,Play"/>
+                     
+            <Controller type="Dimension" dimension="Height" relative="False" percentage="true" unclip="False" end="Pause" frame="$this">
+                <Key type="Curve" time="0" value="200" inout="Auto"/>
+                <Key type="Curve" time=".2" value="75" inout="Auto"/>
+                <Key type="Curve" time=".4" value="100" inout="Auto"/>
+            </Controller>
+
+            <Controller type="Dimension" dimension="Width" relative="False" percentage="true" unclip="False" end="Pause" frame="$this">
+                <Key type="Curve" time="0" value="200" inout="Auto"/>
+                <Key type="Curve" time=".2" value="75" inout="Auto"/>
+                <Key type="Curve" time=".4" value="100" inout="Auto"/>
+            </Controller>
+
+            <Controller type="Fade" end="Pause">
+                <Key type="Curve" time="0" value="0" inout="Auto"/>
+                <Key type="Curve" time=".2" value="150" inout="Auto"/>
+                <Key type="Curve" time=".4" value="255" inout="Auto"/>
+            </Controller>
+        </Animation>
+
+        <Animation name="RenderOut">
+            <Event event="Collapse" action="Reset,Play"/>
+                     
+            <Controller type="Dimension" dimension="Height" relative="False" percentage="true" unclip="False" end="Pause" frame="$this">
+                <Key type="Curve" time="0" value="100" inout="Auto"/>
+                <Key type="Curve" time=".2" value="75" inout="Auto"/>
+                <Key type="Curve" time=".4" value="200" inout="Auto"/>
+            </Controller>
+
+            <Controller type="Dimension" dimension="Width" relative="False" percentage="true" unclip="False" end="Pause" frame="$this">
+                <Key type="Curve" time="0" value="100" inout="Auto"/>
+                <Key type="Curve" time=".2" value="75" inout="Auto"/>
+                <Key type="Curve" time=".4" value="200" inout="Auto"/>
+            </Controller>
+
+            <Controller type="Fade" end="Pause">
+                <Key type="Curve" time="0" value="255" inout="Auto"/>
+                <Key type="Curve" time=".2" value="150" inout="Auto"/>
+                <Key type="Curve" time=".4" value="0" inout="Auto"/>
+            </Controller>
+        </Animation>
+
+        <Animation name="CollapseHalfwayShow">
+            <Event event="HalfShow" action="Reset,Play"/>
+                     
+            <Controller type="Dimension" dimension="Height" relative="False" percentage="true" unclip="False" end="Pause" frame="$this">
+                <Key type="Curve" time="0" value="200"/>
+                <Key type="Curve" time=".2" value="80"/>
+            </Controller>
+
+            <Controller type="Dimension" dimension="Width" relative="False" percentage="true" unclip="False" end="Pause" frame="$this">
+                <Key type="Curve" time="0" value="200"/>
+                <Key type="Curve" time=".2" value="80"/>
+            </Controller>
+
+            <Controller type="Fade" end="Pause">
+                <Key type="Curve" time="0" value="0" out="Fast"/>
+                <Key type="Curve" time=".2" value="150" in="Slow" Out="Slow"/>
+            </Controller>
+        </Animation>
+
+        <Animation name="CollapseHalfwayHide">
+            <Event event="HalfHide" action="Reset,Play"/>
+                     
+            <Controller type="Dimension" dimension="Height" relative="False" percentage="true" unclip="False" end="Pause" frame="$this">
+                <Key type="Curve" time="0" value="80"/>
+                <Key type="Curve" time=".2" value="200"/>
+            </Controller>
+
+            <Controller type="Dimension" dimension="Width" relative="False" percentage="true" unclip="False" end="Pause" frame="$this">
+                <Key type="Curve" time="0" value="80"/>
+                <Key type="Curve" time=".2" value="200"/>
+            </Controller>
+
+            <Controller type="Fade" end="Pause">
+                <Key type="Curve" time="0" value="150" out="Fast"/>
+                <Key type="Curve" time=".2" value="0" in="Slow" Out="Slow"/>
+            </Controller>
+        </Animation>
+    </Frame>
+	
+    <Frame type="Frame" name="HintPanelTemplate">
+        <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+        <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+        <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+        <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+        <Width val="650"/>
+        <Height val="350"/>
+        <Visible val="False"/>
+
+        <Animation name="Show">
+            <Event event="OnShown" action="DirectionForward,Play"/>
+            <Event event="Hide" action="DirectionReverse,Play"/>
+                 
+            <Controller type="Dimension" dimension="Width" relative="False" percentage="True" unclip="False" end="Pause">
+                <Key type="Curve" time="0" value="0"/>
+                <Key type="Curve" time=".4" value="100"/>
+            </Controller>
+
+            <Controller type="Fade" end="Pause">
+                <Key type="Curve" time="0" value="0" out="Fast"/>
+                <Key type="Curve" time=".2" value="255" in="Slow"/>
+            </Controller>
+        </Animation>
+
+        <Frame type="Image" name="Background">
+            <Anchor relative="$parent"/>
+            <TextureType val="NineSlice"/>
+            <Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+            <RenderType val="HDR"/>
+        </Frame>
+
+        <Frame type="Button" name="CloseButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="-20"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="-20"/>
+            <Style val="NamelessPauseButtonLabel"/>
+            <Text val="Close"/>
+            <Width val="200"/>
+            <Height val="55"/>
+        </Frame>
+    </Frame>
+	
+	<Frame type="Frame" name="HeroStatTemplate">
+		<Height val="25"/>
+	
+		<Frame type="Image" name="Background">
+            <Anchor relative="$parent"/>
+			<Color val="0d1b36"/>
+			<Alpha val="160"/>
+		</Frame>
+		
+		<Frame type="Image" name="StatIcon">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Texture val="Assets/Textures/ui_nameless_status_icons_armor.dds"/>
+			<Width val="25"/>
+			<Height val="25"/>
+		</Frame>
+		
+		<Frame type="Label" name="StatLabel">
+            <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Left" relative="$parent/StatIcon" pos="Max" offset="7"/>
+			<Text val="00000"/>
+			<Style val="NamelessStatLabel"/>
+		</Frame>
+	</Frame>
+	
+    <Frame type="Button" name="HintButtonTemplate" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+        <Anchor side="Right" relative="$parent" pos="Max" offset="0"/> 
+        <Width val="80"/>
+        <Height val="80"/>
+        <Visible val="False"/>
+        <CollapseLayout val="true"/>
+		
+        <StateGroup name="HintVisibility">
+            <DefaultState val="HideState"/>
+            
+            <State name="ShowState">
+                <Action type="SetProperty" frame="$this" Visible="True"/>
+                <Action type="SendEvent" frame="$this" event="FadeIn"/>
+                <Action type="SendEvent" frame="$this" event="TimerStart"/>
+            </State>
+
+            <State name="HideState">
+                <Action type="SetProperty" frame="$this" Visible="False"/>
+                <Action type="SendEvent" frame="$this" event="FadeOut"/>
+            </State>
+        </StateGroup>
+
+		<Animation name="Fade">
+			<Event event="FadeIn" action="DirectionForward,Play"/>
+			<Event event="FadeOut" action="DirectionReverse,Play"/>
+
+			<Controller type="Fade" end="Pause">
+				<Key type="Curve" time="0" value="0" out="Auto"/>
+				<Key type="Curve" time=".25" value="255" in="Auto"/>
+			</Controller>
+		</Animation>
+		
+		<Animation name="HideStateTimer">
+			<Event event="TimerStart" action="Reset,Play"/>
+			 
+            <Controller type="State" stateGroup="HintVisibility" end="Pause">
+                <Key type="Identifier" time="30" value="HideState"/>
+            </Controller>
+		</Animation>
+
+		<Animation name="ToggleState">
+			<Event event="StateVisible" action="Reset,Play"/>
+			 
+            <Controller type="State" stateGroup="HintVisibility" end="Pause">
+                <Key type="Identifier" time="0" value="ShowState"/>
+            </Controller>
+		</Animation>
+
+		<Animation name="HideHint">
+			<Event event="OnClick" action="Reset,Play"/>
+			 
+            <Controller type="State" stateGroup="HintVisibility" end="Pause">
+                <Key type="Identifier" time="0" value="HideState"/>
+            </Controller>
+		</Animation>
+
+        <Frame type="Image" name="Icon">
+            <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/> 
+            <Width val="60"/>
+            <Height val="60"/>
+        </Frame>
+    </Frame>
+	
+		<Frame type="Frame" name="AchievementPanelTemplate">
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="200"/>
+			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+			<Visible val="False"/>
+			<Width val="350"/>
+			<Height val="200"/>
+			
+			<Animation name="Show">
+				<Event event="OnShown" action="Reset,Play"/>
+				 
+                <Controller type="Fade" end="Pause" frame="$this">
+                    <Key type="Curve" time="0" value="0" out="Slow"/>
+                    <Key type="Curve" time=".2" value="255" out="Slow"/>
+                </Controller>
+
+				<Controller type="Visibility" end="Pause" frame="$parent/Glow">
+					<Key type="Bool" time="0" value="True"/>
+				</Controller>
+				
+				<Controller type="Event" end="Pause" frame="$this/Background">
+					<Key type="Event" time="0" event="Rotate"/>
+				</Controller>
+				
+				<Controller type="Event" end="Pause" frame="$this/Background">
+					<Key type="Event" time=".8" event="RotationStop"/>
+				</Controller>
+				
+				<Controller type="Event" end="Pause" frame="$this/Background">
+					<Key type="Event" time=".8" event="Rollback"/>
+				</Controller>
+				
+				<Controller type="Visibility" end="Pause" frame="$this/GlowBackground">
+					<Key type="Bool" time="0" value="False"/>
+					<Key type="Bool" time=".8" value="True"/>
+				</Controller>
+				
+				<Controller type="Event" end="Pause" frame="$this/Background/BorderFrame">
+					<Key type="Event" time="0" event="Rotate"/>
+				</Controller>
+				
+				<Controller type="Event" end="Pause" frame="$this/Background/BorderFrame">
+					<Key type="Event" time=".8" event="RotationStop"/>
+				</Controller>
+				
+                <Controller type="Fade" end="Pause" frame="$this/Background/HiddenIcon/IconMask">
+                    <Key type="Curve" time="0" value="0" out="Fast"/>
+                    <Key type="Curve" time="1.1" value="0" in="Fast" out="Fast"/>
+                    <Key type="Curve" time="1.14" value="255" in="Fast" out="Fast"/>
+                    <Key type="Curve" time="1.18" value="0" in="Fast" out="Fast"/>
+                    <Key type="Curve" time="1.2" value="0" in="Fast" out="Fast"/>
+                    <Key type="Curve" time="1.24" value="255" in="Fast" out="Fast"/>
+                    <Key type="Curve" time="1.28" value="0" in="Fast" out="Fast"/>
+                    <Key type="Curve" time="1.3" value="0" in="Fast" out="Fast"/>
+                    <Key type="Curve" time="1.34" value="255" in="Fast" out="Fast"/>
+                    <Key type="Curve" time="1.38" value="0" in="Fast" out="Fast"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/Background/HiddenIcon">
+                    <Key type="Curve" time="0" value="255" out="Fast"/>
+                    <Key type="Curve" time="1.3" value="255" in="Fast" out="Fast"/>
+                    <Key type="Curve" time="1.34" value="0" in="Fast"/>
+                </Controller>
+
+				<Controller type="Event" end="Pause" frame="$this/Background/IconShimmerFrame">
+					<Key type="Event" time="1.4" event="ShowItem"/>
+				</Controller>
+
+				<Controller type="Dimension" dimension="Width" relative="False" percentage="False" unclip="False" end="Pause" frame="$this/Background">
+					<Key type="Curve" time="0" value="100"/>
+					<Key type="Curve" time="1.4" value="100"/>
+					<Key type="Curve" time="1.8" value="300"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/Background/Divider">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time="1.8" value="0" out="Auto"/>
+					<Key type="Curve" time="2" value="150" in="Auto"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/Background/TextLabel">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time="1.8" value="0" out="Auto"/>
+					<Key type="Curve" time="2" value="255" in="Auto"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/Background/TitleLabel">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time="1.8" value="0" out="Auto"/>
+					<Key type="Curve" time="2" value="255" in="Auto"/>
+				</Controller>
+
+				<Controller type="Event" end="Pause" frame="$this">
+					<Key type="Event" time="6" event="HidePanel"/>
+				</Controller>
+			</Animation>
+
+			<Animation name="Hide">
+				<Event event="HidePanel" action="Play"/>
+				 
+                <Controller type="Fade" end="Stop">
+                    <Key type="Curve" time="0" value="255" out="Slow"/>
+                    <Key type="Curve" time=".5" value="0" in="Slow"/>
+                </Controller>
+
+				<Controller type="Visibility" end="Stop" frame="$this">
+					<Key type="Bool" time="0" value="True"/>
+					<Key type="Bool" time=".5" value="False"/>
+				</Controller>
+
+				<Controller type="Fade" end="Stop" frame="$parent/Glow">
+					<Key type="Curve" time="0" value="150" out="Auto"/>
+					<Key type="Curve" time=".5" value="0" in="Auto"/>
+				</Controller>
+            </Animation>
+			
+			<Frame type="CutsceneFrame" name="GlowBackground">
+				<Anchor side="Top" relative="$parent/Background" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent/Background" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent/Background" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent/Background" pos="Mid" offset="0"/>
+                <File val="Cutscenes/UI_Nameless_Achievement_Background.SC2Cutscene"/>
+                <ToneMapping val="True"/>
+				<Width val="500"/>
+				<Height val="375"/>
+				<Visible val="False"/>
+				
+				<Animation name="Show">
+					<Event event="OnShown" action="Reset,Play"/>
+					 
+					<Controller type="Cutscene" end="Pause">
+						<Key type="Cutscene" time="0" action="Bookmark" bookmark="StartShine"/>
+						<Key type="Cutscene" time="0" action="Play"/>
+					</Controller>
+				</Animation>
+            </Frame>
+
+			<Frame type="Image" name="Background">
+				<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Texture val="Assets/Textures/ui_nameless_headsup_darkpanel.dds"/>
+				<TextureType val="NineSlice"/>
+				<Width val="100"/>
+				<Height val="100"/>
+				
+				<Animation name="RotationsFast">
+					<Event event="Rotate" action="Play"/>
+					<Event event="RotationStop" action="Stop"/>
+					
+					<Controller type="Rotation" relative="True" end="Loop">
+						<Key type="Curve" time="0" value="0" out="Auto"/>
+						<Key type="Curve" time=".4" value="360" in="Auto"/>
+					</Controller>
+				</Animation>
+				
+				<Animation name="RotationBackSlow">
+					<Event event="Rollback" action="Reset,Play"/>
+					
+					<Controller type="Rotation" relative="True" end="Pause">
+						<Key type="Curve" time="0" value="0" out="Auto"/>
+						<Key type="Curve" time=".5" value="-180" in="Auto"/>
+					</Controller>
+				</Animation>
+				
+                <Frame type="Label" name="TitleLabel">
+                    <Anchor side="Bottom" relative="$parent/Divider" pos="Max" offset="-5"/>
+                    <Anchor side="Left" relative="$parent/Divider" pos="Min" offset="0"/>
+                    <Anchor side="Right" relative="$parent/Divider" pos="Max" offset="-0"/>
+					<Style val="NamelessAchievementTitle"/>
+					<Text val="Title Label"/>
+					<Alpha val="0"/>
+                </Frame>
+				
+                <Frame type="Image" name="Divider">
+                    <Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
+                    <Anchor side="Left" relative="$parent/BorderFrame" pos="Max" offset="1"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="-15"/>
+                    <Color val="31a4ff"/>
+                    <Height val="3"/>
+					<Alpha val="150"/>
+                </Frame>
+				
+                <Frame type="Label" name="TextLabel">
+                    <Anchor side="Top" relative="$parent/Divider" pos="Min" offset="7"/>
+                    <Anchor side="Left" relative="$parent/Divider" pos="Min" offset="0"/>
+                    <Anchor side="Right" relative="$parent/Divider" pos="Max" offset="-0"/>
+					<Style val="NamelessAchievementText"/>
+					<Alpha val="0"/>
+                </Frame>
+
+				<Frame type="Image" name="Icon">
+					<Anchor side="Top" relative="$parent/BorderFrame" pos="Mid" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/BorderFrame" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent/BorderFrame" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent/BorderFrame" pos="Mid" offset="0"/>
+					<Width val="75"/>
+					<Height val="75"/>
+				</Frame>
+
+                <Frame type="Frame" name="IconShimmerFrame">
+                    <Anchor relative="$parent/Icon"/>
+
+                    <Frame type="Image" name="Shine">
+                        <Anchor side="Top" relative="$parent/$parent/Icon" pos="Mid" offset="0"/>
+                        <Anchor side="Bottom" relative="$parent/$parent/Icon" pos="Mid" offset="0"/>
+                        <Anchor side="Left" relative="$parent/$parent/Icon" pos="Min" offset="-284"/>
+                        <Width val="284"/>
+                        <Height val="144"/>
+                        <Texture val="Assets\Textures\ui_battlenet_glues_achievement_fanfare_achievementicon_mask.dds"/>
+                        <Width val="75"/>
+                        <Height val="75"/>
+                        <BlendMode val="Add"/>
+                        <Alpha val="100"/>
+                    </Frame>
+
+                    <Animation name="FanfareAnim">
+                        <Event event="ShowItem" frame="$parent" action="Reset,Play"/>
+
+                        <Controller type="Anchor" end="Pause" frame="Shine" side="Left" relative="true">
+                            <Key type="Curve" time="0" value="0" out="Fast"/>
+                            <Key type="Curve" time=".3" value="350" in="Slow"/>
+                        </Controller>
+                    </Animation>
+                </Frame>
+
+				<Frame type="Image" name="HiddenIcon">
+					<Anchor side="Top" relative="$parent/BorderFrame" pos="Mid" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/BorderFrame" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent/BorderFrame" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent/BorderFrame" pos="Mid" offset="0"/>
+					<Texture val="Assets\Textures\ui_nameless_achievement_HiddenIcon.dds"/>
+					<Width val="77"/>
+					<Height val="77"/>
+
+                    <Frame type="Image" name="IconMask">
+                        <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+                        <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+                        <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+                        <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                        <Texture val="Assets\Textures\ui_nameless_achievement_IconMask.dds"/>
+                        <BlendMode val="Add"/>
+                        <Alpha val="0"/>
+                    </Frame>
+				</Frame>
+				
+				<Frame type="Image" name="BorderFrame">
+					<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="8"/>
+					<Texture val="Assets\Textures\ui_battlenet_glues_achievement_fanfare_achievementcontainer_terr.dds"/>
+					<TextureType val="NineSlice"/>
+					<Width val="85"/>
+					<Height val="85"/>
+					
+					<Animation name="RotationsFast">
+						<Event event="Rotate" action="Play"/>
+						<Event event="RotationStop" action="Stop"/>
+						
+						<Controller type="Rotation" relative="True" end="Loop">
+							<Key type="Curve" time="0" value="0" out="Auto"/>
+							<Key type="Curve" time=".4" value="360" in="Auto"/>
+						</Controller>
+					</Animation>
+					
+					<Animation name="RotationBackSlow">
+						<Event event="Rollback" action="Play"/>
+						
+						<Controller type="Rotation" relative="True" end="Pause">
+							<Key type="Curve" time="0" value="0" out="Auto"/>
+							<Key type="Curve" time=".5" value="-180" in="Auto"/>
+						</Controller>
+					</Animation>
+				</Frame>
+
+				<Frame type="Image" name="AchievementIcon">
+					<Anchor side="Bottom" relative="$parent/BorderFrame" pos="Max" offset="5"/>
+					<Anchor side="Left" relative="$parent/BorderFrame" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent/BorderFrame" pos="Mid" offset="0"/>
+					<Texture val="Assets\Textures\sc2_ui_glues_icons_achievementpoints.dds"/>
+				</Frame>
+			</Frame>
+		</Frame>
+
+	<Frame type="Button" name="WaveCalloutTemplate">
+		<Anchor relative="$parent"/>
+		<NormalImage val="NormalImage"/>
+		<HoverImage val="HoverImage"/>
+		<HitTestFrame val="HitTestFrame"/>
+
+		<Animation name="Show">
+			<Event event="OnShown" action="Reset,Play"/>
+				 
+			<Controller type="Fade" end="Pause">
+				<Key type="Curve" time="0" value="0" out="Fast"/>
+				<Key type="Curve" time=".3" value="255" in="Slow"/>
+			</Controller>
+		</Animation>
+
+		<Animation name="Hide">
+			<Event event="HideCallout" action="Reset,Play"/>
+				 
+			<Controller type="Fade" end="Pause">
+				<Key type="Curve" time="0" value="255" out="Fast"/>
+				<Key type="Curve" time=".2" value="0" in="Slow"/>
+			</Controller>
+		</Animation>
+
+		<Frame type="Image" name="NormalImage">
+			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+			<Width val="100"/>
+			<Height val="100"/>
+			<Texture val="Assets/Textures/ui_nameless_headsup_circlebutton_normal.dds"/>
+            <DisabledAlpha val="128"/>
+		</Frame>
+		
+		<Frame type="Image" name="HoverImage">
+			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+			<Width val="100"/>
+			<Height val="100"/>
+			<Texture val="Assets/Textures/ui_nameless_headsup_circlebutton_over.dds"/>
+            <DisabledAlpha val="128"/>
+		</Frame>
+
+		<Frame type="Image" name="RaceIndicator">
+			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+			<Width val="75"/>
+			<Height val="75"/>
+			<Texture val="Assets\Textures\sc2_ui_collection_warchest_purchasedialog_racebadge_icon_zerg.dds"/>
+		</Frame>
+	 
+		<Frame type="ProgressBar" name="Fill">
+			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+			<Circular val="true"/>
+			<InvertFill val="true"/>
+			<Texture val="Assets/Textures/ui_nameless_headsup_timerfill.dds"/>
+			<Color val="27b9fe"/>
+			<ColorStep val="102b48"/>
+			<MinValue val="0"/>
+			<MaxValue val="60"/>
+			<Width val="83"/>
+			<Height val="83"/>
+		</Frame>
+
+		<Frame type="Label" name="EnemyCountLabel">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="22"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-3"/>
+			<Style val="NamelessCalloutLabel"/>
+			<Text val="X17"/>
+		</Frame>
+
+		<Frame type="Image" name="DirectionCaller">
+			<Anchor relative="$parent"/>
+		</Frame>
+
+        <Frame type="Frame" name="HitTestFrame">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+        </Frame>
+	</Frame>
+	
+	<!-- Turret Panel -->
+
+	<Frame type="Frame" name="TurretCommandTemplate">
+		<Anchor side="Top" relative="$parent" pos="Min" offset="20"/>
+		<Anchor side="Bottom" relative="$parent" pos="Max" offset="-20"/>
+		<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+		<Anchor side="Right" relative="$parent" pos="Max" offset="-20"/>
+		
+		<!-- Test without these, also add a stategroup for each of the panel types -->
+
+		<Animation name="AutoHide">
+			<Event event="HidePanels" action="Play"/>
+				
+				<Controller type="Property" property="Visible" end="Pause" frame="$this/TurretBuildCommand">
+				<Key type="Property" time="0" value="false"/>
+			</Controller>
+
+			<Controller type="Property" property="Visible" end="Pause" frame="$this/TurretUpgradeCommand">
+				<Key type="Property" time="0" value="false"/>
+			</Controller>
+		</Animation>
+
+		<Frame type="Image" name="CircleGuide">
+			<Anchor relative="$parent"/>
+			<Texture val="Assets\Textures\ui_nameless_upgrade_outterring.dds"/>
+
+			<Animation name="Show">
+				<Event event="OnShown" action="Reset,Play"/>
+
+				<Controller type="Fade" end="Pause">
+					<Key type="Curve" time="0" value="0" out="Fast"/>
+					<Key type="Curve" time=".1" value="255" in="Slow"/>
+				</Controller>
+
+				<Controller type="Rotation" relative="False" end="Pause" frame="$this">
+					<Key type="Curve" time="0" value="90" out="Auto"/>
+					<Key type="Curve" time=".4" value="0" in="Auto"/>
+				</Controller>
+			</Animation>
+
+			<Frame type="Image" name="InnerCircle">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="3"/>
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="-3"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="3"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-3"/>
+				<Texture val="Assets\Textures\ui_nameless_upgrade_outsidearrows.dds"/>
+			</Frame>
+		</Frame>
+
+		<Frame type="CommandPanel" name="TurretBuildCommand" template="CommandPanel/CommandPanelTemplate">
+			<Anchor relative="$parent"/>
+			<HideUnusedButtons val="true"/>
+			<DisplayCancelCommandCard val="false"/>
+			<UseGridHotkeys val="false"/>
+			<Visible val="False"/>
+
+			<Frame type="CommandButton" name="CommandButton00" template="NamelessTD_StandardTemplates/GlobalCastingButtonTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="15"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="15"/>
+				<Tooltip val="GlobalPanelTooltip"/>
+				<ClickSound val="Assets\Sounds\Uni\UI\BattleNet_UI\UI_BnetDefaultClick.wav"/>
+				<HotkeyUse val="CommanderAbility0"/>
+				<Width val="55"/>
+				<Height val="55"/>
+			</Frame>
+
+			<Frame type="CommandButton" name="CommandButton01" template="NamelessTD_StandardTemplates/GlobalCastingButtonTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="15"/>
+				<Anchor side="Left" relative="$parent/CommandButton00" pos="Max" offset="100"/>
+				<Tooltip val="GlobalPanelTooltip"/>
+				<ClickSound val="Assets\Sounds\Uni\UI\BattleNet_UI\UI_BnetDefaultClick.wav"/>
+				<HotkeyUse val="CommanderAbility0"/>
+				<Width val="55"/>
+				<Height val="55"/>
+			</Frame>
+
+			<Frame type="CommandButton" name="CommandButton02" template="NamelessTD_StandardTemplates/GlobalCastingButtonTemplate">
+				<Anchor side="Top" relative="$parent/CommandButton00" pos="Max" offset="100"/>
+				<Anchor side="Left" relative="$parent/CommandButton00" pos="Min" offset="0"/>
+				<Tooltip val="GlobalPanelTooltip"/>
+				<ClickSound val="Assets\Sounds\Uni\UI\BattleNet_UI\UI_BnetDefaultClick.wav"/>
+				<HotkeyUse val="CommanderAbility0"/>
+				<Width val="55"/>
+				<Height val="55"/>
+			</Frame>
+
+			<Frame type="CommandButton" name="CommandButton03" template="NamelessTD_StandardTemplates/GlobalCastingButtonTemplate">
+				<Anchor side="Top" relative="$parent/CommandButton01" pos="Max" offset="100"/>
+				<Anchor side="Left" relative="$parent/CommandButton01" pos="Min" offset="0"/>
+				<Tooltip val="GlobalPanelTooltip"/>
+				<ClickSound val="Assets\Sounds\Uni\UI\BattleNet_UI\UI_BnetDefaultClick.wav"/>
+				<HotkeyUse val="CommanderAbility0"/>
+				<Width val="55"/>
+				<Height val="55"/>
+			</Frame>
+		</Frame>
+
+		<Frame type="CommandPanel" name="TurretUpgradeCommand" template="CommandPanel/CommandPanelTemplate">
+			<Anchor relative="$parent"/>
+			<HideUnusedButtons val="true"/>
+			<DisplayCancelCommandCard val="false"/>
+			<UseGridHotkeys val="false"/>
+			<Visible val="False"/>
+
+			<Frame type="CommandButton" name="CommandButton00" template="NamelessTD_StandardTemplates/GlobalCastingButtonTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="10"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
+				<Tooltip val="GlobalPanelTooltip"/>
+				<ClickSound val="Assets\Sounds\Uni\UI\BattleNet_UI\UI_BnetDefaultClick.wav"/>
+				<HotkeyUse val="CommanderAbility0"/>
+				<Width val="55"/>
+				<Height val="55"/>
+			</Frame>
+
+			<Frame type="CommandButton" name="CommandButton01" template="NamelessTD_StandardTemplates/GlobalCastingButtonTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="92"/>
+				<Anchor side="Left" relative="$parent/CommandButton00" pos="Max" offset="26"/>
+				<Tooltip val="GlobalPanelTooltip"/>
+				<ClickSound val="Assets\Sounds\Uni\UI\BattleNet_UI\UI_BnetDefaultClick.wav"/>
+				<HotkeyUse val="CommanderAbility0"/>
+				<Width val="55"/>
+				<Height val="55"/>
+			</Frame>
+
+			<Frame type="CommandButton" name="CommandButton02" template="NamelessTD_StandardTemplates/GlobalCastingButtonTemplate">
+				<Anchor side="Top" relative="$parent/CommandButton00" pos="Max" offset="112"/>
+				<Anchor side="Left" relative="$parent/CommandButton00" pos="Min" offset="0"/>
+				<Tooltip val="GlobalPanelTooltip"/>
+				<ClickSound val="Assets\Sounds\Uni\UI\BattleNet_UI\UI_BnetDefaultClick.wav"/>
+				<HotkeyUse val="CommanderAbility0"/>
+				<Width val="55"/>
+				<Height val="55"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	
+	<Frame type="Button" name="LoadoutHeroButtonTemplate" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+		<Width val="260"/>
+		<Height val="100"/>
+		<Toggleable val="True"/>
+		
+        <StateGroup name="ToggleState">
+            
+            <State name="Toggled">
+                <When type="Property" frame="$this" Toggled="True"/>
+                <Action type="SetProperty" frame="$this/Banner" Alpha="255"/>
+				<Action type="SetProperty" frame="$this/NormalImage" Texture="Assets\Textures\ui_nameless_headsup_squarebutton_over.dds"/>
+            </State>
+        
+            <State name="NotToggled">
+                <When type="Property" frame="$this" Toggled="False"/>
+                <Action type="SetProperty" frame="$this/Banner" Alpha="200"/>
+				<Action type="SetProperty" frame="$this/NormalImage" Texture="Assets\Textures\ui_nameless_headsup_squarebutton_normal.dds"/>
+            </State>
+        </StateGroup>
+		
+        <StateGroup name="UnlockState">
+			<DefaultState val="Locked"/>
+            
+            <State name="Locked">
+                <When type="AnimationState" frame="$this" UnlockState="Locked"/>
+				<Action type="SetProperty" frame="$this/LockedMask" Visible="True"/>
+				<Action type="SetProperty" frame="$this/LockedIcon" Visible="True"/>
+				<Action type="SetProperty" frame="$this/LockedBanner" Visible="True"/>
+            </State>
+			
+            <State name="Unlocked">
+                <When type="AnimationState" frame="$this" UnlockState="Unlocked"/>
+				<Action type="SetProperty" frame="$this/LockedMask" Visible="False"/>
+				<Action type="SetProperty" frame="$this/LockedIcon" Visible="False"/>
+				<Action type="SetProperty" frame="$this/LockedBanner" Visible="False"/>
+            </State>
+        </StateGroup>
+	
+		<Frame type="Image" name="Banner">
+			<Anchor relative="$parent"/>
+			<Alpha val="200"/>
+
+			<LayerCount val="2"/>
+
+			<Texture val="Assets\Textures\ui_nameless_heroloadout_banner_mask.dds" layer="0"/>
+			<AlphaLayer val="True" layer="0"/>
+			<TextureType val="NineSlice" layer="0"/>
+						 
+			<Texture val="Assets/Textures/ui_nameless_heroloadout_banner_hero00.dds" layer="1"/>
+		</Frame>
+		
+		<Frame type="Image" name="HeroIcon">
+			<Anchor side="Top" relative="$parent/HeroBorder" pos="Mid" offset="2"/>
+			<Anchor side="Bottom" relative="$parent/HeroBorder" pos="Mid" offset="2"/>
+			<Anchor side="Left" relative="$parent/HeroBorder" pos="Mid" offset="1"/>
+			<Anchor side="Right" relative="$parent/HeroBorder" pos="Mid" offset="2"/>
+			<Texture val="Assets\Textures\btn-hero-fenix-dragoon.dds"/>
+			<Width val="52"/>
+			<Height val="52"/>
+		</Frame>
+		
+		<Frame type="Image" name="LockedMask">
+			<Anchor side="Top" relative="$parent/HeroBorder" pos="Mid" offset="2"/>
+			<Anchor side="Bottom" relative="$parent/HeroBorder" pos="Mid" offset="2"/>
+			<Anchor side="Left" relative="$parent/HeroBorder" pos="Mid" offset="1"/>
+			<Anchor side="Right" relative="$parent/HeroBorder" pos="Mid" offset="2"/>
+			<Color val="000000"/>
+			<Alpha val="200"/>
+			<Width val="52"/>
+			<Height val="52"/>
+			<Visible val="False"/>
+		</Frame>
+	
+		<Frame type="Image" name="HeroBorder">
+			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="8"/>
+			<Texture val="Assets/Textures/ui_nameless_portraitframe_border.dds"/>
+			<TextureType val="NineSlice"/>
+			<Width val="84"/>
+			<Height val="80"/>
+		</Frame>
+	
+		<Frame type="Label" name="HeroTitle">
+			<Anchor side="Top" relative="$parent/HeroBorder" pos="Min" offset="10"/>
+			<Anchor side="Left" relative="$parent/HeroBorder" pos="Max" offset="-5"/>
+			<Style val="NamelessHero00_Title"/>
+			<Text val="Not Fenix"/>
+		</Frame>
+		
+		<Frame type="Image" name="LockedBanner">
+			<Anchor relative="$parent"/>
+			<Alpha val="150"/>
+			<Visible val="False"/>
+
+			<LayerCount val="2"/>
+
+			<Texture val="Assets\Textures\ui_nameless_heroloadout_banner_mask.dds" layer="0"/>
+			<AlphaLayer val="True" layer="0"/>
+			<TextureType val="NineSlice" layer="0"/>
+						 
+			<Color val="000000" layer="1"/>
+		</Frame>
+		
+		<Frame type="Image" name="LockedIcon">
+			<Anchor side="Top" relative="$parent/HeroBorder" pos="Mid" offset="2"/>
+			<Anchor side="Bottom" relative="$parent/HeroBorder" pos="Mid" offset="2"/>
+			<Anchor side="Left" relative="$parent/HeroBorder" pos="Mid" offset="1"/>
+			<Anchor side="Right" relative="$parent/HeroBorder" pos="Mid" offset="2"/>
+			<Texture val="Assets\Textures\ui_battlenet_glue_coop_selecttile_lockicon.dds"/>
+			<Width val="52"/>
+			<Height val="52"/>
+			<Visible val="False"/>
+		</Frame>
+	</Frame>
+	
+	<Frame type="Button" name="SkillButtonTemplate">
+		<NormalImage val="NormalImage"/>
+		<HoverImage val="HoverImage"/>
+		<Width val="89"/>
+		<Height val="100"/>
+		<Toggleable val="True"/>
+		
+        <StateGroup name="ToggleState">
+            
+            <State name="Toggled">
+                <When type="Property" frame="$this" Toggled="True"/>
+				<Action type="SetProperty" frame="$this/NormalImage" Texture="Assets/Textures/ui_nameless_heroloadout_skillbutton_background_over.dds"/>
+            </State>
+        
+            <State name="NotToggled">
+                <When type="Property" frame="$this" Toggled="False"/>
+				<Action type="SetProperty" frame="$this/NormalImage" Texture="Assets/Textures/ui_nameless_heroloadout_skillbutton_background_normal.dds"/>
+            </State>
+        </StateGroup>
+		
+        <StateGroup name="CurrentSkillLevel">
+			<DefaultState val="Level0"/>
+			
+            <State name="Level0">
+                <When type="AnimationState" frame="$this" CurrentSkillLevel="Level0"/>
+				<Action type="SetProperty" frame="$this/LevelIndicator" StateIndex="0"/>
+            </State>
+            
+            <State name="Level1">
+                <When type="AnimationState" frame="$this" CurrentSkillLevel="Level1"/>
+				<Action type="SetProperty" frame="$this/LevelIndicator" StateIndex="1"/>
+            </State>
+			
+            <State name="Level2">
+                <When type="AnimationState" frame="$this" CurrentSkillLevel="Level2"/>
+				<Action type="SetProperty" frame="$this/LevelIndicator" StateIndex="2"/>
+            </State>
+			
+            <State name="Level3">
+                <When type="AnimationState" frame="$this" CurrentSkillLevel="Level3"/>
+				<Action type="SetProperty" frame="$this/LevelIndicator" StateIndex="3"/>
+            </State>
+			
+            <State name="Level4">
+                <When type="AnimationState" frame="$this" CurrentSkillLevel="Level4"/>
+				<Action type="SetProperty" frame="$this/LevelIndicator" StateIndex="4"/>
+            </State>
+			
+            <State name="Level5">
+                <When type="AnimationState" frame="$this" CurrentSkillLevel="Level5"/>
+				<Action type="SetProperty" frame="$this/LevelIndicator" StateIndex="5"/>
+            </State>
+			
+            <State name="Level6">
+                <When type="AnimationState" frame="$this" CurrentSkillLevel="Level6"/>
+				<Action type="SetProperty" frame="$this/LevelIndicator" StateIndex="6"/>
+            </State>
+        </StateGroup>
+		
+		<Frame type="Image" name="NormalImage">
+			<Anchor relative="$parent"/>
+			<Texture val="Assets/Textures/ui_nameless_heroloadout_skillbutton_background_normal.dds"/>
+		</Frame>
+		
+		<Frame type="Image" name="HoverImage">
+			<Anchor relative="$parent"/>
+			<Texture val="Assets/Textures/ui_nameless_heroloadout_skillbutton_background_over.dds"/>
+		</Frame>
+		
+		<Frame type="Image" name="Icon">
+			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+			<Width val="70"/>
+			<Height val="70"/>
+
+			<LayerCount val="2"/>
+
+			<Texture val="Assets/Textures/ui_nameless_heroloadout_skillbutton_iconmask.dds" layer="0"/>
+			<AlphaLayer val="True" layer="0"/>
+						 
+			<Texture val="Assets\Textures\alarakex3_ingame_heroportrait.dds" layer="1"/>
+		</Frame>
+		
+		<Frame type="Image" name="LevelIndicator">
+			<Anchor relative="$parent"/>
+			<Texture val="Assets/Textures/ui_nameless_heroloadout_skillbutton_levels.dds"/>
+			<StateCount val="7"/>
+			<StateIndex val="0"/>
+		</Frame>
+	</Frame>
+</Desc>

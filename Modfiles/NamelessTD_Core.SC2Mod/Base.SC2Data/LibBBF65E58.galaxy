@@ -1,0 +1,940 @@
+include "TriggerLibs/NativeLib"
+include "TriggerLibs/VoidCampaignLib"
+include "Lib08CCADF9_h"
+
+include "LibBBF65E58_h"
+
+//--------------------------------------------------------------------------------------------------
+// Library: NamelessTD
+//--------------------------------------------------------------------------------------------------
+// External Library Initialization
+void libBBF65E58_InitLibraries () {
+    libNtve_InitVariables();
+    libVoiC_InitVariables();
+    lib08CCADF9_InitVariables();
+}
+
+// Variable Initialization
+bool libBBF65E58_InitVariables_completed = false;
+
+void libBBF65E58_InitVariables () {
+    int init_i1;
+
+    if (libBBF65E58_InitVariables_completed) {
+        return;
+    }
+
+    libBBF65E58_InitVariables_completed = true;
+
+    libBBF65E58_gv_kL_TotalWaveUnits = 10;
+    libBBF65E58_gv_kL_WaveGroup = UnitGroupEmpty();
+    libBBF65E58_gv_kL_Path1IDString = "";
+    libBBF65E58_gv_kL_Path2IDString = "";
+    libBBF65E58_gv_tD_GameUI.lv_dialog = c_invalidDialogId;
+    libBBF65E58_gv_tD_GameUI.lv_gameUI = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_GameUI.lv_achievementContainer = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_GameUI.lv_transitionContainer = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_GameUI.lv_gameMenuContainer = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_GameUI.lv_saveStatusContainer = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_GameUI.lv_transitionDialog = c_invalidDialogId;
+    libBBF65E58_gv_tD_GameUI.lv_transitionFull = c_invalidDialogControlId;
+    for (init_i1 = 0; init_i1 <= 3; init_i1 += 1) {
+        libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[init_i1] = c_invalidDialogControlId;
+    }
+    for (init_i1 = 0; init_i1 <= 3; init_i1 += 1) {
+        libBBF65E58_gv_tD_LevelSelection.lv_stageSlotPerformance[init_i1] = c_invalidDialogControlId;
+    }
+    libBBF65E58_gv_tD_LevelSelection.lv_title = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_LevelSelection.lv_previewImage = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_LevelSelection.lv_completionPanel = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_LevelSelection.lv_description = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_LevelSelection.lv_difficultyPulldown = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_LevelSelection.lv_playButton = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_heroPanel = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_gameStatusPanel = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_waveStartButton = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_hintsPanel = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_HUDSettings.lv_heroPanelEnabled = true;
+    libBBF65E58_gv_tD_HUDSettings.lv_gameStatusPanelEnabled = true;
+    libBBF65E58_gv_tD_HUDSettings.lv_startButtonEnabled = true;
+    libBBF65E58_gv_tD_HUDSettings.lv_pausePanelEnabled = true;
+    libBBF65E58_gv_tD_HUDSettings.lv_unitInfoPanelEnabled = true;
+    libBBF65E58_gv_tD_GameDifficulty = 2;
+}
+
+// Presets
+// Functions
+bool libBBF65E58_gf_GamePaused () {
+    // Automatic Variable Declarations
+    // Implementation
+    return libBBF65E58_gv_isGamePaused;
+}
+
+bool libBBF65E58_gf_GameOver () {
+    // Automatic Variable Declarations
+    // Implementation
+    return libBBF65E58_gv_gameIsOver;
+}
+
+bool libBBF65E58_gf_GameActive () {
+    // Automatic Variable Declarations
+    // Implementation
+    return libBBF65E58_gv_isGamePaused;
+}
+
+void libBBF65E58_gf_PreloadBanks () {
+    // Automatic Variable Declarations
+    // Implementation
+}
+
+void libBBF65E58_gf_OpenBanks () {
+    // Automatic Variable Declarations
+    // Implementation
+    BankLoad((libBBF65E58_gv_tD_BankPrefix + "_" + libBBF65E58_gv_tD_PlayerDataConstant), 1);
+    libBBF65E58_gv_tD_PlayerDataBank = BankLastCreated();
+    BankOptionSet(BankLastCreated(), c_bankOptionSignature, true);
+    TriggerExecute(libBBF65E58_gt_TD_FIrstRunCheck, true, false);
+}
+
+void libBBF65E58_gf_LoadBankData () {
+    // Automatic Variable Declarations
+    // Implementation
+    libBBF65E58_gv_tD_GameDifficulty = BankValueGetAsInt(libBBF65E58_gv_tD_PlayerDataBank, "GlobalSettings", "PreviousDifficulty");
+}
+
+void libBBF65E58_gf_SaveBanks () {
+    // Automatic Variable Declarations
+    // Implementation
+    BankSave(libBBF65E58_gv_tD_PlayerDataBank);
+}
+
+void libBBF65E58_gf_TD_HookupGameUI () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogCreate(500, 400, c_anchorCenter, 0, 0, true);
+    DialogSetFullscreen(DialogLastCreated(), true);
+    DialogSetImageVisible(DialogLastCreated(), false);
+    libBBF65E58_gv_tD_GameUI.lv_dialog = DialogLastCreated();
+    DialogControlCreateFromTemplate(libBBF65E58_gv_tD_GameUI.lv_dialog, c_triggerControlTypePanel, "NamelessTD_GameUI/GameUI");
+    libBBF65E58_gv_tD_GameUI.lv_gameUI = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameUI, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("LevelSelectionContainer"));
+    libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameUI, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("GameHUDContainer"));
+    libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameUI, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("AchievementContainer"));
+    libBBF65E58_gv_tD_GameUI.lv_achievementContainer = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameUI, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("TransitionPanelContainer"));
+    libBBF65E58_gv_tD_GameUI.lv_transitionContainer = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameUI, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("GameMenuContainer"));
+    libBBF65E58_gv_tD_GameUI.lv_gameMenuContainer = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameUI, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("SaveStatusContainer"));
+    libBBF65E58_gv_tD_GameUI.lv_saveStatusContainer = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypeButton, libNtve_gf_ConvertStringToUILayoutFrameName("StageSelPanel/Stage1Slot/ButtonHitTest"));
+    libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[1] = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("StageSelPanel/Stage1Slot/PerformancePanel"));
+    libBBF65E58_gv_tD_LevelSelection.lv_stageSlotPerformance[1] = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypeLabel, libNtve_gf_ConvertStringToUILayoutFrameName("SelectionPanel/InfoPanel/LevelTitle"));
+    libBBF65E58_gv_tD_LevelSelection.lv_title = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypeImage, libNtve_gf_ConvertStringToUILayoutFrameName("SelectionPanel/InfoPanel/PreviewPanel/PreviewImage"));
+    libBBF65E58_gv_tD_LevelSelection.lv_previewImage = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("SelectionPanel/InfoPanel/CompletionPanel"));
+    libBBF65E58_gv_tD_LevelSelection.lv_completionPanel = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypeLabel, libNtve_gf_ConvertStringToUILayoutFrameName("SelectionPanel/InfoPanel/LevelDescriptionLabel"));
+    libBBF65E58_gv_tD_LevelSelection.lv_description = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypeButton, libNtve_gf_ConvertStringToUILayoutFrameName("SelectionPanel/InfoPanel/DifficultyButton"));
+    libBBF65E58_gv_tD_LevelSelection.lv_difficultyPulldown = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypeButton, libNtve_gf_ConvertStringToUILayoutFrameName("SelectionPanel/InfoPanel/PlayButton"));
+    libBBF65E58_gv_tD_LevelSelection.lv_playButton = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameUI, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("GameHUDContainer"));
+    libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("HeroStatusAnchor"));
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_heroPanel = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("GameStatusAnchor"));
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_gameStatusPanel = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("PauseAnchor"));
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("UnitInfoPanel"));
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer, c_triggerControlTypeButton, libNtve_gf_ConvertStringToUILayoutFrameName("WaveStartButton"));
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_waveStartButton = DialogControlLastCreated();
+}
+
+void libBBF65E58_gf_DisplayGameUI () {
+    // Automatic Variable Declarations
+    // Implementation
+    CameraLockInput(1, true);
+    libVoiC_gf_SetAllSoundChannelVolumesCampaign(libVoiC_ge_VolumeChannelModeCampaign_MissionLaunchUI);
+    libNtve_gf_HideGameUI(false, PlayerGroupAll());
+    if ((libBBF65E58_gv_tD_GameUIHooked != true)) {
+        libBBF65E58_gf_TD_HookupGameUI();
+    }
+
+    DialogSetVisible(libBBF65E58_gv_tD_GameUI.lv_dialog, PlayerGroupAll(), true);
+}
+
+void libBBF65E58_gf_ShowHideGameUIPanel (int lp_panel, bool lp_showHide) {
+    // Automatic Variable Declarations
+    int auto689EDAF2_val;
+    bool auto82B294E6_val;
+
+    // Implementation
+    auto689EDAF2_val = lp_panel;
+    if (auto689EDAF2_val == libBBF65E58_ge_UIPanelType_LevelSelection) {
+        auto82B294E6_val = lp_showHide;
+        if (auto82B294E6_val == true) {
+            DialogControlSetVisible(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, PlayerGroupAll(), true);
+        }
+        else if (auto82B294E6_val == false) {
+            DialogControlSendAnimationEvent(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, PlayerGroupAll(), "HidePanel");
+        }
+        else {
+        }
+    }
+    else if (auto689EDAF2_val == libBBF65E58_ge_UIPanelType_GameHUD) {
+        libBBF65E58_gf_ShowHideHUD(lp_showHide);
+    }
+    else {
+    }
+}
+
+void libBBF65E58_gf_TD_UpdateInfoPanel (string lp_level) {
+    // Automatic Variable Declarations
+    // Implementation
+    libBBF65E58_gv_tD_SelectedLevel = UserDataGetInt("LevelData", lp_level, "ID", 1);
+    libNtve_gf_SetDialogItemText(libBBF65E58_gv_tD_LevelSelection.lv_title, StringToText(UserDataGetString("LevelData", lp_level, "Title", 1)), PlayerGroupAll());
+    libNtve_gf_SetDialogItemText(libBBF65E58_gv_tD_LevelSelection.lv_description, UserDataGetText("LevelData", lp_level, "Description", 1), PlayerGroupAll());
+    libNtve_gf_SetDialogItemImage(libBBF65E58_gv_tD_LevelSelection.lv_previewImage, UserDataGetImagePath("LevelData", lp_level, "Preview Image", 1), PlayerGroupAll());
+}
+
+void libBBF65E58_gf_ShowHideHUD (bool lp_showHide) {
+    // Variable Declarations
+    const string lv_notVisibleMessage = "NotVisible";
+    const string lv_visibleMessage = "Visible";
+
+    // Automatic Variable Declarations
+    bool auto5093DCD8_val;
+    bool auto063E5B53_val;
+    bool autoE07DD8BD_val;
+    bool auto9022C0E1_val;
+    bool auto118C67CD_val;
+
+    // Variable Initialization
+
+    // Implementation
+    if ((lp_showHide == true)) {
+        DialogControlSetVisible(libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer, PlayerGroupAll(), true);
+    }
+
+    if ((libBBF65E58_gv_tD_HUDSettings.lv_unitInfoPanelEnabled == true)) {
+        auto5093DCD8_val = lp_showHide;
+        if (auto5093DCD8_val == true) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+        }
+        else if (auto5093DCD8_val == false) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+        }
+        else {
+        }
+    }
+
+    if ((libBBF65E58_gv_tD_HUDSettings.lv_startButtonEnabled == true)) {
+        auto063E5B53_val = lp_showHide;
+        if (auto063E5B53_val == true) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_waveStartButton, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+        }
+        else if (auto063E5B53_val == false) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_waveStartButton, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+        }
+        else {
+        }
+    }
+
+    if ((libBBF65E58_gv_tD_HUDSettings.lv_pausePanelEnabled == true)) {
+        autoE07DD8BD_val = lp_showHide;
+        if (autoE07DD8BD_val == true) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+        }
+        else if (autoE07DD8BD_val == false) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+        }
+        else {
+        }
+    }
+
+    if ((libBBF65E58_gv_tD_HUDSettings.lv_heroPanelEnabled == true)) {
+        auto9022C0E1_val = lp_showHide;
+        if (auto9022C0E1_val == true) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_heroPanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+        }
+        else if (auto9022C0E1_val == false) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_heroPanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+        }
+        else {
+        }
+    }
+
+    if ((libBBF65E58_gv_tD_HUDSettings.lv_gameStatusPanelEnabled == true)) {
+        auto118C67CD_val = lp_showHide;
+        if (auto118C67CD_val == true) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_gameStatusPanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+        }
+        else if (auto118C67CD_val == false) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_gameStatusPanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+        }
+        else {
+        }
+    }
+
+    if ((lp_showHide == false)) {
+        Wait(1.5, c_timeGame);
+        DialogControlSetVisible(libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer, PlayerGroupAll(), false);
+    }
+
+}
+
+void libBBF65E58_gf_EnableDisableHUDPanels (int lp_panel, bool lp_enableDisable) {
+    // Variable Declarations
+    const string lv_notVisibleMessage = "NotVisible";
+    const string lv_visibleMessage = "Visible";
+
+    // Automatic Variable Declarations
+    int auto4FA646EF_val;
+    bool auto61072DF4_val;
+    bool auto7ECCF281_val;
+    bool autoA5142971_val;
+    bool autoB7B8C76B_val;
+    bool auto3A271A52_val;
+
+    // Variable Initialization
+
+    // Implementation
+    auto4FA646EF_val = lp_panel;
+    if (auto4FA646EF_val == libBBF65E58_ge_HUDPanels_GameStatus) {
+        auto61072DF4_val = lp_enableDisable;
+        if (auto61072DF4_val == true) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_gameStatusPanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+            libBBF65E58_gv_tD_HUDSettings.lv_gameStatusPanelEnabled = true;
+        }
+        else if (auto61072DF4_val == false) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_gameStatusPanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+            libBBF65E58_gv_tD_HUDSettings.lv_gameStatusPanelEnabled = false;
+        }
+        else {
+        }
+    }
+    else if (auto4FA646EF_val == libBBF65E58_ge_HUDPanels_HeroPanel) {
+        auto7ECCF281_val = lp_enableDisable;
+        if (auto7ECCF281_val == true) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_heroPanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+            libBBF65E58_gv_tD_HUDSettings.lv_heroPanelEnabled = true;
+        }
+        else if (auto7ECCF281_val == false) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_heroPanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+            libBBF65E58_gv_tD_HUDSettings.lv_heroPanelEnabled = false;
+        }
+        else {
+        }
+    }
+    else if (auto4FA646EF_val == libBBF65E58_ge_HUDPanels_InfoPanel) {
+        autoA5142971_val = lp_enableDisable;
+        if (autoA5142971_val == true) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+            libBBF65E58_gv_tD_HUDSettings.lv_unitInfoPanelEnabled = true;
+        }
+        else if (autoA5142971_val == false) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+            libBBF65E58_gv_tD_HUDSettings.lv_unitInfoPanelEnabled = false;
+        }
+        else {
+        }
+    }
+    else if (auto4FA646EF_val == libBBF65E58_ge_HUDPanels_PausePanel) {
+        autoB7B8C76B_val = lp_enableDisable;
+        if (autoB7B8C76B_val == true) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+            libBBF65E58_gv_tD_HUDSettings.lv_pausePanelEnabled = true;
+        }
+        else if (autoB7B8C76B_val == false) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+            libBBF65E58_gv_tD_HUDSettings.lv_pausePanelEnabled = false;
+        }
+        else {
+        }
+    }
+    else if (auto4FA646EF_val == libBBF65E58_ge_HUDPanels_StartButton) {
+        auto3A271A52_val = lp_enableDisable;
+        if (auto3A271A52_val == true) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_waveStartButton, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+            libBBF65E58_gv_tD_HUDSettings.lv_startButtonEnabled = true;
+        }
+        else if (auto3A271A52_val == false) {
+            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_waveStartButton, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+            libBBF65E58_gv_tD_HUDSettings.lv_startButtonEnabled = false;
+        }
+        else {
+        }
+    }
+    else {
+    }
+}
+
+void libBBF65E58_gf_ResetHUDPanelStates () {
+    // Automatic Variable Declarations
+    // Implementation
+    libBBF65E58_gv_tD_HUDSettings.lv_unitInfoPanelEnabled = true;
+    libBBF65E58_gv_tD_HUDSettings.lv_startButtonEnabled = true;
+    libBBF65E58_gv_tD_HUDSettings.lv_pausePanelEnabled = true;
+    libBBF65E58_gv_tD_HUDSettings.lv_heroPanelEnabled = true;
+    libBBF65E58_gv_tD_HUDSettings.lv_gameStatusPanelEnabled = true;
+}
+
+void libBBF65E58_gf_PlayTransitionAnimation (int lp_type, bool lp_showHide) {
+    // Automatic Variable Declarations
+    int auto65C4484E_val;
+    bool auto29B58CE5_val;
+    bool autoB6F2B553_val;
+
+    // Implementation
+    auto65C4484E_val = lp_type;
+    if (auto65C4484E_val == libBBF65E58_ge_TransitionType_Full) {
+        auto29B58CE5_val = lp_showHide;
+        if (auto29B58CE5_val == true) {
+            if ((libBBF65E58_gv_tD_GameUI.lv_fullExists == true)) {
+                return ;
+            }
+
+            DialogCreate(500, 400, c_anchorCenter, 0, 0, true);
+            DialogSetFullscreen(DialogLastCreated(), true);
+            DialogSetImageVisible(DialogLastCreated(), false);
+            libBBF65E58_gv_tD_GameUI.lv_transitionDialog = DialogLastCreated();
+            DialogSetVisible(libBBF65E58_gv_tD_GameUI.lv_transitionDialog, PlayerGroupAll(), true);
+            DialogControlCreateFromTemplate(libBBF65E58_gv_tD_GameUI.lv_transitionDialog, c_triggerControlTypePanel, "NamelessTD_TransitionPanel/TransitionTemplates/TransitionPanelAnchor");
+            libBBF65E58_gv_tD_GameUI.lv_transitionFull = DialogControlLastCreated();
+            DialogControlSetVisible(libBBF65E58_gv_tD_GameUI.lv_transitionFull, PlayerGroupAll(), true);
+            libBBF65E58_gv_tD_GameUI.lv_fullExists = true;
+        }
+        else if (auto29B58CE5_val == false) {
+            DialogControlSendAnimationEvent(libBBF65E58_gv_tD_GameUI.lv_transitionFull, PlayerGroupAll(), "Hide");
+            Wait(2.0, c_timeGame);
+            DialogDestroy(libBBF65E58_gv_tD_GameUI.lv_transitionDialog);
+            libBBF65E58_gv_tD_GameUI.lv_fullExists = false;
+        }
+        else {
+        }
+    }
+    else if (auto65C4484E_val == libBBF65E58_ge_TransitionType_Half) {
+        autoB6F2B553_val = lp_showHide;
+        if (autoB6F2B553_val == true) {
+            DialogControlSendAnimationEvent(libBBF65E58_gv_tD_GameUI.lv_transitionContainer, PlayerGroupAll(), "DisplayHalfTransition");
+        }
+        else if (autoB6F2B553_val == false) {
+            DialogControlSendAnimationEvent(libBBF65E58_gv_tD_GameUI.lv_transitionContainer, PlayerGroupAll(), "HideHalfTransition");
+        }
+        else {
+        }
+    }
+    else {
+    }
+}
+
+void libBBF65E58_gf_TD_SetGameDifficulty (int lp_gameDifficulty) {
+    // Automatic Variable Declarations
+    int autoDAD44416_val;
+
+    // Implementation
+    autoDAD44416_val = lp_gameDifficulty;
+    if (autoDAD44416_val == libBBF65E58_ge_TD_GameDifficulty_Easy) {
+        libBBF65E58_gv_tD_GameDifficulty = 1;
+    }
+    else if (autoDAD44416_val == libBBF65E58_ge_TD_GameDifficulty_Normal) {
+        libBBF65E58_gv_tD_GameDifficulty = 2;
+    }
+    else if (autoDAD44416_val == libBBF65E58_ge_TD_GameDifficulty_Hard) {
+        libBBF65E58_gv_tD_GameDifficulty = 3;
+    }
+    else {
+        libBBF65E58_gv_tD_GameDifficulty = 1;
+    }
+}
+
+string libBBF65E58_gf_ReturnGameDifficultyasInteger () {
+    // Automatic Variable Declarations
+    int auto342BA1F4_val;
+
+    // Implementation
+    auto342BA1F4_val = libBBF65E58_gv_tD_GameDifficulty;
+    if (auto342BA1F4_val == 1) {
+        return IntToString(0);
+    }
+    else {
+        return "A";
+    }
+}
+
+void libBBF65E58_gf_InitializeStage (string lp_gameDifficulty) {
+    // Automatic Variable Declarations
+}
+
+// Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: TD_FIrstRunCheck
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_TD_FIrstRunCheck_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    if ((BankValueGetAsFlag(libBBF65E58_gv_tD_PlayerDataBank, "GlobalSettings", "FirstRun") == true)) {
+        return true;
+    }
+
+    BankValueSetFromInt(libBBF65E58_gv_tD_PlayerDataBank, "GlobalSettings", "PreviousDifficulty", 2);
+    BankValueSetFromFlag(lib08CCADF9_gv_kL_SettingsBank, "GlobalSettings", "DataInitialized", true);
+    BankSave(libBBF65E58_gv_tD_PlayerDataBank);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_TD_FIrstRunCheck_Init () {
+    libBBF65E58_gt_TD_FIrstRunCheck = TriggerCreate("libBBF65E58_gt_TD_FIrstRunCheck_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_DifficultyBtnPress
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_KL_DifficultyBtnPress_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    int autoF38011E6_val;
+
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == libBBF65E58_gv_tD_LevelSelection.lv_difficultyPulldown))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    autoF38011E6_val = libBBF65E58_gv_tD_GameDifficulty;
+    if (autoF38011E6_val == 1) {
+        libBBF65E58_gf_TD_SetGameDifficulty(libBBF65E58_ge_TD_GameDifficulty_Normal);
+    }
+    else if (autoF38011E6_val == 2) {
+        libBBF65E58_gf_TD_SetGameDifficulty(libBBF65E58_ge_TD_GameDifficulty_Hard);
+    }
+    else if (autoF38011E6_val == 3) {
+        libBBF65E58_gf_TD_SetGameDifficulty(libBBF65E58_ge_TD_GameDifficulty_Easy);
+    }
+    else {
+    }
+    TriggerExecute(libBBF65E58_gt_KL_UpdateDifficulty, true, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_KL_DifficultyBtnPress_Init () {
+    libBBF65E58_gt_KL_DifficultyBtnPress = TriggerCreate("libBBF65E58_gt_KL_DifficultyBtnPress_Func");
+    TriggerAddEventDialogControl(libBBF65E58_gt_KL_DifficultyBtnPress, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_UpdateDifficulty
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_KL_UpdateDifficulty_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    int autoCAAC51C3_val;
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    autoCAAC51C3_val = libBBF65E58_gv_tD_GameDifficulty;
+    if (autoCAAC51C3_val == 1) {
+        libNtve_gf_SetDialogItemText(libBBF65E58_gv_tD_LevelSelection.lv_difficultyPulldown, StringExternal("Param/Value/lib_BBF65E58_5D7AEDFB"), PlayerGroupAll());
+    }
+    else if (autoCAAC51C3_val == 2) {
+        libNtve_gf_SetDialogItemText(libBBF65E58_gv_tD_LevelSelection.lv_difficultyPulldown, StringExternal("Param/Value/lib_BBF65E58_BED2F0CD"), PlayerGroupAll());
+    }
+    else if (autoCAAC51C3_val == 3) {
+        libNtve_gf_SetDialogItemText(libBBF65E58_gv_tD_LevelSelection.lv_difficultyPulldown, StringExternal("Param/Value/lib_BBF65E58_956FD456"), PlayerGroupAll());
+    }
+    else {
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_KL_UpdateDifficulty_Init () {
+    libBBF65E58_gt_KL_UpdateDifficulty = TriggerCreate("libBBF65E58_gt_KL_UpdateDifficulty_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: TD_StageButtonPressed
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_TD_StageButtonPressed_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    int auto3D0AD8F4_val;
+
+    // Conditions
+    if (testConds) {
+        if (!(((EventDialogControl() == libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[1])))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    auto3D0AD8F4_val = EventDialogControl();
+    if (auto3D0AD8F4_val == libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[1]) {
+        libBBF65E58_gf_TD_UpdateInfoPanel("Wasteland 01");
+    }
+    else {
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_TD_StageButtonPressed_Init () {
+    libBBF65E58_gt_TD_StageButtonPressed = TriggerCreate("libBBF65E58_gt_TD_StageButtonPressed_Func");
+    TriggerAddEventDialogControl(libBBF65E58_gt_TD_StageButtonPressed, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Intialization
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_Intialization_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    VisRevealerCreate(1, RegionEntireMap());
+    UISetDragSelectEnabled(PlayerGroupAll(), false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeConsolePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeControlGroupPanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMinimapPanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMinimapPanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMissionTimePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeIdleWorkerButton, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeArmyButton, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeAllianceButton, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeInfoPanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMenuBar, false);
+    PlayerOptionOverride(1, "gametooltips", "0");
+    PlayerOptionOverride(1, "showunitpoints", "0");
+    PlayerOptionOverride(1, "simplecommandcard", "0");
+    libBBF65E58_gf_PreloadBanks();
+    libBBF65E58_gf_OpenBanks();
+    libBBF65E58_gf_LoadBankData();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_Intialization_Init () {
+    libBBF65E58_gt_Intialization = TriggerCreate("libBBF65E58_gt_Intialization_Func");
+    TriggerAddEventMapInit(libBBF65E58_gt_Intialization);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Debug - Full In
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_DebugFullIn_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((GameIsTestMap(false) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libBBF65E58_gf_PlayTransitionAnimation(libBBF65E58_ge_TransitionType_Full, true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_DebugFullIn_Init () {
+    libBBF65E58_gt_DebugFullIn = TriggerCreate("libBBF65E58_gt_DebugFullIn_Func");
+    TriggerAddEventChatMessage(libBBF65E58_gt_DebugFullIn, c_playerAny, "FullIn", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Debug - Full Out
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_DebugFullOut_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((GameIsTestMap(false) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libBBF65E58_gf_PlayTransitionAnimation(libBBF65E58_ge_TransitionType_Full, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_DebugFullOut_Init () {
+    libBBF65E58_gt_DebugFullOut = TriggerCreate("libBBF65E58_gt_DebugFullOut_Func");
+    TriggerAddEventChatMessage(libBBF65E58_gt_DebugFullOut, c_playerAny, "FullOut", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Debug - Half In
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_DebugHalfIn_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((GameIsTestMap(false) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libBBF65E58_gf_PlayTransitionAnimation(libBBF65E58_ge_TransitionType_Half, true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_DebugHalfIn_Init () {
+    libBBF65E58_gt_DebugHalfIn = TriggerCreate("libBBF65E58_gt_DebugHalfIn_Func");
+    TriggerAddEventChatMessage(libBBF65E58_gt_DebugHalfIn, c_playerAny, "HalfIn", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Debug - Half Out
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_DebugHalfOut_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((GameIsTestMap(false) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libBBF65E58_gf_PlayTransitionAnimation(libBBF65E58_ge_TransitionType_Half, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_DebugHalfOut_Init () {
+    libBBF65E58_gt_DebugHalfOut = TriggerCreate("libBBF65E58_gt_DebugHalfOut_Func");
+    TriggerAddEventChatMessage(libBBF65E58_gt_DebugHalfOut, c_playerAny, "HalfOut", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Debug - Test Complete Transition
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_DebugTestCompleteTransition_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((GameIsTestMap(false) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libBBF65E58_gf_PlayTransitionAnimation(libBBF65E58_ge_TransitionType_Full, true);
+    Wait(1.5, c_timeGame);
+    CinematicFade(false, 0.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, false);
+    libNtve_gf_HideGameUI(true, PlayerGroupAll());
+    libBBF65E58_gf_ShowHideGameUIPanel(libBBF65E58_ge_UIPanelType_LevelSelection, false);
+    libBBF65E58_gf_PlayTransitionAnimation(libBBF65E58_ge_TransitionType_Full, false);
+    CinematicFade(true, 1.5, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, false);
+    libBBF65E58_gf_EnableDisableHUDPanels(libBBF65E58_ge_HUDPanels_HeroPanel, false);
+    libBBF65E58_gf_EnableDisableHUDPanels(libBBF65E58_ge_HUDPanels_InfoPanel, false);
+    libBBF65E58_gf_ShowHideGameUIPanel(libBBF65E58_ge_UIPanelType_GameHUD, true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_DebugTestCompleteTransition_Init () {
+    libBBF65E58_gt_DebugTestCompleteTransition = TriggerCreate("libBBF65E58_gt_DebugTestCompleteTransition_Func");
+    TriggerAddEventChatMessage(libBBF65E58_gt_DebugTestCompleteTransition, c_playerAny, "LevelSelected", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Debug - Enable Hero Panel
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_DebugEnableHeroPanel_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((GameIsTestMap(false) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libBBF65E58_gf_EnableDisableHUDPanels(libBBF65E58_ge_HUDPanels_HeroPanel, true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_DebugEnableHeroPanel_Init () {
+    libBBF65E58_gt_DebugEnableHeroPanel = TriggerCreate("libBBF65E58_gt_DebugEnableHeroPanel_Func");
+    TriggerAddEventChatMessage(libBBF65E58_gt_DebugEnableHeroPanel, c_playerAny, "HeroEnable", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Debug - Disable Hero Panel
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_DebugDisableHeroPanel_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((GameIsTestMap(false) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libBBF65E58_gf_EnableDisableHUDPanels(libBBF65E58_ge_HUDPanels_HeroPanel, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_DebugDisableHeroPanel_Init () {
+    libBBF65E58_gt_DebugDisableHeroPanel = TriggerCreate("libBBF65E58_gt_DebugDisableHeroPanel_Func");
+    TriggerAddEventChatMessage(libBBF65E58_gt_DebugDisableHeroPanel, c_playerAny, "HeroDisable", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Debug - Display HUD
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_DebugDisplayHUD_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((GameIsTestMap(false) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libBBF65E58_gf_ShowHideGameUIPanel(libBBF65E58_ge_UIPanelType_GameHUD, true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_DebugDisplayHUD_Init () {
+    libBBF65E58_gt_DebugDisplayHUD = TriggerCreate("libBBF65E58_gt_DebugDisplayHUD_Func");
+    TriggerAddEventChatMessage(libBBF65E58_gt_DebugDisplayHUD, c_playerAny, "DisplayHUD", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Debug - Hide HUD
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_DebugHideHUD_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((GameIsTestMap(false) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libBBF65E58_gf_ShowHideGameUIPanel(libBBF65E58_ge_UIPanelType_GameHUD, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_DebugHideHUD_Init () {
+    libBBF65E58_gt_DebugHideHUD = TriggerCreate("libBBF65E58_gt_DebugHideHUD_Func");
+    TriggerAddEventChatMessage(libBBF65E58_gt_DebugHideHUD, c_playerAny, "HideHUD", true);
+}
+
+void libBBF65E58_InitTriggers () {
+    libBBF65E58_gt_TD_FIrstRunCheck_Init();
+    libBBF65E58_gt_KL_DifficultyBtnPress_Init();
+    libBBF65E58_gt_KL_UpdateDifficulty_Init();
+    libBBF65E58_gt_TD_StageButtonPressed_Init();
+    libBBF65E58_gt_Intialization_Init();
+    libBBF65E58_gt_DebugFullIn_Init();
+    libBBF65E58_gt_DebugFullOut_Init();
+    libBBF65E58_gt_DebugHalfIn_Init();
+    libBBF65E58_gt_DebugHalfOut_Init();
+    libBBF65E58_gt_DebugTestCompleteTransition_Init();
+    libBBF65E58_gt_DebugEnableHeroPanel_Init();
+    libBBF65E58_gt_DebugDisableHeroPanel_Init();
+    libBBF65E58_gt_DebugDisplayHUD_Init();
+    libBBF65E58_gt_DebugHideHUD_Init();
+}
+
+//--------------------------------------------------------------------------------------------------
+// Library Initialization
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_InitLib_completed = false;
+
+void libBBF65E58_InitLib () {
+    if (libBBF65E58_InitLib_completed) {
+        return;
+    }
+
+    libBBF65E58_InitLib_completed = true;
+
+    libBBF65E58_InitLibraries();
+    libBBF65E58_InitVariables();
+    libBBF65E58_InitTriggers();
+}
+
+include "Lib08CCADF9"
+

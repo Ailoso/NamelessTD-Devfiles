@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+    <Frame type="Frame" name="GameUI">
+        <Anchor relative="$parent"/>
+		
+		<Frame type="Frame" name="LevelSelectionContainer" template="NamelessTD_LevelSelection/LevelSelectionPanel">
+			<!--Priority 1-->
+			<Anchor relative="$parent"/>
+			
+			<Animation name="DisplayHeroPanel">
+				<Event event="OnMouseDown" action="Reset,Play" frame="$this/LoadoutPanel/HeroButton"/>
+					
+				<Controller type="Visibility" end="Pause" frame="$parent/GameMenuContainer/HeroLoadoutPanel">
+					<Key type="Bool" time="0" value="False"/>
+					<Key type="Bool" time=".2" value="True"/>
+				</Controller>
+			</Animation>
+		</Frame>
+		
+		<Frame type="Frame" name="GameHUDContainer" template="NamelessTD_HUD/GameHUDPanel">
+			<!--Priority 2-->
+			<Anchor relative="$parent"/>
+            <Visible val="False"/>
+		</Frame>
+		
+		<Frame type="Frame" name="AchievementContainer" template="NamelessTD_GameMenus/AchievementPanel">
+			<!--Priority 3-->
+			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+		</Frame>
+		
+		<Frame type="Frame" name="TransitionPanelContainer" template="NamelessTD_TransitionPanel/TransitionTemplates">
+			<!--Priority 4-->
+			<Anchor relative="$parent"/>
+		</Frame>
+		
+		<Frame type="Frame" name="GameMenuContainer" template="NamelessTD_GameMenus/AnchorPanel">
+			<!--Priority 5-->
+			<Anchor relative="$parent"/>
+		</Frame>
+		
+		<Frame type="Frame" name="SaveStatusContainer">
+			<!--Priority 6-->
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="100"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-100"/>
+			<Width val="300"/>
+			<Height val="300"/>
+		</Frame>
+		
+		<!-- First step into the intro, queuing the Logo Intro, soon after the LevelContainer becomes visible playing it's transition animation -->
+		
+		<Animation name="IntroQ">
+			<Event event="OnShown" action="Reset,Play"/>
+
+            <Controller type="Event" end="Pause" frame="$this/TransitionPanelContainer">
+                <Key type="Event" time="0" event="IntroStage1"/>
+            </Controller>
+
+            <Controller type="Visibility" end="Pause" frame="$this/LevelSelectionContainer">
+                <Key type="Bool" time="0" value="False"/>
+                <Key type="Bool" time="1.5" value="True"/>
+            </Controller>
+		</Animation>
+    </Frame>
+</Desc>

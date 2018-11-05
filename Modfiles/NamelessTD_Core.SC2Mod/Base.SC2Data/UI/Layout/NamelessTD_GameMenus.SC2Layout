@@ -1,0 +1,1182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+    <Frame type="Frame" name="AchievementPanel">
+		<Anchor relative="$parent"/>
+		
+		<Frame type="Frame" name="AchievementAnchor1" template="NamelessTD_StandardTemplates/AchievementPanelTemplate">
+
+			<Animation name="Show">
+				<Event event="OnShown" action="Play"/>
+				
+				<Controller type="Anchor" end="Pause" side="Bottom" relative="false" frame="$this">
+					<Key type="Curve" time="0" value="200" out="Fast"/>
+					<Key type="Curve" time=".2" value="200" out="Fast"/>
+					<Key type="Curve" time=".7" value="-350" in="Slow" out="Slow"/>
+					<Key type="Curve" time="1" value="-325" in="Slow"/>
+				</Controller>
+			</Animation>
+		
+            <Frame type="Label" name="TitleLabel">
+            </Frame>
+				
+            <Frame type="Label" name="TextLabel">
+            </Frame>
+
+			<Frame type="Image" name="Icon">
+				<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/> 
+			</Frame>
+		</Frame>
+		
+		<Frame type="Frame" name="AchievementAnchor2" template="NamelessTD_StandardTemplates/AchievementPanelTemplate">
+		
+			<Animation name="Show">
+				<Event event="OnShown" action="Play"/>
+				
+				<Controller type="Anchor" end="Pause" side="Bottom" relative="false" frame="$this">
+					<Key type="Curve" time="0" value="200" out="Fast"/>
+					<Key type="Curve" time=".2" value="200" out="Fast"/>
+					<Key type="Curve" time=".7" value="-225" in="Slow" out="Slow"/>
+					<Key type="Curve" time="1" value="-200" in="Slow"/>
+				</Controller>
+			</Animation>
+		
+            <Frame type="Label" name="TitleLabel">
+            </Frame>
+				
+            <Frame type="Label" name="TextLabel">
+            </Frame>
+
+			<Frame type="Image" name="Icon">
+				<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/> 
+			</Frame>
+		</Frame>
+		
+		<Frame type="Frame" name="AchievementAnchor3" template="NamelessTD_StandardTemplates/AchievementPanelTemplate">
+
+			<Animation name="Show">
+				<Event event="OnShown" action="Play"/>
+				
+				<Controller type="Anchor" end="Pause" side="Bottom" relative="false" frame="$this">
+					<Key type="Curve" time="0" value="200" out="Fast"/>
+					<Key type="Curve" time=".2" value="200" out="Fast"/>
+					<Key type="Curve" time=".7" value="-100" in="Slow" out="Slow"/>
+					<Key type="Curve" time="1" value="-75" in="Slow"/>
+				</Controller>
+			</Animation>
+		
+            <Frame type="Label" name="TitleLabel">
+            </Frame>
+				
+            <Frame type="Label" name="TextLabel">
+            </Frame>
+
+			<Frame type="Image" name="Icon">
+				<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/> 
+			</Frame>
+		</Frame>
+		
+		<Frame type="Image" name="Glow">
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+			<Visible val="False"/>
+			<Texture val="Assets/Textures/ui_nameless_achievement_exitglow.dds"/>
+			<Alpha val="0"/>
+			
+			<Animation name="ShootAnimation">
+				<Event event="OnShown" action="Play"/>
+				 
+				<Controller type="Fade" end="Pause">
+					<Key type="Curve" time="0" value="0" inout="Auto"/>
+					<Key type="Curve" time=".1" value="0" inout="Auto"/>
+					<Key type="Curve" time=".4" value="255" inout="Auto"/>
+					<Key type="Curve" time=".6" value="0" inout="Auto"/>
+				</Controller>
+
+                <Controller type="Visibility" end="Pause">
+                    <Key type="Bool" time="0" value="True"/>
+                    <Key type="Bool" time=".6" value="False"/>
+                </Controller>
+			</Animation>
+		</Frame>
+	</Frame>
+
+    <Frame type="Frame" name="AnchorPanel">
+        <Anchor relative="$parent"/>
+		
+        <Frame type="Frame" name="HeroLoadoutPanel">
+            <Anchor relative="$parent"/>
+			<Visible val="False"/>
+			
+			<Animation name="Show">
+				<Event event="OnShown" action="Reset,Play"/>
+				 
+				<Controller type="Fade" end="Pause" frame="$this/BackgroundCover">
+					<Key type="Curve" time="0" value="0" out="Slow"/>
+					<Key type="Curve" time=".2" value="90" in="Slow"/>
+				</Controller>
+			</Animation>
+			
+			<!-- Background Cover and Fullscreen Button -->
+			
+			<Frame type="Image" name="BackgroundCover">
+				<Anchor relative="$parent"/>
+				<Color val="000000"/>
+				<Alpha val="90"/>
+			</Frame>
+			
+			<Frame type="Button" name="FullscreenButton">
+				<Anchor relative="$parent"/>
+				
+				<Animation name="HidePanel">
+					<Event event="OnMouseDown" action="Reset,Play"/>
+					 
+					<Controller type="Fade" end="Pause" frame="$parent/BackgroundCover">
+						<Key type="Curve" time="0" value="90" out="Slow"/>
+						<Key type="Curve" time=".2" value="0" in="Slow"/>
+					</Controller>
+					
+					<Controller type="Visibility" end="Pause" frame="$parent">
+						<Key type="Bool" time="0" value="True"/>
+						<Key type="Bool" time=".2" value="False"/>
+					</Controller>
+				</Animation>
+			</Frame>
+			
+			<!-- Actual Panel -->
+		
+			<Frame type="Frame" name="LoadoutPanel">
+				<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Width val="1350"/>
+				<Height val="703"/>
+				
+				<Frame type="Image" name="Background">
+					<Anchor relative="$parent"/>
+					<Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+					<TextureType val="NineSlice"/>
+					<AcceptsMouse val="True"/>
+				</Frame>
+				
+				<Frame type="Frame" name="HeroListContainer">
+					<!-- At some point switch to a scrollable frame -->
+					<Anchor side="Top" relative="$parent" pos="Min" offset="12"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="-12"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+					<Width val="300"/>
+					
+					<Frame type="Image" name="Background">
+						<Anchor relative="$parent"/>
+						<Texture val="Assets/Textures/ui_nameless_headsup_darkpanel.dds"/>
+						<TextureType val="NineSlice"/>
+						<Alpha val="150"/>
+					</Frame>
+					
+					<Frame type="Button" name="HeroButton1" template="NamelessTD_StandardTemplates/LoadoutHeroButtonTemplate">
+						<Anchor side="Top" relative="$parent" pos="Min" offset="8"/>
+						<Anchor side="Left" relative="$parent" pos="Min" offset="8"/>
+						
+						<!-- Requires changing per hero -->
+						
+						<Frame type="Image" name="Banner">
+							<Texture val="Assets/Textures/ui_nameless_heroloadout_banner_taurenmarine.dds" layer="1"/>
+						</Frame>
+						
+						<Frame type="Image" name="HeroIcon">
+							<Texture val="Assets\Textures\ui_nameless_heroloadout_heroicon_taurenmarine.dds"/>
+						</Frame>
+						
+						<Frame type="Label" name="HeroTitle">
+							<Anchor side="Top" relative="$parent/HeroBorder" pos="Min" offset="10"/>
+							<Anchor side="Left" relative="$parent/HeroBorder" pos="Max" offset="-5"/>
+							<Style val="NamelessHeroTauren_Title"/>
+							<Text val="Tauren"/>
+						</Frame>
+					</Frame>
+					
+					<Frame type="Button" name="HeroButton2" template="NamelessTD_StandardTemplates/LoadoutHeroButtonTemplate">
+						<Anchor side="Top" relative="$parent/HeroButton1" pos="Max" offset="10"/>
+						<Anchor side="Left" relative="$parent" pos="Min" offset="8"/>
+					</Frame>
+				</Frame>
+				
+				<Frame type="TabControl" name="HeroTabs">
+					<Anchor relative="$parent"/>
+
+					<TabListItem val="$parent/HeroListContainer/HeroButton1"/>
+					<TabListItem val="$parent/HeroListContainer/HeroButton2"/>
+					<SelectedIndex val="0"/>
+				</Frame>
+				
+				<Frame type="Image" name="Divider">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="6"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="-5"/>
+					<Anchor side="Left" relative="$parent/HeroListContainer" pos="Max" offset="9"/>
+					<Color val="19,148,255"/>
+					<Width val="2"/>
+					<Alpha val="80"/>
+				</Frame>
+				
+				<Frame type="Frame" name="EditContainer">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="15"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="-15"/>
+					<Anchor side="Left" relative="$parent/Divider" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="-15"/>
+					
+					<!-- Background Stuff -->
+
+					<Frame type="CutsceneFrame" name="BackgroundCutscene">
+						<Anchor side="Top" relative="$parent" pos="Min" offset="4"/>
+						<Anchor side="Bottom" relative="$parent" pos="Max" offset="-4"/>
+						<Anchor side="Left" relative="$parent" pos="Min" offset="4"/>
+						<Anchor side="Right" relative="$parent" pos="Max" offset="-4"/>
+						<File val="Cutscenes/UI_Screens_HeroBg_TaurenMarine.SC2Cutscene"/>
+						<ToneMapping val="True"/>
+						<AutoPlay val="True"/>
+						<Muted val="True"/>
+					</Frame>
+					
+					<Frame type="Image" name="Vignette">
+						<Anchor side="Top" relative="$parent/BackgroundCutscene" pos="Min" offset="0"/>
+						<Anchor side="Bottom" relative="$parent/BackgroundCutscene" pos="Max" offset="0"/>
+						<Anchor side="Left" relative="$parent/BackgroundCutscene" pos="Min" offset="0"/>
+						<Anchor side="Right" relative="$parent/BackgroundCutscene" pos="Max" offset="0"/>
+						<Texture val="Assets\Textures\ui_battlenet_glue_coop_vinette.dds"/>
+					</Frame>
+					
+					<Frame type="Image" name="Border">
+						<Anchor relative="$parent"/>
+						<Texture val="Assets\Textures\ui_nameless_standardborder.dds"/>
+						<TextureType val="NineSlice"/>
+					</Frame>
+					
+					<!-- Hero Level -->
+					
+					<Frame type="Image" name="HeroLevelBackground">
+						<Anchor side="Top" relative="$parent/HeroLevelBorder" pos="Min" offset="0"/>
+						<Anchor side="Bottom" relative="$parent/HeroLevelBorder" pos="Max" offset="0"/>
+						<Anchor side="Left" relative="$parent/HeroLevelBorder" pos="Min" offset="0"/>
+						<Anchor side="Right" relative="$parent/HeroLevelBorder" pos="Max" offset="0"/>
+
+						<LayerCount val="2"/>
+
+						<Texture val="Assets\Textures\ui_battlenet_glue_coop_commandericon_mask.dds" layer="0"/>
+						<AlphaLayer val="True" layer="0"/>
+									 
+						<Color val="000000" layer="1"/>
+						<Alpha val="150" layer="1"/>
+					</Frame>
+					
+					<Frame type="Image" name="HeroLevelHoneyComb">
+						<Anchor side="Top" relative="$parent/HeroLevelBorder" pos="Mid" offset="0"/>
+						<Anchor side="Bottom" relative="$parent/HeroLevelBorder" pos="Mid" offset="0"/>
+						<Anchor side="Left" relative="$parent/HeroLevelBorder" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent/HeroLevelBorder" pos="Mid" offset="0"/>
+						<Texture val="Assets\Textures\ui_battlenet_glue_coop_commanderlevel_honeycomb.dds"/>
+					</Frame>
+					
+					<Frame type="Label" name="HeroLevelValue">
+						<Anchor side="Top" relative="$parent/HeroLevelBorder" pos="Mid" offset="0"/>
+						<Anchor side="Bottom" relative="$parent/HeroLevelBorder" pos="Mid" offset="0"/>
+						<Anchor side="Left" relative="$parent/HeroLevelBorder" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent/HeroLevelBorder" pos="Mid" offset="0"/>
+						<Style val="NamelessLoadoutLevelValue"/>
+						<Text val="0"/>
+					</Frame>
+					
+					<Frame type="Image" name="HeroLevelBorder">
+						<Anchor side="Bottom" relative="$parent" pos="Max" offset="-30"/>
+						<Anchor side="Left" relative="$parent" pos="Min" offset="15"/>
+						<Texture val="Assets\Textures\ui_battlenet_glue_coop_commandericon_border.dds"/>
+					</Frame>
+					
+					<Frame type="ProgressBar" name="XPBar">
+						<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+						<Anchor side="Left" relative="$parent/HeroLevelBackground" pos="Max" offset="-55"/>
+						<Anchor side="Right" relative="$parent" pos="Max" offset="-5"/>
+						<Height val="80"/>
+						<UseFillContainer val="true"/>
+						<MinValue val="0"/>
+						<MaxValue val="100"/>
+						<Value val="0"/>
+						
+						<Frame type="TextFormatFrame" name="XPValueFormatter">
+							<Anchor relative="$parent"/>
+							<FormatText val="%0% / %1%"/>
+							<Replacement index="0" val="{$parent/@Value}"/>
+							<Replacement index="1" val="{$parent/@MaxValue}"/>
+						</Frame>
+						
+						<Frame type="Image" name="BorderImage">
+							<Anchor relative="$parent"/>
+							<Texture val="Assets/Textures/ui_nameless_heroloadout_expbar_border.dds"/>
+							<TextureType val="EndCap"/>
+						</Frame>
+						
+						<Frame type="Image" name="ImageAccent">
+							<Anchor relative="$parent"/>
+							<Texture val="Assets/Textures/ui_nameless_heroloadout_expbar_background.dds"/>
+							<TextureType val="EndCap"/>
+						</Frame>
+						
+						<Frame type="Frame" name="FillImageContainer">
+							<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+							<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+							<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+							
+							<Frame type="Image" name="FillImage">
+								<Anchor relative="$parent"/>
+								<Texture val="Assets/Textures/ui_nameless_heroloadout_expbar_fill.dds"/>
+								<TextureType val="EndCap"/>
+								<TextureCoords top=".5" left="0" right="1" bottom="1"/>
+							</Frame>
+						</Frame>
+						
+						<Frame type="Label" name="ProgressValue">
+							<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+							<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+							<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+							<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+							<Text val="{$parent/XpValueFormatter/@Text}"/>
+							<Style val="NamelessHeroXPValue"/>
+						</Frame>
+					</Frame>
+					
+					<Frame type="Image" name="StatBackground">
+						<Anchor side="Bottom" relative="$parent/XPBar" pos="Min" offset="5"/>
+						<Anchor side="Left" relative="$parent/HeroLevelBackground" pos="Max" offset="10"/>
+						<Anchor side="Right" relative="$parent" pos="Max" offset="-15"/>
+						<Height val="45"/>
+						<Color val="000000"/>
+						<Alpha val="100"/>
+					</Frame>
+					
+					<!-- Hero Equip -->
+					
+					<Frame type="Image" name="HeroNameplateBackground">
+						<Anchor side="Bottom" relative="$parent/HeroDisplay" pos="Min" offset="80"/>
+						<Anchor side="Left" relative="$parent/HeroDisplay" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent/HeroDisplay" pos="Mid" offset="0"/>
+						<Texture val="Assets\Textures\ui_battlenet_glue_coop_commander_nameplate.dds"/>
+					</Frame>
+					
+					<Frame type="Label" name="HeroNameplateLabel">
+						<Anchor side="Top" relative="$parent/HeroNameplateBackground" pos="Mid" offset="-30"/>
+						<Anchor side="Left" relative="$parent/HeroNameplateBackground" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent/HeroNameplateBackground" pos="Mid" offset="0"/>
+						<Text val="Tauren Marine"/>
+						<Style val="NamelessHeroTitle"/>
+					</Frame>
+					
+					<Frame type="UnitModelFrame" name="HeroDisplay">
+						<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
+						<Anchor side="Bottom" relative="$parent/HeroLevelBackground" pos="Min" offset="-90"/>
+						<Height val="325"/>
+						<Width val="350"/>
+						<UnitLink val="TaurenSpaceMarine"/>
+						<UnitWorldZ val="-1.4"/>
+						<Camera val="Star2CameraLow02"/>
+						<TurningEnabled val="False"/>
+						
+						<TeamColorIndex val="2"/>
+						
+						<Frame type="Model" name="Model">
+							<Anchor relative="$parent"/>
+							<UseAlternateTime val="false"/> <!-- MSS: Used to be true -->
+							<UseAspectScaling val="false"/>
+						</Frame>
+					</Frame>
+					
+					<Frame type="Button" name="EquipButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+						<Anchor side="Top" relative="$parent/HeroDisplay" pos="Max" offset="10"/>
+						<Anchor side="Left" relative="$parent/HeroDisplay" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent/HeroDisplay" pos="Mid" offset="0"/>
+						<Width val="225"/>
+						<Height val="75"/>
+						<Style val="LevelSelection_ButtonLabel"/>
+						<Text val="Select"/>
+					</Frame>
+					
+					<!-- Skill Selection -->
+					
+					<Frame type="TabControl" name="HeroTabs">
+						<Anchor relative="$parent"/>
+
+						<TabListItem val="$parent/SkillSlot1"/>
+						<TabListItem val="$parent/SkillSlot2"/>
+						<TabListItem val="$parent/SkillSlot3"/>
+						<TabListItem val="$parent/SkillSlot4"/>
+						<TabListItem val="$parent/SkillSlot5"/>
+						<SelectedIndex val="0"/>
+					</Frame>
+					
+					<Frame type="Button" name="SkillSlot1" template="NamelessTD_StandardTemplates/SkillButtonTemplate">
+						<Anchor side="Top" relative="$parent" pos="Min" offset="25"/>
+						<Anchor side="Left" relative="$parent" pos="Mid" offset="-25"/>
+					</Frame>
+					
+					<Frame type="Button" name="SkillSlot2" template="NamelessTD_StandardTemplates/SkillButtonTemplate">
+						<Anchor side="Top" relative="$parent/SkillSlot1" pos="Min" offset="0"/>
+						<Anchor side="Left" relative="$parent/SkillSlot1" pos="Max" offset="15"/>
+					</Frame>
+					
+					<Frame type="Button" name="SkillSlot3" template="NamelessTD_StandardTemplates/SkillButtonTemplate">
+						<Anchor side="Top" relative="$parent/SkillSlot1" pos="Min" offset="0"/>
+						<Anchor side="Left" relative="$parent/SkillSlot2" pos="Max" offset="15"/>
+					</Frame>
+					
+					<Frame type="Button" name="SkillSlot4" template="NamelessTD_StandardTemplates/SkillButtonTemplate">
+						<Anchor side="Top" relative="$parent/SkillSlot1" pos="Min" offset="0"/>
+						<Anchor side="Left" relative="$parent/SkillSlot3" pos="Max" offset="15"/>
+					</Frame>
+					
+					<Frame type="Button" name="SkillSlot5" template="NamelessTD_StandardTemplates/SkillButtonTemplate">
+						<Anchor side="Top" relative="$parent/SkillSlot1" pos="Min" offset="0"/>
+						<Anchor side="Left" relative="$parent/SkillSlot4" pos="Max" offset="15"/>
+					</Frame>
+					
+					<Frame type="Frame" name="UpgradePointContainer">
+						<Anchor side="Left" relative="$parent/SkillSlot1" pos="Min" offset="0"/>
+						<Anchor side="Right" relative="$parent/SkillSlot5" pos="Max" offset="0"/>
+						<Anchor side="Top" relative="$parent/SkillSlot1" pos="Max" offset="10"/>
+						<Height val="75"/>
+					</Frame>
+					
+					<Frame type="Image" name="UpgradePointBackground">
+						<Anchor side="Top" relative="$parent/UpgradePointContainer" pos="Min" offset="0"/>
+						<Anchor side="Bottom" relative="$parent/UpgradePointContainer" pos="Max" offset="0"/>
+						<Anchor side="Left" relative="$parent/UpgradePointContainer" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent/UpgradePointContainer" pos="Mid" offset="0"/>
+						<Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+						<TextureType val="NineSlice"/>
+						<Alpha val="200"/>
+						<Width val="135"/>
+					</Frame>
+					
+					<Frame type="Image" name="UpgradePointIcon">
+						<Anchor side="Top" relative="$parent/UpgradePointBackground" pos="Mid" offset="0"/>
+						<Anchor side="Bottom" relative="$parent/UpgradePointBackground" pos="Mid" offset="0"/>
+						<Anchor side="Left" relative="$parent/UpgradePointBackground" pos="Min" offset="10"/>
+						<Texture val="Assets\Textures\ui_nameless_stagesel_performancestar_small_normal.dds"/>
+						<Height val="50"/>
+						<Width val="50"/>
+					</Frame>
+					
+					<Frame type="Label" name="UpgradePointLabel">
+						<Anchor side="Top" relative="$parent/UpgradePointBackground" pos="Mid" offset="0"/>
+						<Anchor side="Bottom" relative="$parent/UpgradePointBackground" pos="Mid" offset="0"/>
+						<Anchor side="Left" relative="$parent/UpgradePointIcon" pos="Max" offset="10"/>
+						<Text val="0"/>
+						<Style val="NamelessHeroSkillTitle"/>
+					</Frame>
+					
+					<Frame type="Image" name="UpgradePointFrillLeft">
+						<Anchor side="Top" relative="$parent/UpgradePointContainer" pos="Mid" offset="0"/>
+						<Anchor side="Bottom" relative="$parent/UpgradePointContainer" pos="Mid" offset="0"/>
+						<Anchor side="Left" relative="$parent/UpgradePointContainer" pos="Min" offset="0"/>
+						<Anchor side="Right" relative="$parent/UpgradePointBackground" pos="Min" offset="-15"/>
+						<Color val="1394ff"/>
+						<Height val="3"/>
+						<Alpha val="150"/>
+					</Frame>
+					
+					<Frame type="Image" name="UpgradePointFrillRight">
+						<Anchor side="Top" relative="$parent/UpgradePointContainer" pos="Mid" offset="0"/>
+						<Anchor side="Bottom" relative="$parent/UpgradePointContainer" pos="Mid" offset="0"/>
+						<Anchor side="Left" relative="$parent/UpgradePointBackground" pos="Max" offset="15"/>
+						<Anchor side="Right" relative="$parent/UpgradePointContainer" pos="Max" offset="0"/>
+						<Color val="1394ff"/>
+						<Height val="3"/>
+						<Alpha val="150"/>
+					</Frame>
+					
+					<Frame type="Image" name="SkillDisplayBorder">
+						<Anchor side="Left" relative="$parent/UpgradePointContainer" pos="Min" offset="0"/>
+						<Anchor side="Right" relative="$parent/UpgradePointContainer" pos="Max" offset="0"/>
+						<Anchor side="Top" relative="$parent/UpgradePointContainer" pos="Max" offset="10"/>
+						<Anchor side="Bottom" relative="$parent/StatBackground" pos="Min" offset="-15"/>
+						<Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+						<TextureType val="NineSlice"/>
+						<Alpha val="200"/>
+					</Frame>
+					
+					<Frame type="Label" name="SkillTitleLabel">
+						<Anchor side="Top" relative="$parent/SkillDisplayBorder" pos="Min" offset="15"/>
+						<Anchor side="Left" relative="$parent/SkillDisplayBorder" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent/SkillDisplayBorder" pos="Mid" offset="0"/>
+						<Style val="NamelessHeroSkillTitle"/>
+						<Text val="Skill Name"/>
+					</Frame>
+					
+					<Frame type="Label" name="SkillDescLabel">
+						<Anchor side="Top" relative="$parent/SkillTitleLabel" pos="Max" offset="5"/>
+						<Anchor side="Left" relative="$parent/SkillDisplayBorder" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent/SkillDisplayBorder" pos="Mid" offset="0"/>
+						<Style val="NamelessHeroSkillDescription"/>
+						<Text val="Skill Description"/>
+					</Frame>
+					
+					<Frame type="Button" name="UpgradeSkillButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+						<Anchor side="Bottom" relative="$parent/SkillDisplayBorder" pos="Max" offset="-15"/>
+						<Anchor side="Left" relative="$parent/SkillDisplayBorder" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent/SkillDisplayBorder" pos="Mid" offset="0"/>
+						<Width val="275"/>
+						<Height val="75"/>
+						<Style val="LevelSelection_ButtonLabel"/>
+						<Text val="Upgrade"/>
+					</Frame>
+				</Frame>
+			</Frame>
+		</Frame>
+		
+        <Frame type="Frame" name="PausePanel">
+            <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+            <Width val="650"/>
+            <Height val="350"/>
+            <Visible val="False"/>
+
+            <Animation name="Show">
+                <Event event="OnShown" action="DirectionForward,Play"/>
+				<Event event="Hide" action="DirectionReverse,Play"/>
+                 
+                <Controller type="Dimension" dimension="Width" relative="False" percentage="True" unclip="False" end="Pause">
+                    <Key type="Curve" time="0" value="0"/>
+                    <Key type="Curve" time=".3" value="100"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause">
+                    <Key type="Curve" time="0" value="0" out="Auto"/>
+                    <Key type="Curve" time=".2" value="255" in="Auto"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/LevelTitle">
+                    <Key type="Curve" time="0" value="0" out="Auto"/>
+                    <Key type="Curve" time=".3" value="0" out="Auto"/>
+                    <Key type="Curve" time=".4" value="255" in="Auto"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/TitleFrillLeft">
+                    <Key type="Curve" time="0" value="0" out="Auto"/>
+                    <Key type="Curve" time=".3" value="0" out="Auto"/>
+                    <Key type="Curve" time=".4" value="150" in="Auto"/>
+                </Controller>
+				
+                <Controller type="Fade" end="Pause" frame="$this/TitleFrillRight">
+                    <Key type="Curve" time="0" value="0" out="Auto"/>
+                    <Key type="Curve" time=".3" value="0" out="Auto"/>
+                    <Key type="Curve" time=".4" value="150" in="Auto"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/LevelDescriptionLabel">
+                    <Key type="Curve" time="0" value="0" out="Auto"/>
+                    <Key type="Curve" time=".3" value="0" out="Auto"/>
+                    <Key type="Curve" time=".4" value="255" in="Auto"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/QuitButton">
+                    <Key type="Curve" time="0" value="0" out="Auto"/>
+                    <Key type="Curve" time=".4" value="0" out="Auto"/>
+                    <Key type="Curve" time=".5" value="255" in="Auto"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/RestartButton">
+                    <Key type="Curve" time="0" value="0" out="Auto"/>
+                    <Key type="Curve" time=".4" value="0" out="Auto"/>
+                    <Key type="Curve" time=".5" value="255" in="Auto"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/ResumeButton">
+                    <Key type="Curve" time="0" value="0" out="Auto"/>
+                    <Key type="Curve" time=".4" value="0" out="Auto"/>
+                    <Key type="Curve" time=".5" value="255" in="Auto"/>
+                </Controller>
+            </Animation>
+
+            <Frame type="Image" name="Background">
+                <Anchor relative="$parent"/>
+                <TextureType val="NineSlice"/>
+                <Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+            </Frame>
+
+            <Frame type="Label" name="LevelTitle">
+                <Anchor side="Top" relative="$parent" pos="Min" offset="25"/>
+                <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                <Style val="LevelSelection_LevelTitle"/>
+                <Text val="Wasteland"/>
+            </Frame>
+
+            <Frame type="Image" name="TitleFrillLeft">
+                <Anchor side="Top" relative="$parent/LevelTitle" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/LevelTitle" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
+                <Anchor side="Right" relative="$parent/LevelTitle" pos="Min" offset="-30"/>
+                <Color val="1394ff"/>
+                <Height val="3"/>
+				<Alpha val="150"/>
+            </Frame>
+				
+            <Frame type="Image" name="TitleFrillRight">
+                <Anchor side="Top" relative="$parent/LevelTitle" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/LevelTitle" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/LevelTitle" pos="Max" offset="30"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="-30"/>
+                <Color val="1394ff"/>
+                <Height val="3"/>
+				<Alpha val="150"/>
+            </Frame>
+
+            <Frame type="Label" name="LevelDescriptionLabel">
+                <Anchor side="Top" relative="$parent/LevelTitle" pos="Min" offset="70"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="35"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="-35"/>
+                <Text val="LevelDesc"/>
+                <Style val="LevelSelection_LevelDescription"/>
+            </Frame>
+
+            <Frame type="Button" name="ResumeButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="-20"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="-20"/>
+                <Style val="NamelessPauseButtonLabel"/>
+                <Text val="Resume"/>
+                <Width val="200"/>
+                <Height val="55"/>
+            </Frame>
+
+            <Frame type="Button" name="RestartButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="-20"/>
+                <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                <Style val="NamelessPauseButtonLabel"/>
+                <Text val="Restart"/>
+                <Width val="200"/>
+                <Height val="55"/>
+            </Frame>
+
+            <Frame type="Button" name="QuitButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="-20"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+                <Style val="NamelessPauseButtonLabel"/>
+                <Text val="Quit"/>
+                <Width val="200"/>
+                <Height val="55"/>
+            </Frame>
+        </Frame>
+
+        <Frame type="Frame" name="DefeatPanel">
+            <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+            <Width val="650"/>
+            <Height val="350"/>
+            <Visible val="False"/>
+
+            <Animation name="Show">
+                <Event event="OnShown" action="Reset,Play"/>
+                 
+                <Controller type="Dimension" dimension="Width" relative="False" percentage="True" unclip="False" end="Pause">
+                    <Key type="Curve" time="0" value="0"/>
+                    <Key type="Curve" time=".5" value="100"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause">
+                    <Key type="Curve" time="0" value="0" out="Fast"/>
+                    <Key type="Curve" time=".2" value="255" in="Slow"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/Title">
+                    <Key type="Curve" time="0" value="0" out="Fast"/>
+                    <Key type="Curve" time=".6" value="0" out="Fast"/>
+                    <Key type="Curve" time=".9" value="255" in="Slow"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/Divider">
+                    <Key type="Curve" time="0" value="0" out="Fast"/>
+                    <Key type="Curve" time=".6" value="0" out="Fast"/>
+                    <Key type="Curve" time=".9" value="255" in="Slow"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/TipLabel">
+                    <Key type="Curve" time="0" value="0" out="Fast"/>
+                    <Key type="Curve" time=".6" value="0" out="Fast"/>
+                    <Key type="Curve" time=".9" value="255" in="Slow"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/QuitButton">
+                    <Key type="Curve" time="0" value="0" out="Fast"/>
+                    <Key type="Curve" time=".8" value="0" out="Fast"/>
+                    <Key type="Curve" time="1.1" value="255" in="Slow"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/RestartButton">
+                    <Key type="Curve" time="0" value="0" out="Fast"/>
+                    <Key type="Curve" time=".8" value="0" out="Fast"/>
+                    <Key type="Curve" time="1.1" value="255" in="Slow"/>
+                </Controller>
+            </Animation>
+
+            <Animation name="Hide">
+                <Event event="Hide" action="Reset,Play"/>
+                 
+                <Controller type="Dimension" dimension="Width" relative="False" percentage="True" unclip="False" end="Pause">
+                    <Key type="Curve" time="0" value="100"/>
+                    <Key type="Curve" time=".2" value="100"/>
+                    <Key type="Curve" time=".7" value="0"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause">
+                    <Key type="Curve" time="0" value="255" out="Fast"/>
+                    <Key type="Curve" time=".4" value="255" out="Fast"/>
+                    <Key type="Curve" time=".7" value="0" in="Slow"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/Title">
+                    <Key type="Curve" time="0" value="255" out="Fast"/>
+                    <Key type="Curve" time=".2" value="0" in="Slow"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/Divider">
+                    <Key type="Curve" time="0" value="255" out="Fast"/>
+                    <Key type="Curve" time=".2" value="0" in="Slow"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/TipLabel">
+                    <Key type="Curve" time="0" value="255" out="Fast"/>
+                    <Key type="Curve" time=".2" value="0" in="Slow"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/QuitButton">
+                    <Key type="Curve" time="0" value="255" out="Fast"/>
+                    <Key type="Curve" time=".2" value="0" in="Slow"/>
+                </Controller>
+
+                <Controller type="Fade" end="Pause" frame="$this/RestartButton">
+                    <Key type="Curve" time="0" value="255" out="Fast"/>
+                    <Key type="Curve" time=".2" value="0" in="Slow"/>
+                </Controller>
+            </Animation>
+
+            <Frame type="Image" name="Background">
+                <Anchor relative="$parent"/>
+                <TextureType val="NineSlice"/>
+                <Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+            </Frame>
+
+            <Frame type="Label" name="Title">
+                <Anchor side="Top" relative="$parent" pos="Min" offset="25"/>
+                <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                <Style val="LevelSelection_LevelTitle"/>
+                <Text val="Defeat"/>
+            </Frame>
+
+            <Frame type="Image" name="Divider">
+                <Anchor side="Top" relative="$parent/Title" pos="Max" offset="15"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="-30"/>
+                <TextureType val="EndCap"/>
+                <Texture val="Assets/Textures/ui_nameless_standardmenus_divider.dds"/>
+            </Frame>
+
+            <Frame type="Label" name="TipLabel">
+                <Anchor side="Top" relative="$parent/Divider" pos="Min" offset="30"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="35"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="-35"/>
+                <Text val="DefeatTip"/>
+                <Style val="LevelSelection_LevelDescription"/>
+            </Frame>
+
+            <Frame type="Button" name="RestartButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="-20"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="-20"/>
+                <Style val="NamelessPauseButtonLabel"/>
+                <Text val="Restart"/>
+                <Width val="200"/>
+                <Height val="55"/>
+            </Frame>
+
+            <Frame type="Button" name="QuitButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="-20"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+                <Style val="NamelessPauseButtonLabel"/>
+                <Text val="Quit"/>
+                <Width val="200"/>
+                <Height val="55"/>
+            </Frame>
+        </Frame>
+
+        <Frame type="Frame" name="HeroHint" template="NamelessTD_StandardTemplates/HintPanelTemplate">
+		
+			<!-- Portrait Panels -->
+			
+            <Frame type="Portrait" name="Portrait">
+                <Anchor side="Top" relative="$parent/PortraitBorder" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/PortraitBorder" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/PortraitBorder" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent/PortraitBorder" pos="Mid" offset="0"/>
+                <Width val="140"/>
+                <Height val="235"/>
+                <RenderType val="HDR"/>
+                <AcceptsMouse val="false"/>
+                <BorderImage val="BorderImage"/>
+                <BackgroundImage val="BackgroundImage"/>
+                <UseTransition val="false"/>
+
+                <Frame type="Image" name="BorderImage">
+                    <Visible val="false"/>
+                    <DescFlags val="Internal"/>
+                </Frame>
+
+                <Frame type="Image" name="BackgroundImage">
+                    <Visible val="false"/>
+                    <DescFlags val="Internal"/>
+                </Frame>
+            </Frame>
+			
+            <Frame type="Image" name="PortraitBorder">
+                <Anchor side="Top" relative="$parent" pos="Mid" offset="-35"/>
+                <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
+                <TextureType val="NineSlice"/>
+                <Texture val="Assets/Textures/ui_nameless_portraitframe_border.dds"/>
+				<Width val="170"/>
+				<Height val="260"/>
+            </Frame>
+			
+			<!-- Unit Display Panels -->
+
+            <Frame type="Image" name="UnitBackground">
+                <Anchor side="Top" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/UnitDisplayBorder" pos="Mid" offset="3"/>
+                <Anchor side="Left" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+                <Color val="091223"/>
+				<Width val="73"/>
+				<Height val="73"/>
+            </Frame>
+			
+			<Frame type="UnitModelFrame" name="UnitDisplay">
+				<Anchor side="Top" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent/UnitDisplayBorder" pos="Mid" offset="3"/>
+				<Height val="70"/>
+				<Width val="70"/>
+				<UnitLink val="TaurenSpaceMarine"/>
+				<UnitWorldZ val="-0.1"/>
+				<Camera val="Star2CameraHigh01"/>
+				<LightLink val="CinematicBaseLighting"/>
+				
+				<TeamColorIndex val="2"/>
+				
+				<Frame type="Model" name="Model">
+					<Anchor relative="$parent"/>
+					<UseAlternateTime val="false"/> <!-- MSS: Used to be true -->
+					<UseAspectScaling val="false"/>
+				</Frame>
+				
+				<Frame type="MathFrame" name="CombinedZOffset">
+					<A val="0"/>
+					<B val="0"/>
+					<Operator val="Add"/>
+				</Frame>
+			</Frame>
+			
+            <Frame type="Image" name="UnitDisplayBorder">
+                <Anchor side="Bottom" relative="$parent/PortraitBorder" pos="Max" offset="30"/>
+                <Anchor side="Right" relative="$parent/PortraitBorder" pos="Max" offset="20"/>
+                <TextureType val="NineSlice"/>
+                <Texture val="Assets/Textures/ui_nameless_portraitframe_border.dds"/>
+				<Width val="105"/>
+				<Height val="100"/>
+            </Frame>
+			
+			<!-- Unit Description Labels -->
+			
+            <Frame type="Label" name="TitleLabel">
+                <Anchor side="Top" relative="$parent/PortraitBorder" pos="Min" offset="5"/>
+                <Anchor side="Left" relative="$parent/PortraitBorder" pos="Max" offset="10"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="-25"/>
+				<Style val="NamelessHintTitle"/>
+            </Frame>
+
+            <Frame type="Label" name="SubtitleLabel">
+                <Anchor side="Top" relative="$parent/TitleLabel" pos="Max" offset="0"/>
+                <Anchor side="Left" relative="$parent/TitleLabel" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent/TitleLabel" pos="Mid" offset="0"/>
+				<Style val="NamelessHintSubtitle"/>
+            </Frame>
+
+            <Frame type="Image" name="LineLeft">
+                <Anchor side="Top" relative="$parent/SubtitleLabel" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/SubtitleLabel" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/TitleLabel" pos="Min" offset="5"/>
+                <Anchor side="Right" relative="$parent/SubtitleLabel" pos="Min" offset="-10"/>
+				<Height val="2"/>
+                <Color val="0fafcb"/>
+            </Frame>
+
+            <Frame type="Image" name="LineRight">
+                <Anchor side="Top" relative="$parent/SubtitleLabel" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/SubtitleLabel" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/SubtitleLabel" pos="Max" offset="10"/>
+                <Anchor side="Right" relative="$parent/TitleLabel" pos="Max" offset="-5"/>
+				<Height val="2"/>
+                <Color val="0fafcb"/>
+            </Frame>
+
+            <Frame type="Label" name="DescriptionLabel">
+                <Anchor side="Top" relative="$parent/SubtitleLabel" pos="Max" offset="5"/>
+                <Anchor side="Left" relative="$parent/TitleLabel" pos="Min" offset="0"/>
+                <Anchor side="Right" relative="$parent/TitleLabel" pos="Max" offset="0"/>
+				<Style val="NamelessHintDescription"/>
+            </Frame>
+			
+			<!-- Stat Panels -->
+
+            <Frame type="Frame" name="StatPanel">
+                <Anchor side="Top" relative="$parent/DescriptionLabel" pos="Max" offset="10"/>
+                <Anchor side="Bottom" relative="$parent/CloseButton" pos="Min" offset="-5"/>
+                <Anchor side="Left" relative="$parent/TitleLabel" pos="Min" offset="10"/>
+                <Anchor side="Right" relative="$parent/TitleLabel" pos="Max" offset="-10"/>
+
+                <Frame type="Frame" name="Stat01" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+                    <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+                    <Anchor side="Right" relative="$parent" pos="Mid" offset="-5"/>
+                </Frame>
+				
+                <Frame type="Frame" name="Stat02" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent/Stat01" pos="Max" offset="10"/>
+                    <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+                    <Anchor side="Right" relative="$parent" pos="Mid" offset="-5"/>
+                </Frame>
+				
+                <Frame type="Frame" name="Stat03" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent/Stat02" pos="Max" offset="10"/>
+                    <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+                    <Anchor side="Right" relative="$parent" pos="Mid" offset="-5"/>
+                </Frame>
+				
+                <Frame type="Frame" name="Stat04" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+                    <Anchor side="Left" relative="$parent" pos="Mid" offset="5"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                </Frame>
+				
+                <Frame type="Frame" name="Stat05" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent/Stat04" pos="Max" offset="10"/>
+                    <Anchor side="Left" relative="$parent" pos="Mid" offset="5"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                </Frame>
+				
+                <Frame type="Frame" name="Stat06" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent/Stat05" pos="Max" offset="10"/>
+                    <Anchor side="Left" relative="$parent" pos="Mid" offset="5"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                </Frame>
+            </Frame>
+
+			<!-- Keep this for easy hookups -->
+			
+			<Frame type="Button" name="CloseButton">
+			</Frame>
+        </Frame>
+
+		
+        <Frame type="Frame" name="EnemyUnitHint" template="NamelessTD_StandardTemplates/HintPanelTemplate">
+		
+			<!-- Portrait Panels -->
+			
+            <Frame type="Portrait" name="Portrait">
+                <Anchor side="Top" relative="$parent/PortraitBorder" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/PortraitBorder" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/PortraitBorder" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent/PortraitBorder" pos="Mid" offset="0"/>
+                <Width val="140"/>
+                <Height val="235"/>
+                <RenderType val="HDR"/>
+                <AcceptsMouse val="false"/>
+                <BorderImage val="BorderImage"/>
+                <BackgroundImage val="BackgroundImage"/>
+                <UseTransition val="false"/>
+
+                <Frame type="Image" name="BorderImage">
+                    <Visible val="false"/>
+                    <DescFlags val="Internal"/>
+                </Frame>
+
+                <Frame type="Image" name="BackgroundImage">
+                    <Visible val="false"/>
+                    <DescFlags val="Internal"/>
+                </Frame>
+            </Frame>
+			
+            <Frame type="Image" name="PortraitBorder">
+                <Anchor side="Top" relative="$parent" pos="Mid" offset="-35"/>
+                <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
+                <TextureType val="NineSlice"/>
+                <Texture val="Assets/Textures/ui_nameless_portraitframe_border.dds"/>
+				<Width val="170"/>
+				<Height val="260"/>
+            </Frame>
+			
+			<!-- Unit Display Panels -->
+
+            <Frame type="Image" name="UnitBackground">
+                <Anchor side="Top" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/UnitDisplayBorder" pos="Mid" offset="3"/>
+                <Anchor side="Left" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+                <Color val="091223"/>
+				<Width val="73"/>
+				<Height val="73"/>
+            </Frame>
+			
+			<Frame type="UnitModelFrame" name="UnitDisplay">
+				<Anchor side="Top" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent/UnitDisplayBorder" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent/UnitDisplayBorder" pos="Mid" offset="3"/>
+				<Height val="70"/>
+				<Width val="70"/>
+				<UnitLink val="TaurenSpaceMarine"/>
+				<UnitWorldZ val="-0.1"/>
+				<Camera val="Star2CameraHigh01"/>
+				
+				<TeamColorIndex val="2"/>
+				
+				<Frame type="Model" name="Model">
+					<Anchor relative="$parent"/>
+					<UseAlternateTime val="false"/> <!-- MSS: Used to be true -->
+					<UseAspectScaling val="false"/>
+				</Frame>
+				
+				<Frame type="MathFrame" name="CombinedZOffset">
+					<A val="0"/>
+					<B val="0"/>
+					<Operator val="Add"/>
+				</Frame>
+			</Frame>
+			
+            <Frame type="Image" name="UnitDisplayBorder">
+                <Anchor side="Bottom" relative="$parent/PortraitBorder" pos="Max" offset="30"/>
+                <Anchor side="Right" relative="$parent/PortraitBorder" pos="Max" offset="20"/>
+                <TextureType val="NineSlice"/>
+                <Texture val="Assets/Textures/ui_nameless_portraitframe_border.dds"/>
+				<Width val="105"/>
+				<Height val="100"/>
+            </Frame>
+			
+			<!-- Unit Description Labels -->
+			
+            <Frame type="Label" name="TitleLabel">
+                <Anchor side="Top" relative="$parent/PortraitBorder" pos="Min" offset="5"/>
+                <Anchor side="Left" relative="$parent/PortraitBorder" pos="Max" offset="10"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="-25"/>
+				<Text val="New Enemy: Zergling"/>
+				<Style val="NamelessHintTitle"/>
+            </Frame>
+
+            <Frame type="Label" name="SubtitleLabel">
+                <Anchor side="Top" relative="$parent/TitleLabel" pos="Max" offset="0"/>
+                <Anchor side="Left" relative="$parent/TitleLabel" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent/TitleLabel" pos="Mid" offset="0"/>
+				<Text val="Heavy Meat"/>
+				<Style val="NamelessHintSubtitle"/>
+            </Frame>
+
+            <Frame type="Image" name="LineLeft">
+                <Anchor side="Top" relative="$parent/SubtitleLabel" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/SubtitleLabel" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/TitleLabel" pos="Min" offset="5"/>
+                <Anchor side="Right" relative="$parent/SubtitleLabel" pos="Min" offset="-10"/>
+				<Height val="2"/>
+                <Color val="0fafcb"/>
+            </Frame>
+
+            <Frame type="Image" name="LineRight">
+                <Anchor side="Top" relative="$parent/SubtitleLabel" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/SubtitleLabel" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/SubtitleLabel" pos="Max" offset="10"/>
+                <Anchor side="Right" relative="$parent/TitleLabel" pos="Max" offset="-5"/>
+				<Height val="2"/>
+                <Color val="0fafcb"/>
+            </Frame>
+
+            <Frame type="Label" name="DescriptionLabel">
+                <Anchor side="Top" relative="$parent/SubtitleLabel" pos="Max" offset="5"/>
+                <Anchor side="Left" relative="$parent/TitleLabel" pos="Min" offset="0"/>
+                <Anchor side="Right" relative="$parent/TitleLabel" pos="Max" offset="0"/>
+				<Text val="Just a description about the vile enemies crossing your paths. You know... Spooky Stuff..."/>
+				<Style val="NamelessHintDescription"/>
+            </Frame>
+			
+			<!-- Stat Panels -->
+
+            <Frame type="Frame" name="StatPanel">
+                <Anchor side="Top" relative="$parent/DescriptionLabel" pos="Max" offset="10"/>
+                <Anchor side="Bottom" relative="$parent/CloseButton" pos="Min" offset="-5"/>
+                <Anchor side="Left" relative="$parent/TitleLabel" pos="Min" offset="10"/>
+                <Anchor side="Right" relative="$parent/TitleLabel" pos="Max" offset="-10"/>
+
+                <Frame type="Frame" name="Stat01" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+                    <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+                    <Anchor side="Right" relative="$parent" pos="Mid" offset="-5"/>
+                </Frame>
+				
+                <Frame type="Frame" name="Stat02" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent/Stat01" pos="Max" offset="10"/>
+                    <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+                    <Anchor side="Right" relative="$parent" pos="Mid" offset="-5"/>
+                </Frame>
+				
+                <Frame type="Frame" name="Stat03" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent/Stat02" pos="Max" offset="10"/>
+                    <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+                    <Anchor side="Right" relative="$parent" pos="Mid" offset="-5"/>
+                </Frame>
+				
+                <Frame type="Frame" name="Stat04" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+                    <Anchor side="Left" relative="$parent" pos="Mid" offset="5"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                </Frame>
+				
+                <Frame type="Frame" name="Stat05" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent/Stat04" pos="Max" offset="10"/>
+                    <Anchor side="Left" relative="$parent" pos="Mid" offset="5"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                </Frame>
+				
+                <Frame type="Frame" name="Stat06" template="NamelessTD_StandardTemplates/HeroStatTemplate">
+                    <Anchor side="Top" relative="$parent/Stat05" pos="Max" offset="10"/>
+                    <Anchor side="Left" relative="$parent" pos="Mid" offset="5"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                </Frame>
+            </Frame>
+
+			<!-- Keep this for easy hookups -->
+			
+			<Frame type="Button" name="CloseButton">
+			</Frame>
+        </Frame>
+    </Frame>
+</Desc>

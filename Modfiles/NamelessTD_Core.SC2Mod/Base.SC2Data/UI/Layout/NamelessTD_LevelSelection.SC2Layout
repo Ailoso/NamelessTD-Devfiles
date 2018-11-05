@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+    <Frame type="Frame" name="LevelSelectionPanel">
+        <Anchor relative="$parent"/>
+        <Visible val="False"/>
+
+		<Animation name="Display">
+			<Event event="OnShown" action="Reset,Play"/>
+
+			<Controller type="Cutscene" end="Pause" frame="$this/BackgroundPanel/BackgroundCutscene">
+				<Key type="Cutscene" time="0" action="Bookmark" bookmark="BirthBegin"/>
+				<Key type="Cutscene" time="0" action="Play"/>
+			</Controller>
+                 
+            <Controller type="Visibility" end="Pause" frame="$this/StageSelPanel">
+                <Key type="Bool" time="3" value="True"/>
+            </Controller>
+			
+            <Controller type="Visibility" end="Pause" frame="$this/LoadoutPanel">
+                <Key type="Bool" time="3" value="True"/>
+            </Controller>
+		</Animation>
+
+		<Animation name="Hide">
+			<Event event="HidePanel" action="Reset,Play"/>
+
+            <Controller type="Visibility" end="Pause" frame="$this">
+                <Key type="Bool" time="0" value="False"/>
+            </Controller>
+
+            <Controller type="Visibility" end="Pause" frame="$this/StageSelPanel">
+                <Key type="Bool" time="0" value="False"/>
+            </Controller>
+
+            <Controller type="Visibility" end="Pause" frame="$this/SelectionPanel">
+                <Key type="Bool" time="0" value="False"/>
+            </Controller>
+		</Animation>
+		
+		<Animation name="ResetPanels">
+			<Event event="ResetPanel" action="Reset,Play"/>
+
+			<Controller type="Event" end="Stop" frame="$parent">
+				<Key type="Event" time="0" event="Begin"/>
+			</Controller>
+			
+			<Controller type="Property" property="Toggled" end="Pause" frame="$parent">
+				<Key type="Property" time="0" value="false"/>
+			</Controller>
+		</Animation>
+
+        <Frame type="Frame" name="BackgroundPanel">
+            <Anchor relative="$parent"/>
+            <Visible val="true"/>
+
+            <Animation name="FadeVignette">
+                <Event event="Fade" action="Play"/>
+                 
+                <Controller type="Fade" end="Pause" frame="$this/Vignette">
+                    <Key type="Curve" time="0" value="150" out="Auto"/>
+                    <Key type="Curve" time=".5" value="255" in="Auto"/>
+                </Controller>
+            </Animation>
+
+            <Frame type="Image" name="WorldCover">
+                <Anchor relative="$parent"/>
+                <Color val="000000"/>
+                <AcceptsMouse val="true"/>
+                <RenderPriority val="1"/>
+                <RenderType val="HDR"/>
+            </Frame>
+
+            <Frame type="CutsceneFrame" name="BackgroundCutscene">
+                <Anchor relative="$parent"/>
+                <RenderType val="HDR"/>
+                <File val="Cutscenes/UI_Screens_MainScreen.SC2Cutscene" preloadFilters=""/>
+                <ToneMapping val="true"/>
+                <Fading val="true"/>
+            </Frame>
+
+            <Frame type="Image" name="Vignette">
+                <Anchor relative="$parent"/>
+                <Texture val="Assets\Textures\ui_battlenet_glue_coop_vinette.dds"/>
+                <RenderType val="HDR"/>
+				<Alpha val="150"/>
+            </Frame>
+        </Frame>
+		
+		<Frame type="Frame" name="LoadoutPanel">
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Width val="600"/>
+			<Height val="300"/>
+			<Visible val="False"/>
+			
+			<Animation name="ShowPanel">
+				<Event event="OnShown" action="Reset,Play"/>
+				 
+				<Controller type="Anchor" end="Pause" side="Bottom" relative="false" frame="$this">
+					<Key type="Curve" time="0" value="300" out="Fast"/>
+					<Key type="Curve" time=".3" value="0" in="Slow"/>
+				</Controller>
+			</Animation>
+		
+			<Frame type="Button" name="MilestonesBar" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="30"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="50"/>
+				<Width val="230"/>
+				<Height val="115"/>
+				<HitTestFrame val="HitTestFrame"/>
+				<Toggleable val="True"/>
+
+				<Animation name="MouseBump">
+					<Event event="OnMouseEnter" action="DirectionForward,Play"/>
+					<Event event="OnMouseExit" action="DirectionReverse,Play"/>
+						 
+					<Controller type="Anchor" end="Pause" side="Bottom" relative="True">
+						<Key type="Curve" time="0" value="0" out="Fast"/>
+						<Key type="Curve" time=".2" value="-15" in="Slow"/>
+					</Controller>
+				</Animation>
+				
+				<StateGroup name="ExtendToggle">
+					<DefaultState val="Normal"/>
+					
+					<State name="Extended">
+						<When type="Property" frame="$this" Toggled="True"/>
+						<Action type="SendEvent" frame="$this" event="Extend"/>
+					</State>
+				
+					<State name="Normal">
+						<When type="Property" frame="$this" Toggled="False"/>
+						<Action type="SendEvent" frame="$this" event="Retract"/>
+					</State>
+				</StateGroup>
+				
+				<Animation name="Extend/Retract">
+					<Event event="Extend" action="DirectionForward,Play"/>
+					<Event event="Retract" action="DirectionReverse,Play"/>
+						 
+					<Controller type="Dimension" dimension="Height" relative="False" percentage="False" unclip="False" end="Pause">
+						<Key type="Curve" time="0" value="115" out="Fast"/>
+						<Key type="Curve" time=".3" value="255	" in="Slow"/>
+					</Controller>
+				</Animation>
+				
+				<!-- Milestone Panels -->
+				
+				<Frame type="Frame" name="MilestonePanel1" template="NamelessTD_StandardTemplates/MilestonePanelTemplate">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="15"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="15"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="-15"/>
+
+				</Frame>
+				
+				<Frame type="Frame" name="MilestonePanel2" template="NamelessTD_StandardTemplates/MilestonePanelTemplate">
+					<Anchor side="Top" relative="$parent/MilestonePanel1" pos="Max" offset="15"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="15"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="-15"/>
+				</Frame>
+				
+				<Frame type="Frame" name="MilestonePanel3" template="NamelessTD_StandardTemplates/MilestonePanelTemplate">
+					<Anchor side="Top" relative="$parent/MilestonePanel2" pos="Max" offset="15"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="15"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="-15"/>
+				</Frame>
+				
+				<Frame type="Frame" name="HitTestFrame">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+				</Frame>
+			</Frame>
+			
+			<Frame type="Button" name="HeroButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="-10"/>
+				<Anchor side="Left" relative="$parent/MilestonesBar" pos="Max" offset="5"/>
+				<Width val="75"/>
+				<Height val="75"/>
+				
+				<Frame type="Image" name="Icon">
+					<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+					<Width val="50"/>
+					<Height val="50"/>
+					<Texture val="Assets/Textures/ui_nameless_lvlsel_icon_heroloadout.dds"/>
+				</Frame>
+			</Frame>
+			
+			<Frame type="Button" name="UpgradesButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="-10"/>
+				<Anchor side="Left" relative="$parent/HeroButton" pos="Max" offset="5"/>
+				<Width val="75"/>
+				<Height val="75"/>
+				
+				<Frame type="Image" name="Icon">
+					<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+					<Width val="50"/>
+					<Height val="50"/>
+					<Texture val="Assets/Textures/ui_nameless_lvlsel_icon_upgrades.dds"/>
+				</Frame>
+			</Frame>
+		</Frame>
+
+        <Frame type="Frame" name="StageSelPanel">
+            <Anchor relative="$parent"/>
+            <Visible val="False"/>
+
+            <Animation name="DisplaySelection">
+                <Event event="OnClick" action="Play" frame="$this/Stage1Slot/ButtonHitTest"/>
+                 
+                <Controller type="Visibility" end="Pause" frame="$parent/SelectionPanel">
+                    <Key type="Bool" time="0" value="True"/>
+                </Controller>
+            </Animation>
+
+            <Frame type="Frame" name="Stage1Slot" template="NamelessTD_StandardTemplates/StageSlot">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="-410"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="510"/>
+
+                <Frame type="Button" name="ButtonHitTest">
+                </Frame>
+
+                <Frame type="Frame" name="PerformancePanel">
+                </Frame>
+
+                <Frame type="Image" name="Icon">
+                    <Texture val="Assets\Textures\ui_nova_storymode_briefing_icon_cave.dds"/>
+                </Frame>
+
+                <Frame type="Label" name="Label">
+                    <Text val="Wasteland"/>
+                </Frame>
+            </Frame>
+        </Frame>
+
+        <Frame type="Frame" name="SelectionPanel">
+            <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Mid" offset="1150"/>
+            <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+            <Width val="650"/>
+            <Height val="900"/>
+            <Visible val="false"/>
+
+            <Animation name="Show">
+                <Event event="OnShown" action="Reset,DirectionForward,Play" frame="$this"/>
+				<Event event="HidePanel" action="DirectionReverse,Play" frame="$this"/>
+				
+				<Controller type="Visibility" end="Pause" frame="$this/InfoPanel">
+					<Key type="Bool" time="0" value="true"/>
+				</Controller>
+				
+				<Controller type="Fade" end="Pause" frame="$this">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".2" value="255" in="Auto"/>
+				</Controller>
+				
+				<Controller type="Dimension" dimension="Height" relative="False" percentage="True" unclip="False" end="Pause" frame="$this/InfoPanel">
+					<Key type="Curve" time="0" value="10"/>
+					<Key type="Curve" time=".3" value="100"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/levelTitle">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".31" value="0" in="Auto"/>
+					<Key type="Curve" time=".41" value="255" in="Auto"/>
+				</Controller>
+				
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/TitleFrillLeft">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".31" value="0" in="Auto"/>
+					<Key type="Curve" time=".41" value="150" in="Auto"/>
+				</Controller>
+				
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/TitleFrillRight">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".31" value="0" in="Auto"/>
+					<Key type="Curve" time=".41" value="150" in="Auto"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/PreviewPanel">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".32" value="0" in="Auto"/>
+					<Key type="Curve" time=".42" value="255" in="Auto"/>
+				</Controller>
+				
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/PreviewPanel/Scanlines">
+					<Key type="Curve" time="0" value="255" out="Auto"/>
+					<Key type="Curve" time=".33" value="255" in="Auto"/>
+					<Key type="Curve" time=".43" value="150" in="Auto"/>
+				</Controller>
+				
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/CompletionPanel">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".34" value="0" in="Auto"/>
+					<Key type="Curve" time=".44" value="255" in="Auto"/>
+				</Controller>
+				
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/CompletionFrillLeft">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".34" value="0" in="Auto"/>
+					<Key type="Curve" time=".44" value="150" in="Auto"/>
+				</Controller>
+				
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/CompletionFrillRight">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".34" value="0" in="Auto"/>
+					<Key type="Curve" time=".44" value="150" in="Auto"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/LevelDescriptionLabel">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".35" value="0" in="Auto"/>
+					<Key type="Curve" time=".45" value="255" in="Auto"/>
+				</Controller>
+				
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/PlayButton">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".36" value="0" in="Auto"/>
+					<Key type="Curve" time=".46" value="255" in="Auto"/>
+				</Controller>
+				
+				<Controller type="Fade" end="Pause" frame="$this/InfoPanel/DifficultyButton">
+					<Key type="Curve" time="0" value="0" out="Auto"/>
+					<Key type="Curve" time=".36" value="0" in="Auto"/>
+					<Key type="Curve" time=".46" value="255" in="Auto"/>
+				</Controller>
+            </Animation>
+
+            <Frame type="Frame" name="InfoPanel">
+                <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+				<Height val="825"/>
+                <Width val="520"/>
+
+                <Frame type="Image" name="Background">
+                    <Anchor relative="$parent"/>
+                    <TextureType val="NineSlice"/>
+                    <Texture val="Assets/Textures/ui_nameless_headsup_darkpanel.dds"/>
+                </Frame>
+				
+                <Frame type="Label" name="LevelTitle">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="25"/>
+					<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                    <Style val="LevelSelection_LevelTitle"/>
+					<Text val="Wasteland"/>
+                </Frame>
+				
+                <Frame type="Image" name="TitleFrillLeft">
+					<Anchor side="Top" relative="$parent/LevelTitle" pos="Mid" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/LevelTitle" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
+					<Anchor side="Right" relative="$parent/LevelTitle" pos="Min" offset="-30"/>
+					<Color val="1394ff"/>
+					<Height val="3"/>
+					<Alpha val="150"/>
+                </Frame>
+				
+                <Frame type="Image" name="TitleFrillRight">
+					<Anchor side="Top" relative="$parent/LevelTitle" pos="Mid" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/LevelTitle" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent/LevelTitle" pos="Max" offset="30"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="-30"/>
+					<Color val="1394ff"/>
+					<Height val="3"/>
+					<Alpha val="150"/>
+                </Frame>
+
+                <Frame type="Frame" name="PreviewPanel">
+                    <Anchor side="Top" relative="$parent/LevelTitle" pos="Max" offset="15"/>
+                    <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                    <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                    <Width val="460"/>
+                    <Height val="259"/>
+
+                    <Frame type="Image" name="PreviewImage">
+                        <Anchor side="Top" relative="$parent" pos="Min" offset="10"/>
+                        <Anchor side="Bottom" relative="$parent" pos="Max" offset="-10"/>
+                        <Anchor side="Left" relative="$parent" pos="Min" offset="10"/>
+                        <Anchor side="Right" relative="$parent" pos="Max" offset="-10"/>
+                        <RenderType val="LDR"/>
+                    </Frame>
+
+                    <Frame type="Image" name="Scanlines">
+                        <Anchor side="Top" relative="$parent" pos="Min" offset="10"/>
+                        <Anchor side="Bottom" relative="$parent" pos="Max" offset="-10"/>
+                        <Anchor side="Left" relative="$parent" pos="Min" offset="10"/>
+                        <Anchor side="Right" relative="$parent" pos="Max" offset="-10"/>
+                        <Texture val="Assets\Textures\ui_void_missionlaunch_portraitscanlines.dds"/>
+                        <Tiled val="true"/>
+                        <RenderType val="LDR"/>
+                    </Frame>
+
+                    <Frame type="Image" name="PreviewBackground">
+                        <Anchor relative="$parent"/>
+                        <Texture val="Assets\Textures\ui_battlenet_glues_pageassets_sectionborder_over.dds"/>
+                        <TextureType val="NineSlice"/>
+                        <RenderType val="LDR"/>
+                    </Frame>
+                </Frame>
+
+                <Frame type="Frame" name="CompletionPanel">
+                    <Anchor side="Top" relative="$parent/PreviewPanel" pos="Max" offset="25"/>
+                    <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                    <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                    <Width val="170"/>
+                    <Height val="50"/>
+
+                    <Frame type="Image" name="Star1">
+                        <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+                        <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+                        <Anchor side="Right" relative="$parent/Star2" pos="Min" offset="-7"/>
+                        <Texture val="Assets/Textures/ui_nameless_lvsel_performancestar_large_normal.dds"/>
+                        <Width val="50"/>
+                        <Height val="50"/>
+                    </Frame>
+
+                    <Frame type="Image" name="Star2">
+                        <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+                        <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+                        <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                        <Texture val="Assets/Textures/ui_nameless_lvsel_performancestar_large_normal.dds"/>
+                        <Width val="50"/>
+                        <Height val="50"/>
+                    </Frame>
+
+                    <Frame type="Image" name="Star3">
+                        <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+                        <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+                        <Anchor side="Left" relative="$parent/Star2" pos="Max" offset="7"/>
+                        <Texture val="Assets/Textures/ui_nameless_lvsel_performancestar_large_normal.dds"/>
+                        <Width val="50"/>
+                        <Height val="50"/>
+                    </Frame>
+                </Frame>
+
+                <Frame type="Image" name="CompletionFrillLeft">
+					<Anchor side="Top" relative="$parent/CompletionPanel" pos="Mid" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/CompletionPanel" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
+					<Anchor side="Right" relative="$parent/CompletionPanel" pos="Min" offset="-30"/>
+					<Color val="1394ff"/>
+					<Height val="3"/>
+					<Alpha val="150"/>
+                </Frame>
+				
+                <Frame type="Image" name="CompletionFrillRight">
+					<Anchor side="Top" relative="$parent/CompletionPanel" pos="Mid" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/CompletionPanel" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent/CompletionPanel" pos="Max" offset="30"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="-30"/>
+					<Color val="1394ff"/>
+					<Height val="3"/>
+					<Alpha val="150"/>
+                </Frame>
+				
+                <Frame type="Label" name="LevelDescriptionLabel">
+                    <Anchor side="Top" relative="$parent/CompletionPanel" pos="Min" offset="85"/>
+                    <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                    <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                    <Width val="450"/>
+                    <Style val="LevelSelection_LevelDescription"/>
+                </Frame>
+
+                <Frame type="Button" name="DifficultyButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+                    <Anchor side="Bottom" relative="$parent" pos="Max" offset="-32"/>
+                    <Anchor side="Left" relative="$parent" pos="Min" offset="32"/>
+                    <Style val="LevelSelection_ButtonLabel"/>
+                    <Text val="Difficulty"/>
+                    <Width val="215"/>
+                    <Height val="65"/>
+                </Frame>
+
+                <Frame type="Button" name="PlayButton" template="NamelessTD_StandardTemplates/SquareButtonTemplate">
+                    <Anchor side="Bottom" relative="$parent" pos="Max" offset="-32"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="-32"/>
+                    <Style val="LevelSelection_ButtonLabel"/>
+                    <Text val="Play"/>
+                    <Width val="215"/>
+                    <Height val="65"/>
+                </Frame>
+            </Frame>
+
+            <!--Frame type="Frame" name="GamemodePanel">
+                <Anchor side="Bottom" relative="$parent/InfoPanel" pos="Max" offset="-50"/>
+                <Anchor side="Right" relative="$parent/InfoPanel" pos="Min" offset="20"/>
+                <Width val="150"/>
+                <Height val="300"/>
+                <Visible val="false"/>
+
+                <Frame type="Button" name="CampaignMode">
+                    <Anchor side="Bottom" relative="$parent" pos="Max" offset="-20"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                    <Width val="80"/>
+                    <Height val="70"/>
+
+                    <Frame type="Image" name="NormalImage">
+                        <Anchor relative="$parent"/>
+                        <Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+                        <TextureType val="NineSlice"/>
+                    </Frame>
+
+                    <Frame type="Image" name="HoverImage">
+                        <Anchor relative="$parent"/>
+                        <Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+                        <TextureType val="NineSlice"/>
+                    </Frame>
+                </Frame>
+
+                <Frame type="Button" name="EasyChallenge">
+                    <Anchor side="Bottom" relative="$parent/CampaignMode" pos="Min" offset="-10"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                    <Width val="80"/>
+                    <Height val="70"/>
+
+                    <Frame type="Image" name="NormalImage">
+                        <Anchor relative="$parent"/>
+                        <Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+                        <TextureType val="NineSlice"/>
+                    </Frame>
+
+                    <Frame type="Image" name="HoverImage">
+                        <Anchor relative="$parent"/>
+                        <Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+                        <TextureType val="NineSlice"/>
+                    </Frame>
+                </Frame>
+
+                <Frame type="Button" name="HardChallenge">
+                    <Anchor side="Bottom" relative="$parent/EasyChallenge" pos="Min" offset="-10"/>
+                    <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                    <Width val="80"/>
+                    <Height val="70"/>
+
+                    <Frame type="Image" name="NormalImage">
+                        <Anchor relative="$parent"/>
+                        <Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+                        <TextureType val="NineSlice"/>
+                    </Frame>
+
+                    <Frame type="Image" name="HoverImage">
+                        <Anchor relative="$parent"/>
+                        <Texture val="Assets\Textures\ui_nameless_headsup_standardpanel.dds"/>
+                        <TextureType val="NineSlice"/>
+                    </Frame>
+                </Frame>
+            </Frame-->
+        </Frame>
+	</Frame>
+</Desc>

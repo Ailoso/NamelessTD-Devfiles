@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+    <Include path="UI/Layout/NamelessTD_StandardTemplates.SC2Layout"/>
+    <Include path="UI/Layout/NamelessTD_HUD.SC2Layout"/>
+    <Include path="UI/Layout/NamelessTD_LevelSelection.SC2Layout"/>
+    <Include path="UI/Layout/NamelessTD_TransitionPanel.SC2Layout"/>
+    <Include path="UI/Layout/NamelessTD_GameMenus.SC2Layout"/>
+    <Include path="UI/Layout/NamelessTD_StoryUI.SC2Layout"/>
+    <Include path="UI/Layout/NamelessTD_GameUI.SC2Layout"/>
+    <Include path="UI/Layout/GameUIOverrides.SC2Layout"/>
+</Desc>

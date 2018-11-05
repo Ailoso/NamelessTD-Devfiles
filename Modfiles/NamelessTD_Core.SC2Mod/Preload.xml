@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Preload>
+<Actor id="SYSTEM_ActorConfig"/>
+<Light id="TaurenMarinePortrait"/>
+<Model id="AdjutantPortrait"/>
+<Model id="ZerglingPortrait"/>
+<Model id="RaynorCommanderPortrait"/>
+<Model id="TaurenMarinePortrait"/>
+<Model id="RaynorMarinePortrait3D"/>
+<Sound id="TextCrawlType"/>
+<Soundtrack id="Ambience_Space01"/>
+<Unit id="Vulture"/>
+<Unit id="TaurenSpaceMarine"/>
+<Unit id="InvisibleTargetDummy"/>
+<User id="Wave2Groups"/>
+<User id="Wave1Groups"/>
+<User id="Wave3Groups"/>
+<User id="Wave4Groups"/>
+</Preload>

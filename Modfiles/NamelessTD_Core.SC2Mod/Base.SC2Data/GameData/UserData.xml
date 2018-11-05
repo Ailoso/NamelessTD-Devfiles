@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CUser id="DefeatHints"/>
+    <CUser id="GameAchievements" parent="DefeatHints">
+        <Fields Id="Type" Type="String" EditorColumn="1"/>
+        <Fields Id="ID" Type="Int" EditorColumn="2"/>
+        <Fields Id="Award Terms" Type="String" EditorColumn="3"/>
+        <Fields Id="Award Description" Type="String" EditorColumn="4"/>
+        <Fields Id="Title" Type="String" EditorColumn="5"/>
+        <Fields Id="Icon" Type="Image" EditorColumn="6"/>
+        <Instances/>
+        <Instances Id="Played the Alpha!">
+            <Image Image="Assets\Textures\icon-achievement-Alpha.dds">
+                <Field Id="Icon"/>
+            </Image>
+            <Int Int="1">
+                <Field Id="ID"/>
+            </Int>
+            <String String="Feat">
+                <Field Id="Type"/>
+            </String>
+            <String String="How did you mess that up so bad!">
+                <Field Id="Type" Index="1"/>
+            </String>
+            <String String="Wow... you kinda suck at this...">
+                <Field Id="Type" Index="2"/>
+            </String>
+            <String String="Played the Alpha.">
+                <Field Id="Award Description"/>
+            </String>
+            <String String="Play during the Alpha phase.">
+                <Field Id="Award Terms"/>
+            </String>
+            <String String="Thanks for Playing!">
+                <Field Id="Title"/>
+            </String>
+        </Instances>
+    </CUser>
+    <CUser id="GameHints">
+        <Fields Id="Description" Type="Text" EditorColumn="2"/>
+        <Fields Id="Hint Type" Type="String" EditorColumn="3"/>
+        <Fields Id="Icon" Type="Image" EditorColumn="4"/>
+        <Fields Id="Title" Type="Text" EditorColumn="1"/>
+        <Instances Id="[Override]Tutorial 1">
+            <Text Text="UserData/GameHints/[Override]Tutorial 1_Description">
+                <Field Id="Description"/>
+            </Text>
+            <Text Text="UserData/GameHints/[Override]Tutorial 1_Title">
+                <Field Id="Title"/>
+            </Text>
+        </Instances>
+    </CUser>
+    <CUser id="HeroHints">
+        <Fields>
+            <Id value="Hero Type"/>
+            <Type value="GameLink"/>
+            <GameLinkType value="Model"/>
+            <EditorColumn value="1"/>
+        </Fields>
+        <Fields>
+            <Id value="Portrait"/>
+            <Type value="GameLink"/>
+            <GameLinkType value="Model"/>
+            <EditorColumn value="2"/>
+        </Fields>
+        <Fields>
+            <Id value="Portrait Lighting"/>
+            <Type value="GameLink"/>
+            <GameLinkType value="Light"/>
+            <EditorColumn value="3"/>
+        </Fields>
+        <Fields Id="Subtitle" Type="String" EditorColumn="4"/>
+        <Fields Id="Description" Type="String" EditorColumn="5"/>
+        <Fields Id="UnitName" Type="String" EditorColumn="6"/>
+        <Fields Id="HeroIcon" Type="Image" EditorColumn="7"/>
+        <Instances Id="[Default]"/>
+        <Instances Id="Tauren Marine">
+            <GameLink GameLink="TaurenSpaceMarine">
+                <Field Id="Hero Type"/>
+            </GameLink>
+            <GameLink GameLink="TaurenMarinePortrait">
+                <Field Id="Portrait"/>
+            </GameLink>
+            <GameLink GameLink="TaurenMarinePortrait">
+                <Field Id="Portrait Lighting"/>
+            </GameLink>
+            <Image Image="Assets\Textures\btn-hero-raynor.dds">
+                <Field Id="HeroIcon"/>
+            </Image>
+            <String String="Heavy Assault Hero, can deal heavy damage on single units.">
+                <Field Id="Description"/>
+            </String>
+            <String String="Here&apos;s The Beef!">
+                <Field Id="Subtitle"/>
+            </String>
+            <String String="Tauren Marine">
+                <Field Id="UnitName"/>
+            </String>
+        </Instances>
+    </CUser>
+    <CUser id="EnemyHints">
+        <Fields>
+            <Id value="Enemy Type"/>
+            <Type value="GameLink"/>
+            <GameLinkType value="Model"/>
+            <EditorColumn value="1"/>
+        </Fields>
+        <Fields>
+            <Id value="Portrait"/>
+            <Type value="GameLink"/>
+            <GameLinkType value="Model"/>
+            <EditorColumn value="2"/>
+        </Fields>
+        <Fields>
+            <Id value="Portrait Lighting"/>
+            <Type value="GameLink"/>
+            <GameLinkType value="Light"/>
+            <EditorColumn value="3"/>
+        </Fields>
+        <Fields Id="Subtitle" Type="String" EditorColumn="4"/>
+        <Fields Id="Description" Type="String" EditorColumn="5"/>
+        <Fields Id="UnitName" Type="String" EditorColumn="6"/>
+        <Fields Id="UnitIcon" Type="Image" EditorColumn="7"/>
+        <Instances Id="[Default]"/>
+        <Instances Id="Zergling">
+            <GameLink GameLink="Zergling">
+                <Field Id="Enemy Type"/>
+            </GameLink>
+            <GameLink GameLink="ZerglingPortrait">
+                <Field Id="Portrait"/>
+            </GameLink>
+            <GameLink GameLink="ZerglingPortrait">
+                <Field Id="Portrait Lighting"/>
+            </GameLink>
+            <Image Image="Assets\Textures\btn-unit-zerg-zergling.dds">
+                <Field Id="UnitIcon"/>
+            </Image>
+            <String String="Cunning Zerg species, comes in large numbers.">
+                <Field Id="Description"/>
+            </String>
+            <String String="It&apos;s a zergling, Lester...smaller type of zerg...">
+                <Field Id="Subtitle"/>
+            </String>
+            <String String="Zergling">
+                <Field Id="UnitName"/>
+            </String>
+        </Instances>
+    </CUser>
+    <CUser id="LevelData">
+        <Fields Id="ID" Type="Int" EditorColumn="1"/>
+        <Fields Id="Title" Type="String" EditorColumn="2"/>
+        <Fields Id="Description" Type="String" EditorColumn="3"/>
+        <Fields Id="Preview Image" Type="Image" EditorColumn="4"/>
+        <Instances Id="[Default]"/>
+        <Instances Id="Wasteland 01">
+            <Image Image="Assets\Textures\ui_nameless_selection_levelpreview_level1.dds">
+                <Field Id="Preview Image"/>
+            </Image>
+            <Int Int="1">
+                <Field Id="ID"/>
+            </Int>
+            <String String="Placeholder description for the wasteland level.">
+                <Field Id="Description"/>
+            </String>
+            <String String="Wasteland">
+                <Field Id="Title"/>
+            </String>
+        </Instances>
+        <Instances Id="Bootcamp 00">
+            <Image Image="Assets\Textures\ui_nameless_selection_levelpreview_level1.dds">
+                <Field Id="Preview Image"/>
+            </Image>
+            <String String="Tutorial map and feature testing for Nameless TD">
+                <Field Id="Description"/>
+            </String>
+            <String String="Bootcamp">
+                <Field Id="Title"/>
+            </String>
+        </Instances>
+    </CUser>
+    <CUser id="LevelStartingData">
+        <Fields Id="Starting Gold" Type="Int" EditorColumn="2"/>
+        <Fields Id="Max Waves" Type="Int" EditorColumn="3"/>
+        <Fields Id="Starting Lives" Type="Int" EditorColumn="1"/>
+        <Instances Id="[Override]Level 1">
+            <Int Int="220">
+                <Field Id="Starting Gold"/>
+            </Int>
+        </Instances>
+    </CUser>
+    <CUser id="LevelPathData">
+        <Fields>
+            <Id value="PathID"/>
+            <Type value="String"/>
+            <Count value="2"/>
+            <EditorColumn value="3"/>
+        </Fields>
+        <Fields>
+            <Id value="PathMaxPoints"/>
+            <Type value="Int"/>
+            <Count value="2"/>
+            <EditorColumn value="2"/>
+        </Fields>
+    </CUser>
+    <CUser id="Wave2Groups">
+        <Fields Id="Entrance" Type="String" EditorColumn="1"/>
+        <Fields Id="Quantity" Type="Int" EditorColumn="3"/>
+        <Instances/>
+        <Instances/>
+        <Instances/>
+        <Instances/>
+        <Instances Id="[Override]Group 1">
+            <Fixed Fixed="1">
+                <Field Id="Spawn Delay"/>
+            </Fixed>
+            <Int Int="4"/>
+        </Instances>
+        <Instances Id="[Override]Group 2">
+            <Fixed Fixed="1">
+                <Field Id="Spawn Delay"/>
+            </Fixed>
+            <Int Int="5">
+                <Field Id="Quantity"/>
+            </Int>
+        </Instances>
+        <Instances Id="[Override]Group 3">
+            <Fixed Fixed="6">
+                <Field Id="GroupDelay"/>
+            </Fixed>
+            <Int Int="7">
+                <Field Id="Quantity"/>
+            </Int>
+        </Instances>
+    </CUser>
+    <CUser id="Wave1Groups">
+        <Fields Id="Entrance" Type="String" EditorColumn="1"/>
+        <Fields Id="Spawn Delay" Type="Fixed" EditorColumn="4"/>
+        <Fields Id="GroupDelay" Type="Fixed" EditorColumn="5"/>
+        <Fields Id="Quantity" Type="Int" EditorColumn="3"/>
+        <Fields>
+            <Id value="Unit"/>
+            <Type value="GameLink"/>
+            <GameLinkType value="Unit"/>
+            <EditorColumn value="2"/>
+        </Fields>
+        <Instances Id="Group 2">
+            <Fixed Fixed="6">
+                <Field Id="GroupDelay"/>
+            </Fixed>
+            <Fixed Fixed="1.2998">
+                <Field Id="Spawn Delay"/>
+            </Fixed>
+            <GameLink GameLink="Zergling">
+                <Field Id="Unit"/>
+            </GameLink>
+            <Int Int="5">
+                <Field Id="Quantity"/>
+            </Int>
+            <String String="A">
+                <Field Id="Entrance"/>
+            </String>
+        </Instances>
+        <Instances Id="[Override]Group 1">
+            <Fixed Fixed="1.4">
+                <Field Id="Spawn Delay"/>
+            </Fixed>
+        </Instances>
+    </CUser>
+    <CUser id="Wave3Groups" parent="Wave2Groups">
+        <Instances index="1" Id="Group 1">
+            <Fixed Fixed="1"/>
+            <Fixed Fixed="3"/>
+        </Instances>
+        <Instances index="2" Id="Group 2">
+            <Fixed Fixed="6"/>
+            <Fixed Fixed="1"/>
+            <Int Int="6"/>
+            <String String="B"/>
+        </Instances>
+        <Instances index="3" Id="Group 3">
+            <Fixed Fixed="7"/>
+            <Int Int="7"/>
+        </Instances>
+        <Instances index="4" Id="Group 4">
+            <Fixed index="0" Fixed="7">
+                <Field Id="GroupDelay"/>
+            </Fixed>
+            <Fixed Fixed="1">
+                <Field Id="Spawn Delay"/>
+            </Fixed>
+            <GameLink GameLink="Zergling">
+                <Field Id="Unit"/>
+            </GameLink>
+            <Int index="0" Int="9"/>
+            <String String="B">
+                <Field Id="Entrance"/>
+            </String>
+        </Instances>
+        <Instances index="5" removed="1"/>
+        <Instances index="6" removed="1"/>
+    </CUser>
+    <CUser id="Wave4Groups" parent="Wave2Groups">
+        <Instances index="1" Id="Group 1">
+            <Fixed Fixed="1"/>
+            <GameLink GameLink="HydraliskCreep"/>
+            <Int Int="3"/>
+            <String String="B"/>
+        </Instances>
+        <Instances index="2" Id="Group 2">
+            <Fixed Fixed="3"/>
+            <Fixed Fixed="1"/>
+            <Int Int="5"/>
+            <String String="B"/>
+        </Instances>
+        <Instances index="3" Id="Group 3">
+            <Fixed Fixed="8"/>
+            <Fixed Fixed="0.9"/>
+            <Int Int="6"/>
+        </Instances>
+        <Instances index="4" Id="Group 4">
+            <Fixed index="0" Fixed="3.5">
+                <Field Id="GroupDelay"/>
+            </Fixed>
+            <Fixed Fixed="0.9">
+                <Field Id="Spawn Delay"/>
+            </Fixed>
+            <GameLink GameLink="Zergling">
+                <Field Id="Unit"/>
+            </GameLink>
+            <Int index="0" Int="6"/>
+            <String String="B">
+                <Field Id="Entrance"/>
+            </String>
+        </Instances>
+        <Instances index="5" Id="Group 5">
+            <Fixed index="0" Fixed="4">
+                <Field Id="GroupDelay"/>
+            </Fixed>
+            <Fixed Fixed="1">
+                <Field Id="Spawn Delay"/>
+            </Fixed>
+            <GameLink GameLink="HydraliskCreep">
+                <Field Id="Unit"/>
+            </GameLink>
+            <Int index="0" Int="4"/>
+        </Instances>
+        <Instances index="6" removed="1"/>
+    </CUser>
+    <CUser id="WaveData">
+        <Instances Id="Wave 3">
+            <Fixed Fixed="80">
+                <Field Id="WaveDuration"/>
+            </Fixed>
+            <Int Int="4">
+                <Field Id="Max Groups"/>
+            </Int>
+            <User Type="Wave3Groups" Instance="Group 1">
+                <Field Id="Groups"/>
+            </User>
+            <User Type="Wave3Groups" Instance="Group 2">
+                <Field Id="Groups" Index="1"/>
+            </User>
+            <User Type="Wave3Groups" Instance="Group 3">
+                <Field Id="Groups" Index="2"/>
+            </User>
+            <User Type="Wave3Groups" Instance="Group 4">
+                <Field Id="Groups" Index="3"/>
+            </User>
+        </Instances>
+        <Instances Id="Wave 4">
+            <Fixed Fixed="80">
+                <Field Id="WaveDuration"/>
+            </Fixed>
+            <Int Int="5">
+                <Field Id="Max Groups"/>
+            </Int>
+            <User Type="Wave4Groups" Instance="Group 1">
+                <Field Id="Groups"/>
+            </User>
+            <User Type="Wave4Groups" Instance="Group 2">
+                <Field Id="Groups" Index="1"/>
+            </User>
+            <User Type="Wave4Groups" Instance="Group 3">
+                <Field Id="Groups" Index="2"/>
+            </User>
+            <User Type="Wave4Groups" Instance="Group 4">
+                <Field Id="Groups" Index="3"/>
+            </User>
+            <User Type="Wave4Groups" Instance="Group 5">
+                <Field Id="Groups" Index="4"/>
+            </User>
+        </Instances>
+        <Instances Id="[Override]Wave 1">
+            <Fixed Fixed="56">
+                <Field Id="WaveDuration"/>
+            </Fixed>
+            <Int Int="2">
+                <Field Id="Max Groups"/>
+            </Int>
+            <User Type="Wave1Groups" Instance="Group 2">
+                <Field Id="Groups" Index="1"/>
+            </User>
+        </Instances>
+        <Instances Id="[Override]Wave 2">
+            <Fixed Fixed="76">
+                <Field Id="WaveDuration"/>
+            </Fixed>
+            <User Type="Wave2Groups" Instance="Group 4">
+                <Field Id="Groups" Index="3"/>
+            </User>
+        </Instances>
+    </CUser>
+</Catalog>

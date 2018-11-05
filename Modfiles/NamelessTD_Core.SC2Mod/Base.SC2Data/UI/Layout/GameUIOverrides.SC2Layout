@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+	<Frame type="CommandPanel" name="GameUI/UIContainer/ConsoleUIContainer/CommandPanel" file="GameUI">
+        <Anchor side="Bottom" relative="$parent" pos="Max" offset="300"/>
+        <Anchor side="Right" relative="$parent" pos="Max" offset="-500"/>
+
+        <Animation name="Hide">
+            <Event event="OnShown" action="Reset,Play"/>
+             
+            <Controller type="Visibility" end="Pause">
+                <Key type="Bool" time="0" value="False"/>
+            </Controller>
+        </Animation>
+    </Frame>
+
+	<!--Frame type="MinimapPanel" name="GameUI/UIContainer/ConsoleUIContainer/MinimapPanel" file="GameUI">
+        <RenderBackground val="false"/>
+    </Frame-->
+
+	<Frame type="MinimapPanel" name="GameUI/UIContainer/ConsoleUIContainer/MinimapPanel" file="GameUI">
+
+        <Frame type="Image" name="MinimapBackground">
+            <Anchor side="Top" relative="$parent/Minimap" pos="Mid" offset="0"/>
+            <Anchor side="Bottom" relative="$parent/Minimap" pos="Mid" offset="0"/>
+            <Anchor side="Left" relative="$parent/Minimap" pos="Mid" offset="0"/>
+            <Anchor side="Right" relative="$parent/Minimap" pos="Mid" offset="0"/>
+            <Texture val="Assets/Textures/ui_nameless_minimap_lv1_normal.dds"/>
+            <RenderPriority val="500"/>
+        </Frame>
+
+        <Frame type="Minimap" name="Minimap">
+            <RenderPriority val="510"/>
+			
+			<Frame type="Image" name="HoverImage">
+				<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Texture val="Assets/Textures/ui_nameless_minimap_lv1_hover.dds"/>
+				<RenderPriority val="520"/>
+				<Alpha val="5"/>
+				
+				<Animation name="Hover">
+					<Event event="OnMouseEnter" action="DirectionForward,Play"/>
+					<Event event="OnMouseExit" action="DirectionReverse,Play"/>
+					 
+					<Controller type="Property" property="Alpha" end="Pause" frame="$this">
+						<Key type="Property" time="0" value="5"/>
+						<Key type="Property" time=".2" value="255"/>
+					</Controller>
+				</Animation>
+			</Frame>
+        </Frame>
+		
+			<!--Frame type="Image" name="HoverImage">
+				<Anchor side="Top" relative="$parent/Minimap" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent/Minimap" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent/Minimap" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent/Minimap" pos="Mid" offset="0"/>
+				<Texture val="Assets/Textures/ui_nameless_minimap_lv1_hover.dds"/>
+				<RenderPriority val="520"/>
+				<Alpha val="5"/>
+				
+				<Animation name="Hover">
+					<Event event="OnMouseEnter" action="DirectionForward,Play"/>
+					<Event event="OnMouseExit" action="DirectionReverse,Play"/>
+					 
+					<Controller type="Property" property="Alpha" end="Pause" frame="$this">
+						<Key type="Property" time="0" value="5"/>
+						<Key type="Property" time=".2" value="255"/>
+					</Controller>
+				</Animation>
+			</Frame-->
+
+        <Animation name="Override">
+            <Event event="OnShown" action="Reset,Play"/>
+             
+            <Controller type="Property" property="RenderBackground" end="Pause" frame="$this/Minimap">
+                <Key type="Property" time="0" value="false"/>
+            </Controller>
+			
+            <Controller type="Property" property="HitTestPrecision" end="Pause" frame="$this/Minimap">
+                <Key type="Property" time="0" value="128"/>
+            </Controller>
+			
+            <Controller type="Property" property="HitTestRequireValidTarget" end="Pause" frame="$this/Minimap">
+                <Key type="Property" time="0" value="true"/>
+            </Controller>
+			
+            <Controller type="Property" property="AlphaMaskTexture" end="Pause" frame="$this/Minimap">
+                <Key type="Property" time="0" value="Assets/Textures/ui_nameless_minimap_lv1_normal.dds"/>
+            </Controller>
+
+            <Controller type="Visibility" end="Pause" frame="$this/PingButton">
+                <Key type="Bool" time="0" value="False"/>
+            </Controller>
+
+            <Controller type="Visibility" end="Pause" frame="$this/TerrainButton">
+                <Key type="Bool" time="0" value="False"/>
+            </Controller>
+
+            <Controller type="Visibility" end="Pause" frame="$this/ColorButton">
+                <Key type="Bool" time="0" value="False"/>
+            </Controller>
+        </Animation>
+    </Frame>
+</Desc>

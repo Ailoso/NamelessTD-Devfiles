@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CutsceneState cutsceneVersion="1.300000">
+    <CCutsceneNodeDirector guid="12109820804168148249" name="Director">
+        <CCutsceneNodeActiveCamera guid="12198299222114821401" name="Active Camera">
+            <CCutsceneElementActiveCamera guid="7496623129051260185" cameraIndex="0" objectGuid="10600643156906337561"/>
+        </CCutsceneNodeActiveCamera>
+        <CCutsceneNodeActiveLight guid="9448079934176355609" name="Active Light">
+            <CCutsceneElementActiveLight guid="4804024100153713945" lightGUID="0" lightID="MarSaraSelection" lightIndex="0" blendTime="0"/>
+        </CCutsceneNodeActiveLight>
+        <CCutsceneNodeBookmark guid="11437403150962910489" name="Bookmarks">
+            <CCutsceneElementBookmark guid="6557077971646099694" start="2000" bookmarkName="ForegroundStart"/>
+            <CCutsceneElementBookmark guid="7200230257747813657" start="3000" bookmarkName="LoopStart"/>
+            <CCutsceneElementBookmark guid="7783834412542846233" start="487066" bookmarkName="LoopEnd" jumpToBookmarkWhenHit="LoopStart"/>
+        </CCutsceneNodeBookmark>
+    </CCutsceneNodeDirector>
+    <CCutsceneNodeTargetCamera guid="10600643156906337561" name="ForegroundCamera" position="-0.040428,0.463409,-0.033639" fov="27.799999" nearClip="0.100000" farClip="600.000000" shadowClip="75.000000" depthOfField="0.000000" focalDepth="8.000000" falloffStart="0.000300" falloffEnd="8.000000" falloffStartNear="0.000000" falloffEndNear="0.000000" fstop="32.000000" doftype="0.000000" roll="0.000000" eyePositionX="0.269341" eyePositionY="-12.212627" eyePositionZ="-0.368584" targetPositionX="-0.040428" targetPositionY="0.463409" targetPositionZ="-0.033639">
+        <CCutsceneElementObject guid="6867214775836992793" duration="499850" lockedToEnd="1"/>
+    </CCutsceneNodeTargetCamera>
+    <CCutsceneNodeActor guid="10402356955075306777" name="ForegroundScreenFX" modelPath="Assets\UI\Glues\UI_Screens_TrophyRoom_Background_VictoryFXs\UI_Screens_TrophyRoom_Background_VictoryFXs.m3" shadowBox="0" opacity="0.000000" teamColorDiffuse="0.705800,0.078300,0.117600,1.000000" teamColorEmissive="0.545100,0.062700,0.086100,1.000000">
+        <CCutsceneElementObject guid="8275453673666241817" duration="499850" lockedToEnd="1"/>
+        <CCutsceneNodeAnimLayer guid="12778787429676213529" name="Animation Layer">
+            <CCutsceneElementAnim guid="6800576154921329945" duration="499850" lockedToEnd="1" anim="Stand" priority="3" originalDuration="6667" looping="1"/>
+        </CCutsceneNodeAnimLayer>
+        <CCutsceneNodePropertyValue guid="10695963607530142191" name="Property - Opacity" propertyName="opacity">
+            <CCutsceneElementPropertyCurve guid="6305187561230236143" value="0.000000" time="0.000000" curveInValue="-1.000000,0.000000" curveOutValue="666.666687,0.333333" curveOutType="3" curveInType="3"/>
+            <CCutsceneElementPropertyCurve guid="6755429774370894207" start="2077" value="1.000000" time="2000.000000" curveInValue="1333.333252,0.666667" curveOutValue="2001.000000,1.000000" curveOutType="3" curveInType="3"/>
+        </CCutsceneNodePropertyValue>
+    </CCutsceneNodeActor>
+</CutsceneState>

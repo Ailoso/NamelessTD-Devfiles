@@ -1,0 +1,1629 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+    <Frame type="Frame" name="TransitionTemplates">
+        <Anchor relative="$parent"/>
+
+		<Animation name="IntroStage1">
+			<Event event="IntroStage1" action="Reset,Play"/>
+
+            <Controller type="Event" end="Pause" frame="$this/IntroTransition">
+                <Key type="Event" time="0" event="IntroStart"/>
+            </Controller>
+		</Animation>
+
+		<Animation name="DisplayTransition">
+			<Event event="DisplayTransition" action="Reset,Play"/>
+
+            <Controller type="Visibility" end="Pause" frame="$this/TransitionPanelAnchor">
+                <Key type="Bool" time="0" value="True"/>
+            </Controller>
+		</Animation>
+
+		<Animation name="HideTransition">
+			<Event event="HideTransition" action="Play"/>
+
+            <Controller type="Event" end="Stop" frame="$this/TransitionPanelAnchor">
+                <Key type="Event" time="0" event="Hide"/>
+            </Controller>
+		</Animation>
+
+		<Animation name="DisplayHalfTransition">
+			<Event event="DisplayHalfTransition" action="Reset,Play"/>
+
+            <Controller type="Visibility" end="Pause" frame="$this/CenterMenuHalfTransition">
+                <Key type="Bool" time="0" value="True"/>
+            </Controller>
+		</Animation>
+
+		<Animation name="HideHalfTransition">
+			<Event event="HideHalfTransition" action="Play"/>
+
+            <Controller type="Event" end="Stop" frame="$this/CenterMenuHalfTransition">
+                <Key type="Event" time="0" event="Hide"/>
+            </Controller>
+		</Animation>
+
+		<Frame type="Frame" name="TransitionPanelAnchor">
+			<Anchor relative="$parent"/>
+			<Visible val="False"/>
+
+			<Frame type="Image" name="WorldCover">
+				<Anchor relative="$parent"/>
+				<Texture val="Assets\Textures\white.dds"/>
+				<Color val="000000"/>
+				<AcceptsMouse val="true"/>
+				<RenderPriority val="1"/>
+				<RenderType val="HDR"/>
+				<Alpha val="0"/>
+			</Frame>
+
+			<Animation name="Show">
+				<Event event="OnShown" action="Reset,Play"/>
+				 
+				<Controller type="Dimension" dimension="Height" relative="False" percentage="false" unclip="False" end="Pause" frame="$this/PanelCover">
+					<Key type="Curve" time="0" value="0"/>
+					<Key type="Curve" time=".15" value="1200"/>
+				</Controller>
+
+				<Controller type="Dimension" dimension="Height" relative="True" percentage="false" unclip="False" end="Pause" frame="$this/VerticalLines">
+					<Key type="Curve" time="0" value="0"/>
+					<Key type="Curve" time=".15" value="0"/>
+					<Key type="Curve" time=".3" value="1200"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/VerticalLines">
+					<Key type="Curve" time="0" value="0" out="Slow"/>
+					<Key type="Curve" time=".15" value="90" in="Slow"/>
+				</Controller>
+
+				<Controller type="Dimension" dimension="Width" relative="True" percentage="false" unclip="False" end="Pause" frame="$this/HorizontalLines">
+					<Key type="Curve" time="0" value="0"/>
+					<Key type="Curve" time=".25" value="0"/>
+					<Key type="Curve" time=".4" value="2130"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/HorizontalLines">
+					<Key type="Curve" time="0" value="0" out="Slow"/>
+					<Key type="Curve" time=".15" value="90" in="Slow"/>
+				</Controller>
+
+				<Controller type="Visibility" end="Pause" frame="$this/QuadrantPanels">
+					<Key type="Bool" time="0" value="False"/>
+					<Key type="Bool" time=".4" value="True"/>
+				</Controller>
+
+				<Controller type="Visibility" end="Pause" frame="$this/PanelCover">
+					<Key type="Bool" time="0" value="True"/>
+					<Key type="Bool" time=".7" value="False"/>
+				</Controller>
+			</Animation>
+
+			<Animation name="Hide">
+				<Event event="Hide" action="Reset,Play"/>
+
+				<Controller type="Visibility" end="Pause" frame="$this/WorldCover">
+					<Key type="Bool" time=".8" value="False"/>
+					<Key type="Bool" time="1" value="True"/>
+				</Controller>
+
+                <Controller type="Event" end="Stop" frame="$this/QuadrantPanels">
+                    <Key type="Event" time="0" event="Hide"/>
+                </Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/VerticalLines">
+					<Key type="Curve" time="0" value="90" out="Fast"/>
+					<Key type="Curve" time=".4" value="90" out="Fast"/>
+					<Key type="Curve" time="1" value="255" in="Slow" out="Slow"/>
+					<Key type="Curve" time="1.4" value="0" in="Fast"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/HorizontalLines">
+					<Key type="Curve" time="0" value="90" out="Fast"/>
+					<Key type="Curve" time=".4" value="90" out="Fast"/>
+					<Key type="Curve" time="1" value="255" in="Slow" out="Slow"/>
+					<Key type="Curve" time="1.4" value="0" in="Fast"/>
+				</Controller>
+			</Animation>
+
+
+			<Frame type="Image" name="PanelCover">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+				<Color val="9,18,35"/>
+				<Height val="1200"/>
+                <Visible val="True"/>
+
+				<Frame type="Image" name="GridPattern">
+					<Anchor relative="$parent"/>
+					<Texture val="Assets\Textures\ui_nova_storymode_bggrid.dds"/>
+					<Tiled val="true"/>
+					<Height val="1200"/>
+					<ColorAdjustMode val="Colorize"/>
+					<LightAdjustColor val="5,89,123"/>
+					<Alpha val="50"/>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="QuadrantPanels">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+
+				<Animation name="Show">
+					<Event event="OnShown" action="Reset,Play"/>
+					 
+					<Controller type="Fade" end="Pause">
+						<Key type="Curve" time="0" value="0" out="Slow"/>
+						<Key type="Curve" time=".2" value="255" in="Slow"/>
+					</Controller>
+				</Animation>
+
+                <Animation name="Hide">
+                    <Event event="Hide" action="Reset,Play"/>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantD3/Image">
+                        <Key type="Event" time="0" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantC3/Image">
+                        <Key type="Event" time=".2" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantD2/Image">
+                        <Key type="Event" time=".2" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantE3/Image">
+                        <Key type="Event" time=".2" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantD4/Image">
+                        <Key type="Event" time=".2" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantB3/Image">
+                        <Key type="Event" time=".4" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantC2/Image">
+                        <Key type="Event" time=".4" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantD1/Image">
+                        <Key type="Event" time=".4" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantE2/Image">
+                        <Key type="Event" time=".4" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantF3/Image">
+                        <Key type="Event" time=".4" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantE4/Image">
+                        <Key type="Event" time=".4" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantD5/Image">
+                        <Key type="Event" time=".4" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantC4/Image">
+                        <Key type="Event" time=".4" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantB3/Image">
+                        <Key type="Event" time=".4" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantA3/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantB2/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantC1/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantE1/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantF2/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantG3/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantF4/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantE5/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantC5/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantB4/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantA2/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantB1/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantF1/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantG2/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantG4/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantF5/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantB5/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantA4/Image">
+                        <Key type="Event" time=".6" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantA1/Image">
+                        <Key type="Event" time=".8" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantG1/Image">
+                        <Key type="Event" time=".8" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantG5/Image">
+                        <Key type="Event" time=".8" event="Collapse"/>
+                    </Controller>
+
+                    <Controller type="Event" end="Stop" frame="$this/QuadrantA5/Image">
+                        <Key type="Event" time=".8" event="Collapse"/>
+                    </Controller>
+                </Animation>
+
+
+	<!-- Line A -->
+
+				<Frame type="Frame" name="QuadrantA1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line2" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line2" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantB1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line2" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line3" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">   
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantC1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line2" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line4" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantD1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line2" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line5" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">   
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantE1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line2" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line6" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantF1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line2" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line6" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line7" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">   
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantG1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line2" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line7" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+	<!-- Line B -->
+
+				<Frame type="Frame" name="QuadrantA2">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line3" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line2" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantB2">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line3" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line3" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantC2">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line3" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line4" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantD2">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line3" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line5" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantE2">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line3" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line6" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantF2">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line3" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line6" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line7" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantG2">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line3" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line7" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+	<!-- Line C -->
+
+				<Frame type="Frame" name="QuadrantA3">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line4" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line2" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">   
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantB3">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line4" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line3" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantC3">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line4" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line4" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">   
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantD3">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line4" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line5" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantE3">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line4" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line6" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">   
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantF3">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line4" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line6" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line7" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantG3">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line4" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line7" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+	<!-- Line D -->
+
+				<Frame type="Frame" name="QuadrantA4">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line5" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line2" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantB4">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line5" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line3" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">   
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantC4">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line5" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line4" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantD4">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line5" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line5" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">   
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantE4">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line5" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line6" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantF4">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line5" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line6" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line7" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">   
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantG4">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/HorizontalLines/Line5" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line7" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+	<!-- Line E -->
+
+				<Frame type="Frame" name="QuadrantA5">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line2" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantB5">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line2" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line3" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantC5">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line3" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line4" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">    
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantD5">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line4" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line5" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantE5">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line6" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantF5">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line6" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/VerticalLines/Line7" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantG5">
+					<Anchor side="Top" relative="$parent/$parent/HorizontalLines/Line5" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/VerticalLines/Line7" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+					</Frame>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="VerticalLines">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+				<Alpha val="150"/>
+
+				<Frame type="Image" name="Line2">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="304"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line3">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Line2" pos="Max" offset="304"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line4">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Line3" pos="Max" offset="304"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line5">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Line4" pos="Max" offset="304"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line6">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Line5" pos="Max" offset="304"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line7">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Line6" pos="Max" offset="304"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="HorizontalLines">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Alpha val="150"/>
+
+				<Frame type="Image" name="Line2">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="240"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line3">
+					<Anchor side="Top" relative="$parent/Line2" pos="Max" offset="240"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line4">
+					<Anchor side="Top" relative="$parent/Line3" pos="Max" offset="240"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line5">
+					<Anchor side="Top" relative="$parent/Line4" pos="Max" offset="240"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line6">
+					<Anchor side="Top" relative="$parent/Line5" pos="Max" offset="240"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line7">
+					<Anchor side="Top" relative="$parent/Line6" pos="Max" offset="240"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line8">
+					<Anchor side="Top" relative="$parent/Line7" pos="Max" offset="240"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+			</Frame>
+		</Frame>
+
+		<Frame type="Frame" name="CenterMenuHalfTransition">
+			<Anchor relative="$parent"/>
+			<Visible val="False"/>
+
+			<Frame type="Image" name="WorldCover">
+				<Anchor relative="$parent"/>
+				<Texture val="Assets\Textures\white.dds"/>
+				<Color val="000000"/>
+				<AcceptsMouse val="true"/>
+				<RenderPriority val="1"/>
+				<RenderType val="HDR"/>
+				<Alpha val="150"/>
+			</Frame>
+
+			<Animation name="Show">
+				<Event event="OnShown" action="Play"/>
+
+				<Controller type="Fade" end="Pause" frame="$this/WorldCover">
+					<Key type="Curve" time="0" value="0" out="Fast"/>
+					<Key type="Curve" time=".3" value="120" in="Slow"/>
+				</Controller>
+
+	<!--
+				<Controller type="Dimension" dimension="Height" relative="False" percentage="false" unclip="False" end="Pause" frame="$this/VerticalLinesMiddle">
+					<Key type="Curve" time="0" value="0"/>
+					<Key type="Curve" time=".4" value="670"/>
+				</Controller>
+
+				<Controller type="Dimension" dimension="Width" relative="False" percentage="false" unclip="False" end="Pause" frame="$this/HorizontalLinesMiddle">
+					<Key type="Curve" time="0" value="0"/>
+					<Key type="Curve" time=".4" value="920"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/HorizontalLinesMiddle">
+					<Key type="Curve" time="0" value="0" out="Slow"/>
+					<Key type="Curve" time=".2" value="90" in="Slow"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/VerticalLinesMiddle">
+					<Key type="Curve" time="0" value="0" out="Slow"/>
+					<Key type="Curve" time=".2" value="90" in="Slow"/>
+				</Controller>
+
+	-->
+
+				<Controller type="Fade" end="Pause" frame="$this/LinesTopLeft">
+					<Key type="Curve" time="0" value="0" out="Slow"/>
+					<Key type="Curve" time=".2" value="90" in="Slow"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/LinesTopRight">
+					<Key type="Curve" time="0" value="0" out="Slow"/>
+					<Key type="Curve" time=".2" value="90" in="Slow"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/LinesBottomLeft">
+					<Key type="Curve" time="0" value="0" out="Slow"/>
+					<Key type="Curve" time=".2" value="90" in="Slow"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/LinesBottomRight">
+					<Key type="Curve" time="0" value="0" out="Slow"/>
+					<Key type="Curve" time=".2" value="90" in="Slow"/>
+				</Controller>
+
+	<!--
+
+				<Controller type="Visibility" end="Pause" frame="$this/QuadrantPanelsMiddle">
+					<Key type="Bool" time="0" value="False"/>
+					<Key type="Bool" time=".4" value="True"/>
+				</Controller>
+
+	-->
+
+				<Controller type="Visibility" end="Pause" frame="$this/QuadrantPanelsTopLeft">
+					<Key type="Bool" time="0" value="False"/>
+					<Key type="Bool" time=".4" value="True"/>
+				</Controller>
+
+				<Controller type="Visibility" end="Pause" frame="$this/QuadrantPanelsTopRight">
+					<Key type="Bool" time="0" value="False"/>
+					<Key type="Bool" time=".4" value="True"/>
+				</Controller>
+
+				<Controller type="Visibility" end="Pause" frame="$this/QuadrantPanelsBottomLeft">
+					<Key type="Bool" time="0" value="False"/>
+					<Key type="Bool" time=".4" value="True"/>
+				</Controller>
+
+				<Controller type="Visibility" end="Pause" frame="$this/QuadrantPanelsBottomRight">
+					<Key type="Bool" time="0" value="False"/>
+					<Key type="Bool" time=".4" value="True"/>
+				</Controller>
+			</Animation>
+
+			<Animation name="Hide">
+				<Event event="Hide" action="Play"/>
+
+				<Controller type="Fade" end="Pause" frame="$this/WorldCover">
+					<Key type="Curve" time="0" value="120" out="Fast"/>
+					<Key type="Curve" time=".2" value="0" in="Slow"/>
+				</Controller>
+
+				<Controller type="Visibility" end="Pause" frame="$this">
+					<Key type="Bool" time="0" value="True"/>
+					<Key type="Bool" time=".6" value="False"/>
+				</Controller>
+
+	<!--
+
+				<Controller type="Event" end="Stop" frame="$this/QuadrantPanelsMiddle">
+					<Key type="Event" time="0" event="Hide"/>
+				</Controller>
+
+	-->
+
+				<Controller type="Event" end="Stop" frame="$this/QuadrantPanelsTopRight">
+					<Key type="Event" time="0" event="Hide"/>
+				</Controller>
+
+				<Controller type="Event" end="Stop" frame="$this/QuadrantPanelsTopLeft">
+					<Key type="Event" time="0" event="Hide"/>
+				</Controller>
+
+				<Controller type="Event" end="Stop" frame="$this/QuadrantPanelsBottomRight">
+					<Key type="Event" time="0" event="Hide"/>
+				</Controller>
+
+				<Controller type="Event" end="Stop" frame="$this/QuadrantPanelsBottomLeft">
+					<Key type="Event" time="0" event="Hide"/>
+				</Controller>
+
+	<!--
+
+				<Controller type="Fade" end="Pause" frame="$this/HorizontalLinesMiddle">
+					<Key type="Curve" time="0" value="90" out="Slow"/>
+					<Key type="Curve" time=".3" value="0" in="Slow"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/VerticalLinesMiddle">
+					<Key type="Curve" time="0" value="90" out="Slow"/>
+					<Key type="Curve" time=".3" value="0" in="Slow"/>
+				</Controller>
+
+	-->
+
+				<Controller type="Fade" end="Pause" frame="$this/LinesTopLeft">
+					<Key type="Curve" time="0" value="90" out="Slow"/>
+					<Key type="Curve" time=".3" value="0" in="Slow"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/LinesTopRight">
+					<Key type="Curve" time="0" value="90" out="Slow"/>
+					<Key type="Curve" time=".3" value="0" in="Slow"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/LinesBottomLeft">
+					<Key type="Curve" time="0" value="90" out="Slow"/>
+					<Key type="Curve" time=".3" value="0" in="Slow"/>
+				</Controller>
+
+				<Controller type="Fade" end="Pause" frame="$this/LinesBottomRight">
+					<Key type="Curve" time="0" value="90" out="Slow"/>
+					<Key type="Curve" time=".3" value="0" in="Slow"/>
+				</Controller>
+			</Animation>
+
+	<!--
+			<Frame type="Frame" name="QuadrantPanelsMiddle">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+
+				<Animation name="Show">
+					<Event event="OnShown" action="Reset,Play"/>
+					 
+					<Controller type="Event" end="Stop" frame="$this/QuadrantD3/Image">
+						<Key type="Event" time="0" event="Show"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantD2/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantC2/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantD4/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantE2/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+				</Animation>
+
+				<Animation name="Hide">
+					<Event event="Hide" action="Reset,Play"/>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantD2/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantC2/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantD4/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantE2/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantD3/Image">
+						<Key type="Event" time=".2" event="Collapse"/>
+					</Controller>
+				</Animation>
+
+				<Frame type="Frame" name="QuadrantD2">
+					<Anchor side="Top" relative="$parent" pos="Mid" offset="10"/>
+					<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent/QuadrantD3" pos="Min" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantD3">
+					<Anchor side="Top" relative="$parent" pos="Mid" offset="10"/>
+					<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantD4">
+					<Anchor side="Top" relative="$parent" pos="Mid" offset="10"/>
+					<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent/QuadrantD3" pos="Max" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/>  
+						<Alpha val="0"/>
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantC2">
+					<Anchor side="Bottom" relative="$parent/QuadrantD3" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/>
+						<Alpha val="0"/>  
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantE2">
+					<Anchor side="Top" relative="$parent/QuadrantD3" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+			</Frame>
+
+	-->
+
+			<Frame type="Frame" name="QuadrantPanelsTopLeft">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+
+	<!-- Show Animation -->
+
+				<Animation name="Show">
+					<Event event="OnShown" action="Reset,Play"/>
+					 
+					<Controller type="Event" end="Stop" frame="$this/QuadrantA1/Image">
+						<Key type="Event" time="0" event="Show"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantA2/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantB1/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+				</Animation>
+
+	<!-- Hide Animation -->
+
+				<Animation name="Hide">
+					<Event event="Hide" action="Reset,Play"/>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantA2/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantB1/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantA1/Image">
+						<Key type="Event" time=".2" event="Collapse"/>
+					</Controller>
+				</Animation>
+
+	<!-- Quadrants -->
+
+				<Frame type="Frame" name="QuadrantA1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantA2">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent/QuadrantA1" pos="Max" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantB1">
+					<Anchor side="Top" relative="$parent/QuadrantA1" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/>  
+						<Alpha val="0"/>
+					</Frame>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="QuadrantPanelsTopRight">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+
+	<!-- Show Animation -->
+
+				<Animation name="Show">
+					<Event event="OnShown" action="Reset,Play"/>
+					 
+					<Controller type="Event" end="Stop" frame="$this/QuadrantA7/Image">
+						<Key type="Event" time="0" event="Show"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantA6/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantB7/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+				</Animation>
+
+	<!-- Hide Animation -->
+
+				<Animation name="Hide">
+					<Event event="Hide" action="Reset,Play"/>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantA6/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantB7/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantA7/Image">
+						<Key type="Event" time=".2" event="Collapse"/>
+					</Controller>
+				</Animation>
+
+	<!-- Quadrants -->
+
+				<Frame type="Frame" name="QuadrantA7">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantA6">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent/QuadrantA7" pos="Min" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantB7">
+					<Anchor side="Top" relative="$parent/QuadrantA7" pos="Max" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/>  
+						<Alpha val="0"/>
+					</Frame>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="QuadrantPanelsBottomLeft">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+
+	<!-- Show Animation -->
+
+				<Animation name="Show">
+					<Event event="OnShown" action="Reset,Play"/>
+					 
+					<Controller type="Event" end="Stop" frame="$this/QuadrantE1/Image">
+						<Key type="Event" time="0" event="Show"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantE2/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantD1/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+				</Animation>
+
+	<!-- Hide Animation -->
+
+				<Animation name="Hide">
+					<Event event="Hide" action="Reset,Play"/>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantD1/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantE2/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantE1/Image">
+						<Key type="Event" time=".2" event="Collapse"/>
+					</Controller>
+				</Animation>
+
+	<!-- Quadrants -->
+
+				<Frame type="Frame" name="QuadrantE1">
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantE2">
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/QuadrantE1" pos="Max" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantD1">
+					<Anchor side="Bottom" relative="$parent/QuadrantE1" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/>  
+						<Alpha val="0"/>
+					</Frame>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="QuadrantPanelsBottomRight">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+
+	<!-- Show Animation -->
+
+				<Animation name="Show">
+					<Event event="OnShown" action="Reset,Play"/>
+					 
+					<Controller type="Event" end="Stop" frame="$this/QuadrantE7/Image">
+						<Key type="Event" time="0" event="Show"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantE6/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantD7/Image">
+						<Key type="Event" time=".2" event="HalfShow"/>
+					</Controller>
+				</Animation>
+
+	<!-- Hide Animation -->
+
+				<Animation name="Hide">
+					<Event event="Hide" action="Reset,Play"/>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantD7/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantE6/Image">
+						<Key type="Event" time="0" event="HalfHide"/>
+					</Controller>
+
+					<Controller type="Event" end="Stop" frame="$this/QuadrantE7/Image">
+						<Key type="Event" time=".2" event="Collapse"/>
+					</Controller>
+				</Animation>
+
+	<!-- Quadrants -->
+
+				<Frame type="Frame" name="QuadrantE7">
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantE6">
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Right" relative="$parent/QuadrantE7" pos="Min" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/> 
+						<Alpha val="0"/> 
+					</Frame>
+				</Frame>
+
+				<Frame type="Frame" name="QuadrantD7">
+					<Anchor side="Bottom" relative="$parent/QuadrantE7" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Height val="242"/>
+					<Width val="307"/>
+
+					<Frame type="Image" name="Image" template="NamelessTD_StandardTemplates/QuadrantAnimationTemplate">  
+						<Height val="242"/>
+						<Width val="307"/>  
+						<Alpha val="0"/>
+					</Frame>
+				</Frame>
+			</Frame>
+
+	<!--
+
+			<Frame type="Frame" name="VerticalLinesMiddle">
+				<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Height val="720"/>
+				<Width val="920"/>
+				<Alpha val="150"/>
+
+				<Frame type="Image" name="Line1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+					<Alpha val="0"/>
+				</Frame>
+
+				<Frame type="Image" name="Line2">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Line1" pos="Max" offset="304"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line3">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Line2" pos="Max" offset="304"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="HorizontalLinesMiddle">
+				<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Height val="720"/>
+				<Width val="920"/>
+				<Alpha val="150"/>
+
+				<Frame type="Image" name="Line1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+					<Alpha val="0"/>
+				</Frame>
+
+				<Frame type="Image" name="Line2">
+					<Anchor side="Top" relative="$parent/Line1" pos="Max" offset="240"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line3">
+					<Anchor side="Top" relative="$parent/Line2" pos="Max" offset="240"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+			</Frame>
+
+	-->
+
+			<Frame type="Frame" name="LinesTopLeft">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Height val="440"/>
+				<Width val="570"/>
+				<Alpha val="150"/>
+
+				<Frame type="Image" name="Line1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/QuadrantPanelsTopLeft/QuadrantA1" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line2">
+					<Anchor side="Top" relative="$parent/$parent/QuadrantPanelsTopLeft/QuadrantA1" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="LinesTopRight">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+				<Height val="440"/>
+				<Width val="570"/>
+				<Alpha val="150"/>
+
+				<Frame type="Image" name="Line1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/QuadrantPanelsTopRight/QuadrantA7" pos="Min" offset="0"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line2">
+					<Anchor side="Top" relative="$parent/$parent/QuadrantPanelsTopRight/QuadrantA7" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="LinesBottomLeft">
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Height val="440"/>
+				<Width val="570"/>
+				<Alpha val="150"/>
+
+				<Frame type="Image" name="Line1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/QuadrantPanelsBottomLeft/QuadrantD1" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line2">
+					<Anchor side="Bottom" relative="$parent/$parent/QuadrantPanelsBottomLeft/QuadrantD1" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="LinesBottomRight">
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+				<Height val="440"/>
+				<Width val="570"/>
+				<Alpha val="150"/>
+
+				<Frame type="Image" name="Line1">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/QuadrantPanelsBottomRight/QuadrantD7" pos="Min" offset="0"/>
+					<Color val="15,175,203"/>
+					<Width val="2"/>
+				</Frame>
+
+				<Frame type="Image" name="Line2">
+					<Anchor side="Bottom" relative="$parent/$parent/QuadrantPanelsBottomRight/QuadrantD7" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Color val="15,175,203"/>
+					<Height val="2"/>
+				</Frame>
+			</Frame>
+		</Frame>
+		
+		<!-- This plays a logo transition at the start -->
+
+		<Frame type="Frame" name="IntroTransition">
+			<Anchor relative="$parent"/>
+			
+			<Animation name="IntroStart">
+				<Event event="IntroStart" action="Reset,Play"/>
+
+				<Controller type="Fade" end="Pause" frame="$this/Logo">
+					<Key type="Curve" time="0" value="0" inout="Auto"/>
+					<Key type="Curve" time="1.5" value="255" inout="Auto"/>
+					<Key type="Curve" time="2" value="0" inout="Auto"/>
+				</Controller>
+				
+				<Controller type="Fade" end="Pause" frame="$this">
+					<Key type="Curve" time="0" value="255" inout="Auto"/>
+					<Key type="Curve" time="1.5" value="255" inout="Auto"/>
+					<Key type="Curve" time="2" value="0" inout="Auto"/>
+				</Controller>
+				
+				<Controller type="Visibility" end="Pause">
+					<Key type="Bool" time="0" value="True"/>
+					<Key type="Bool" time="2" value="False"/>
+				</Controller>
+			</Animation>
+
+			<Frame type="Image" name="BlackCover">
+				<Anchor relative="$parent"/>
+				<Color val="000000"/>
+				<RenderPriority val="1"/>
+			</Frame>
+			
+			<Frame type="Image" name="Logo">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="100"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Texture val="Assets\Textures\sc2_ui_tradeshow_logo_sc2_golden.dds"/>
+				<Alpha val="0"/>
+			</Frame>
+		</Frame>
+	</Frame>
+</Desc>
+<!--
+Max window size
+Height 1200
+Width 2130
+-->

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CutsceneState cutsceneVersion="1.300000">
+    <CCutsceneNodeDirector guid="10389429604171140240" name="Director">
+        <CCutsceneNodeActiveCamera guid="10957527837706102027" name="Active Camera">
+            <CCutsceneElementActiveCamera guid="8859393643587190493" cameraIndex="0" objectGuid="9657029082636415493"/>
+        </CCutsceneNodeActiveCamera>
+        <CCutsceneNodeActiveLight guid="12633972633207267326" name="Active Light">
+            <CCutsceneElementActiveLight guid="5180673979572686716" lightGUID="0" lightID="SMX2CutsceneOrbitalStrikeKorhal" lightIndex="0" blendTime="0"/>
+        </CCutsceneNodeActiveLight>
+        <CCutsceneNodeBookmark guid="10710164287777550557" name="Bookmarks">
+            <CCutsceneElementBookmark guid="7290808534144266461" bookmarkName="LoopStart"/>
+            <CCutsceneElementBookmark guid="6953378588954114845" start="604975" bookmarkName="LoopEnd" jumpToBookmarkWhenHit="LoopStart"/>
+        </CCutsceneNodeBookmark>
+    </CCutsceneNodeDirector>
+    <CCutsceneNodeTargetCamera guid="9657029082636415493" name="Target Camera" position="-20.775452,-108.250359,0.000275" fov="27.799999" nearClip="0.100000" farClip="12000.000000" shadowClip="1000.000000" depthOfField="0.000000" focalDepth="8.000000" falloffStart="0.000300" falloffEnd="8.000000" falloffStartNear="0.000000" falloffEndNear="0.000000" fstop="32.000000" doftype="0.000000" roll="0.000000" verticalFOV="1" eyePositionX="-20.276062" eyePositionY="-114.295776" eyePositionZ="-0.305193" targetPositionX="-20.775452" targetPositionY="-108.250359" targetPositionZ="0.000275">
+        <CCutsceneElementObject guid="8384108137399513605" duration="611253" lockedToEnd="1"/>
+    </CCutsceneNodeTargetCamera>
+    <CCutsceneNodeActor guid="9255265404455304386" name="Planet View Space" position="-10.335953,-101.098557,20.140957" scale="5.000000,5.000000,5.000000" modelLink="PlanetViewSpace" teamColorDiffuse="0.705800,0.078300,0.117600,1.000000" teamColorEmissive="0.545100,0.062700,0.086100,1.000000">
+        <CCutsceneElementObject guid="4716905438527175874" duration="611253" lockedToEnd="1"/>
+        <CCutsceneNodeAnimLayer guid="9491509805316612713" name="Animation Layer">
+            <CCutsceneElementAnim guid="7151269429526438505" duration="611253" lockedToEnd="1" anim="Stand" priority="3" originalDuration="66667" looping="1"/>
+        </CCutsceneNodeAnimLayer>
+    </CCutsceneNodeActor>
+    <CCutsceneNodeActor guid="12753172939646239445" name="SMX2 Mobius Asteroid Base" position="-11.414490,-73.175484,-3.103487" rotation="0.000000,0.000000,-83.000000" modelLink="SMX2_Mobius_Asteroid_Base" shadowBox="0" teamColorDiffuse="0.000000,0.003922,0.000000,1.000000" teamColorEmissive="0.000000,0.000000,0.000000,1.000000" hdrMultiplierDiffuse="1.000000,0.000000,1.000000">
+        <CCutsceneElementObject guid="5087792300776293077" duration="611253" lockedToEnd="1"/>
+        <CCutsceneNodeAnimLayer guid="11283398384348924079" name="Animation Layer">
+            <CCutsceneElementAnim guid="6157280540624259247" duration="611253" lockedToEnd="1" anim="GLstand" priority="12" originalDuration="16666" looping="1"/>
+        </CCutsceneNodeAnimLayer>
+    </CCutsceneNodeActor>
+    <CCutsceneNodeActor guid="10825105282523635888" name="ShadowCore_AsteroidBase_LandingPlatform (Unnamed)" position="-56.828232,-50.029835,-9.701979" rotation="3.000011,1.999994,-32.500111" modelLink="ShadowCore_AsteroidBase_LandingPlatform" shadowBox="0" teamColorDiffuse="0.705800,0.078300,0.117600,1.000000" teamColorEmissive="0.545100,0.062700,0.086100,1.000000">
+        <CCutsceneElementObject guid="7633467479448527024" duration="611253" lockedToEnd="1"/>
+        <CCutsceneNodeAnimLayer guid="9911834539430678696" name="Animation Layer">
+            <CCutsceneElementAnim guid="7638436026703581352" duration="611253" lockedToEnd="1" anim="Stand" priority="3" originalDuration="3333" looping="1"/>
+        </CCutsceneNodeAnimLayer>
+    </CCutsceneNodeActor>
+    <CCutsceneNodeActor guid="13491957988933594249" name="SMX2 Epilogue Asteroid Cluster" position="-30.174362,-33.586143,-0.532597" rotation="-4.238462,14.922888,-17.944679" modelLink="SMX2_Epilogue_AsteroidCluster" shadowBox="0" teamColorDiffuse="0.705800,0.078300,0.117600,1.000000" teamColorEmissive="0.545100,0.062700,0.086100,1.000000">
+        <CCutsceneElementObject guid="8442112549568212105" duration="611253" lockedToEnd="1"/>
+        <CCutsceneNodeAnimLayer guid="12879700105857650264" name="Animation Layer">
+            <CCutsceneElementAnim guid="8957467719825149528" duration="611253" lockedToEnd="1" anim="Protoss08_260" priority="5" originalDuration="6000"/>
+        </CCutsceneNodeAnimLayer>
+    </CCutsceneNodeActor>
+    <CCutsceneNodeActor guid="13820105426933704675" name="SMX2 Epilogue Asteroid 00" position="-54.527664,-51.171391,-12.474339" scale="7.000000,7.000000,7.000000" rotation="-20.096830,-42.350037,-137.170273" modelLink="SMX2_Epilogue_Asteroid00" shadowBox="0" teamColorDiffuse="0.705800,0.078300,0.117600,1.000000" teamColorEmissive="0.545100,0.062700,0.086100,1.000000">
+        <CCutsceneElementObject guid="5130407854273259491" duration="611253" lockedToEnd="1"/>
+        <CCutsceneNodeAnimLayer guid="11675727630645147946" name="Animation Layer">
+            <CCutsceneElementAnim guid="8219296250433976618" duration="611253" lockedToEnd="1" anim="Stand" priority="3" originalDuration="6000" looping="1"/>
+        </CCutsceneNodeAnimLayer>
+    </CCutsceneNodeActor>
+    <CCutsceneNodeLight guid="11257858213883833045" name="Back Light" position="-18.128723,38.137268,20.958256" rotation="-70.557320,-2.490417,-90.000000" type="2" colorMultiplier="4.000000" attenuationStart="141.293335" range="141.293335">
+        <CCutsceneElementObject guid="5772651486119094997" duration="611253" lockedToEnd="1"/>
+    </CCutsceneNodeLight>
+    <CCutsceneNodeLight guid="9828257897227415033" name="Spot Light" position="-93.674164,-93.515472,9.521931" rotation="82.917526,-58.887768,-90.000000" type="2" colorMultiplier="0.500000" attenuationStart="128.957626" range="128.957626">
+        <CCutsceneElementObject guid="7218072616360930809" duration="611253" lockedToEnd="1"/>
+    </CCutsceneNodeLight>
+    <CCutsceneNodeLight guid="12756877602075621418" name="Spot Light" position="-5.178825,-123.257782,-10.863924" rotation="107.433350,21.286934,-90.000000" type="2" colorMultiplier="0.300000" attenuationStart="68.945625" range="68.945625">
+        <CCutsceneElementObject guid="7600572069609912362" duration="611253" lockedToEnd="1"/>
+    </CCutsceneNodeLight>
+    <CCutsceneNodeActor guid="11962128313453057738" name="Lens Flare Large Glow Aiur City" position="-20.001472,-79.802383,-1.125077" modelLink="LensFlareLargeGlowAiurCity" shadowBox="0" teamColorDiffuse="0.705800,0.078300,0.117600,1.000000" teamColorEmissive="0.545100,0.062700,0.086100,1.000000">
+        <CCutsceneElementObject guid="8928517200604763850" duration="611253" lockedToEnd="1"/>
+        <CCutsceneNodeAnimLayer guid="11457261753986127562" name="Animation Layer">
+            <CCutsceneElementAnim guid="6600676876434478794" duration="611253" lockedToEnd="1" anim="Stand" priority="3" originalDuration="1000" looping="1"/>
+        </CCutsceneNodeAnimLayer>
+    </CCutsceneNodeActor>
+</CutsceneState>

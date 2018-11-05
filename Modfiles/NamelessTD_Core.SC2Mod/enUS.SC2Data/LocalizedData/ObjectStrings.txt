@@ -1,0 +1,11 @@
+﻿User/EditorPrefix/DefeatHints=TD -
+User/EditorPrefix/EnemyHints=TD -
+User/EditorPrefix/GameAchievements=TD -
+User/EditorPrefix/LevelData=TD -
+User/EditorPrefix/LevelStartingData=TD -
+User/Name/DefeatHints=Defeat Hints
+User/Name/EmptyUser=EmptyUser
+User/Name/EnemyHints=Enemy Hints
+User/Name/GameAchievements=Game Achievements
+User/Name/LevelData=Level Data
+User/Name/LevelStartingData=Level Starting Data

@@ -1,0 +1,3621 @@
+include "TriggerLibs/NativeLib"
+
+include "Lib08CCADF9_h"
+
+//--------------------------------------------------------------------------------------------------
+// Library: Nameless (Koprulu)
+//--------------------------------------------------------------------------------------------------
+// External Library Initialization
+void lib08CCADF9_InitLibraries () {
+    libNtve_InitVariables();
+}
+
+// Variable Initialization
+bool lib08CCADF9_InitVariables_completed = false;
+
+void lib08CCADF9_InitVariables () {
+    int init_i;
+    int init_i1;
+
+    if (lib08CCADF9_InitVariables_completed) {
+        return;
+    }
+
+    lib08CCADF9_InitVariables_completed = true;
+
+    lib08CCADF9_gv_kL_TotalWaveUnits = 10;
+    lib08CCADF9_gv_kL_WaveGroup = UnitGroupEmpty();
+    lib08CCADF9_gv_kL_Path1IDString = "";
+    lib08CCADF9_gv_kL_Path2IDString = "";
+    lib08CCADF9_gv_halfTimer = TimerCreate();
+    lib08CCADF9_gv_nextWaveTimer = TimerCreate();
+    lib08CCADF9_gv_kL_TransitionPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_TransitionDialog = c_invalidDialogId;
+    lib08CCADF9_gv_gameUI.lv_gameUIDialog = c_invalidDialogId;
+    lib08CCADF9_gv_gameUI.lv_gameUIPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_gameUI.lv_levelSelectionContainer = c_invalidDialogControlId;
+    lib08CCADF9_gv_gameUI.lv_achievementContainer = c_invalidDialogControlId;
+    lib08CCADF9_gv_gameUI.lv_game = c_invalidDialogId;
+    lib08CCADF9_gv_gameUI.lv_uIContainer = c_invalidDialogId;
+    lib08CCADF9_gv_kL_AchievementPanel.lv_achievementDialog = c_invalidDialogId;
+    lib08CCADF9_gv_kL_AchievementPanel.lv_achievementPanel = c_invalidDialogControlId;
+    for (init_i1 = 0; init_i1 <= 3; init_i1 += 1) {
+        lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[init_i1] = c_invalidDialogControlId;
+    }
+    for (init_i1 = 0; init_i1 <= 3; init_i1 += 1) {
+        lib08CCADF9_gv_kL_AchievementPanel.lv_icon[init_i1] = c_invalidDialogControlId;
+    }
+    for (init_i1 = 0; init_i1 <= 3; init_i1 += 1) {
+        lib08CCADF9_gv_kL_AchievementPanel.lv_title[init_i1] = c_invalidDialogControlId;
+    }
+    for (init_i1 = 0; init_i1 <= 3; init_i1 += 1) {
+        lib08CCADF9_gv_kL_AchievementPanel.lv_filler[init_i1] = c_invalidDialogControlId;
+    }
+    for (init_i = 0; init_i <= 6; init_i += 1) {
+        lib08CCADF9_gv_kL_HintTimer[init_i] = TimerCreate();
+    }
+    lib08CCADF9_gv_kL_DeselectUnitTimer = TimerCreate();
+    lib08CCADF9_gv_kLCrawlingTextDialog = c_invalidDialogId;
+    lib08CCADF9_gv_kL_CrawlAnchor = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_CrawlTitleLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_CrawlTextLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_TextLabel = "";
+    lib08CCADF9_gv_kL_BubbleDialog = c_invalidDialogId;
+    lib08CCADF9_gv_kL_BubbleAnchor = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_DialogueLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_DeselectTimer = TimerCreate();
+    lib08CCADF9_gv_kL_GameHUD.lv_statusAnchor = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_resourcePanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_livesLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_mineralsLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_waveCounter = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_waveLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_startGameButton = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_waveButton = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_fullScreenDialog = c_invalidDialogId;
+    lib08CCADF9_gv_kL_GameHUD.lv_fullScreenButton = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_turretDialog = c_invalidDialogId;
+    lib08CCADF9_gv_kL_GameHUD.lv_turretAnchor = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_turretCommandPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_pauseAnchor = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_pauseButton = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_heroAnchor = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_heroPortraitPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_heroPortrait = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_vitalsBackground = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_heroVitals = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_healthBar = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_shieldsBar = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_energyBar = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_globalCastingPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_heroHitTest = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_hintAnchorPanel = c_invalidDialogControlId;
+    for (init_i1 = 0; init_i1 <= 6; init_i1 += 1) {
+        lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[init_i1] = c_invalidDialogControlId;
+    }
+    for (init_i1 = 0; init_i1 <= 6; init_i1 += 1) {
+        lib08CCADF9_gv_kL_GameHUD.lv_hintIcon[init_i1] = c_invalidDialogControlId;
+    }
+    lib08CCADF9_gv_kL_GameHUD.lv_unitInfoPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_unitPortaitFrame = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitPortrait = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitTitle = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_unitStatsFrame = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_hPStatPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_hPStatLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_attackStatPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_attackStatLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_armorStatPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_armorStatLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_moveSpeedStatPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_moveSpeedStatLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_livesStatPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_livesStatLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_attSpeedStatPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_attSpeedStatLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_respawnStatPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameHUD.lv_respawnStatLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog = c_invalidDialogId;
+    lib08CCADF9_gv_kL_GameMenus.lv_halfTransitionPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_gameMenuAnchor = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanelTitle = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanelDesc = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanelResumeBtn = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanelQuitBtn = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanelRestartBtn = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_defeatPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_defeatPanelTip = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_defeatPanelQuitBtn = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_defeatPanelRestartBtn = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintQuitBtn = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintTitleLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintSubtitleLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintDescLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintPortrait = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintUnitPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintUnitDisplay = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_LevelSelection.lv_backgroundPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_LevelSelection.lv_selectionCutscene = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_LevelSelection.lv_stageSelectionPanel = c_invalidDialogControlId;
+    for (init_i1 = 0; init_i1 <= 2; init_i1 += 1) {
+        lib08CCADF9_gv_kL_LevelSelection.lv_stageSlot[init_i1] = c_invalidDialogControlId;
+    }
+    for (init_i1 = 0; init_i1 <= 2; init_i1 += 1) {
+        lib08CCADF9_gv_kL_LevelSelection.lv_stageButton[init_i1] = c_invalidDialogControlId;
+    }
+    lib08CCADF9_gv_kL_LevelSelection.lv_selectionAnchor = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_LevelSelection.lv_infoPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_LevelSelection.lv_titleLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_LevelSelection.lv_previewPanel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_LevelSelection.lv_previewImage = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_LevelSelection.lv_completionPanel = c_invalidDialogControlId;
+    for (init_i1 = 0; init_i1 <= 3; init_i1 += 1) {
+        lib08CCADF9_gv_kL_LevelSelection.lv_stars[init_i1] = c_invalidDialogControlId;
+    }
+    lib08CCADF9_gv_kL_LevelSelection.lv_descriptionLabel = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_LevelSelection.lv_playButton = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_LevelSelection.lv_difficultyBtn = c_invalidDialogControlId;
+    lib08CCADF9_gv_kL_GameDifficulty = 2;
+}
+
+// Presets
+// Functions
+bool lib08CCADF9_gf_GamePaused () {
+    // Automatic Variable Declarations
+    // Implementation
+    return lib08CCADF9_gv_isGamePaused;
+}
+
+bool lib08CCADF9_gf_GameOver () {
+    // Automatic Variable Declarations
+    // Implementation
+    return lib08CCADF9_gv_gameIsOver;
+}
+
+bool lib08CCADF9_gf_GameActive () {
+    // Automatic Variable Declarations
+    // Implementation
+    return lib08CCADF9_gv_isGamePaused;
+}
+
+void lib08CCADF9_gf_KL_StopWaveTimers () {
+    // Automatic Variable Declarations
+    // Implementation
+    TriggerStop(lib08CCADF9_gt_KL_HalfTimerExpires);
+    TriggerStop(lib08CCADF9_gt_KL_UpdateTimers);
+    TriggerStop(lib08CCADF9_gt_KL_TimerExpires);
+    TriggerEnable(lib08CCADF9_gt_KL_UpdateTimers, false);
+    TriggerEnable(lib08CCADF9_gt_KL_TimerExpires, false);
+}
+
+void lib08CCADF9_gf_KL_AwardSkipGold (int lp_calloutPosition) {
+    // Variable Declarations
+    unit lv_convertedDummy;
+
+    // Automatic Variable Declarations
+    int auto02755813_val;
+    int auto9F7D2FF4_val;
+
+    // Variable Initialization
+
+    // Implementation
+    auto02755813_val = lib08CCADF9_gv_kL_CurrentLevel;
+    if (auto02755813_val == 1) {
+        auto9F7D2FF4_val = lp_calloutPosition;
+        if (auto9F7D2FF4_val == 1) {
+            lv_convertedDummy = lib08CCADF9_gv_lv1_DummyA;
+        }
+        else if (auto9F7D2FF4_val == 2) {
+            lv_convertedDummy = lib08CCADF9_gv_lv1_DummyB;
+        }
+        else {
+        }
+    }
+    else {
+    }
+    PlayerModifyPropertyInt(1, c_playerPropMinerals, c_playerPropOperAdd, lib08CCADF9_gv_kL_SavedTime);
+    lib08CCADF9_gf_CreateFloatingText(lv_convertedDummy, ("+" + IntToString(lib08CCADF9_gv_kL_SavedTime)), "FCT_Status_Crit", lib08CCADF9_ge_FCTDirection_Vertical, PlayerGroupAll(), 0);
+}
+
+void lib08CCADF9_gf_KL_UpdateLives () {
+    // Automatic Variable Declarations
+    // Implementation
+    TextExpressionSetToken("Param/Expression/lib_08CCADF9_87A33F06", "PlayerLives", IntToText(lib08CCADF9_gv_kL_PlayerLives));
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_livesLabel, TextExpressionAssemble("Param/Expression/lib_08CCADF9_87A33F06"), PlayerGroupAll());
+}
+
+void lib08CCADF9_gf_KL_UpdateWave () {
+    // Automatic Variable Declarations
+    // Implementation
+    TextExpressionSetToken("Param/Expression/lib_08CCADF9_2B6E4298", "CurrentWave", IntToText(lib08CCADF9_gv_kL_CurrentWave));
+    TextExpressionSetToken("Param/Expression/lib_08CCADF9_2B6E4298", "MaxWaves", IntToText(lib08CCADF9_gv_kL_MaxWaves));
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_waveLabel, TextExpressionAssemble("Param/Expression/lib_08CCADF9_2B6E4298"), PlayerGroupAll());
+}
+
+void lib08CCADF9_gf_KL_EndGame (int lp_type) {
+    // Variable Declarations
+    int lv_dialog;
+    int lv_transitionPanel;
+    int lv_index;
+
+    // Automatic Variable Declarations
+    unitgroup autoBB28D327_g;
+    int autoBB28D327_u;
+    unit autoBB28D327_var;
+    const int auto52F7F9BD_ae = 7;
+    const int auto52F7F9BD_ai = 1;
+    const int autoD961B1CE_ae = 4;
+    const int autoD961B1CE_ai = 1;
+    unitgroup auto5060EF70_g;
+    int auto5060EF70_u;
+    unit auto5060EF70_var;
+
+    // Variable Initialization
+    lv_dialog = c_invalidDialogId;
+    lv_transitionPanel = c_invalidDialogControlId;
+
+    // Implementation
+    TriggerEnable(lib08CCADF9_gt_KL_CheckUnits, false);
+    lib08CCADF9_gv_isPlayerInGame = false;
+    lib08CCADF9_gv_isGameActive = false;
+    lib08CCADF9_gv_kL_StartButtonEnabled = false;
+    TriggerStop(lib08CCADF9_gt_KL_StartGame);
+    TriggerEnable(lib08CCADF9_gt_KL_StartGame, true);
+    if ((UnitGroupCount(lib08CCADF9_gv_kL_WaveGroup, c_unitCountAlive) != 0)) {
+        autoBB28D327_g = lib08CCADF9_gv_kL_WaveGroup;
+        autoBB28D327_u = UnitGroupCount(autoBB28D327_g, c_unitCountAll);
+        for (;; autoBB28D327_u -= 1) {
+            autoBB28D327_var = UnitGroupUnitFromEnd(autoBB28D327_g, autoBB28D327_u);
+            if (autoBB28D327_var == null) { break; }
+            UnitRemove(autoBB28D327_var);
+        }
+    }
+
+    if ((lib08CCADF9_gv_kL_HeroUnit != null)) {
+        UnitRemove(lib08CCADF9_gv_kL_HeroUnit);
+    }
+
+    UnitRemove(lib08CCADF9_gv_kL_HeroCharacter);
+    UnitRemove(lib08CCADF9_gv_kL_SCVCharacter);
+    lib08CCADF9_gf_ShowHideGameUIPanel(false, lib08CCADF9_ge_GameUIPanels_UnitInfoPanel);
+    lv_index = 1;
+    for ( ; ( (auto52F7F9BD_ai >= 0 && lv_index <= auto52F7F9BD_ae) || (auto52F7F9BD_ai < 0 && lv_index >= auto52F7F9BD_ae) ) ; lv_index += auto52F7F9BD_ai ) {
+        TriggerStop(lib08CCADF9_gv_kL_NextWave[lv_index]);
+    }
+    libNtve_gf_StopTimer(lib08CCADF9_gv_nextWaveTimer);
+    libNtve_gf_StopTimer(lib08CCADF9_gv_halfTimer);
+    lib08CCADF9_gf_KL_StopWaveTimers();
+    lv_index = 1;
+    for ( ; ( (autoD961B1CE_ai >= 0 && lv_index <= autoD961B1CE_ae) || (autoD961B1CE_ai < 0 && lv_index >= autoD961B1CE_ae) ) ; lv_index += autoD961B1CE_ai ) {
+        if ((lib08CCADF9_gv_kL_CalloutUI.lv_calloutDialog[lv_index] != c_invalidDialogId)) {
+            DialogDestroy(lib08CCADF9_gv_kL_CalloutUI.lv_calloutDialog[lv_index]);
+        }
+
+    }
+    auto5060EF70_g = UnitGroup(null, c_playerAny, RegionFromId(1), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    auto5060EF70_u = UnitGroupCount(auto5060EF70_g, c_unitCountAll);
+    for (;; auto5060EF70_u -= 1) {
+        auto5060EF70_var = UnitGroupUnitFromEnd(auto5060EF70_g, auto5060EF70_u);
+        if (auto5060EF70_var == null) { break; }
+        if (((UnitGetType(auto5060EF70_var) == "EmptySlot") || (UnitGetType(auto5060EF70_var) == "GaussTurret") || (UnitGetType(auto5060EF70_var) == "TDGarrisonTower"))) {
+            UnitSetOwner(EventUnit(), 1, true);
+            if (((UnitGetType(auto5060EF70_var) == "GaussTurret") || (UnitGetType(auto5060EF70_var) == "TDGarrisonTower"))) {
+                libNtve_gf_ReplaceUnit(auto5060EF70_var, "EmptySlot", libNtve_ge_ReplaceUnitOptions_NewUnitsDefault);
+            }
+
+        }
+
+    }
+    if ((lp_type == lib08CCADF9_ge_KL_EndGameType_Restart)) {
+        lib08CCADF9_gf_KL_InitializeLevel(lib08CCADF9_gv_kL_CurrentLevel);
+    }
+
+}
+
+void lib08CCADF9_gf_KL_PauseUnpauseGame (bool lp_pauseUnpause) {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    if ((lp_pauseUnpause == true)) {
+        lib08CCADF9_gv_isGamePaused = true;
+        libNtve_gf_SetAllSoundChannelVolumes(libNtve_ge_VolumeChannelMode_Cinematic, PlayerGroupAll(), 0.0);
+        UnitPauseAll(true);
+        GamePauseAllCooldowns(true);
+        GamePauseAllCharges(true);
+        TimerPause(lib08CCADF9_gv_nextWaveTimer, true);
+        TimerPause(lib08CCADF9_gv_halfTimer, true);
+        TimerPause(lib08CCADF9_gv_kL_DeselectUnitTimer, true);
+        lib08CCADF9_gf_KL_PauseUnpauseHintTimers(true);
+        CameraLockInput(1, true);
+    }
+    else {
+        lib08CCADF9_gv_isGamePaused = false;
+        libNtve_gf_SetAllSoundChannelVolumes(libNtve_ge_VolumeChannelMode_Game, PlayerGroupAll(), 0.0);
+        UnitPauseAll(false);
+        GamePauseAllCooldowns(false);
+        GamePauseAllCharges(false);
+        lib08CCADF9_gf_KL_PauseUnpauseHintTimers(false);
+        CameraLockInput(1, false);
+        if ((lib08CCADF9_gf_GameActive() == true)) {
+            TimerPause(lib08CCADF9_gv_nextWaveTimer, false);
+            TimerPause(lib08CCADF9_gv_halfTimer, false);
+            TimerPause(lib08CCADF9_gv_kL_DeselectUnitTimer, false);
+        }
+
+    }
+}
+
+void lib08CCADF9_gf_KL_SetLevelData (string lp_level) {
+    // Automatic Variable Declarations
+    // Implementation
+    lib08CCADF9_gv_kL_MaxWaves = UserDataGetInt("LevelStartingData", lp_level, "Max Waves", 1);
+    lib08CCADF9_gv_kL_PlayerLives = UserDataGetInt("LevelStartingData", lp_level, "Starting Lives", 1);
+    PlayerModifyPropertyInt(1, c_playerPropMinerals, c_playerPropOperSetTo, UserDataGetInt("LevelStartingData", lp_level, "Starting Gold", 1));
+    lib08CCADF9_gf_KL_UpdateLives();
+    TextExpressionSetToken("Param/Expression/lib_08CCADF9_1F305364", "PlayerGold", FixedToText(PlayerGetPropertyFixed(1, c_playerPropMinerals), c_fixedPrecisionAny));
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_mineralsLabel, TextExpressionAssemble("Param/Expression/lib_08CCADF9_1F305364"), PlayerGroupAll());
+    lib08CCADF9_gv_kL_Path1IDString = UserDataGetString("LevelPathData", lp_level, "PathID", 1);
+    lib08CCADF9_gv_kL_Path1MaxPoints = UserDataGetInt("LevelPathData", lp_level, "PathMaxPoints", 1);
+    lib08CCADF9_gv_kL_Path2IDString = UserDataGetString("LevelPathData", lp_level, "PathID", 2);
+    lib08CCADF9_gv_kL_Path2MaxPoints = UserDataGetInt("LevelPathData", lp_level, "PathMaxPoints", 2);
+}
+
+void lib08CCADF9_gf_KL_SpawnWaveUnitInstantly (string lp_user, string lp_level) {
+    // Variable Declarations
+    unit lv_newUnit;
+    fixed lv_temporalHp;
+
+    // Automatic Variable Declarations
+    int auto062AD1CA_val;
+
+    // Variable Initialization
+
+    // Implementation
+    while (!((lib08CCADF9_gf_GamePaused() == false))) {
+        Wait(0.1, c_timeGame);
+    }
+    libNtve_gf_CreateUnitsWithDefaultFacing(1, UserDataGetGameLink(lp_user, lp_level, "Unit", 1), 0, 2, PointFromName(("Lv" + IntToString(lib08CCADF9_gv_kL_CurrentLevel) + "_Spawn" + UserDataGetString(lp_user, lp_level, "Entrance", 1))));
+    lv_newUnit = UnitLastCreated();
+    UnitGroupAdd(lib08CCADF9_gv_kL_WaveGroup, lv_newUnit);
+    UnitSetState(lv_newUnit, c_unitStateTooltipable, false);
+    auto062AD1CA_val = lib08CCADF9_gv_kL_GameDifficulty;
+    if (auto062AD1CA_val == 1) {
+        UnitSetTeamColorIndex(lv_newUnit, 7);
+        UnitSetPropertyFixed(lv_newUnit, c_unitPropLifePercent, 80.0);
+        UnitSetPropertyFixed(lv_newUnit, c_unitPropLife, 80.0);
+    }
+    else if (auto062AD1CA_val == 2) {
+        UnitSetTeamColorIndex(lv_newUnit, 2);
+        UnitSetPropertyFixed(lv_newUnit, c_unitPropLifePercent, 100.0);
+    }
+    else if (auto062AD1CA_val == 3) {
+        UnitSetTeamColorIndex(lv_newUnit, 1);
+        UnitSetPropertyFixed(lv_newUnit, c_unitPropLifePercent, 120.0);
+    }
+    else {
+        UnitSetPropertyFixed(lv_newUnit, c_unitPropLife, 100.0);
+    }
+    lv_temporalHp = UnitGetPropertyFixed(lv_newUnit, c_unitPropLife, c_unitPropCurrent);
+    UnitSetPropertyFixed(lv_newUnit, c_unitPropLife, lv_temporalHp);
+    UnitSetPropertyFixed(lv_newUnit, c_unitPropLifePercent, 100.0);
+}
+
+void lib08CCADF9_gf_KL_WaveLogicLevel1 (int lp_level, int lp_levelDifficulty) {
+    // Automatic Variable Declarations
+}
+
+void lib08CCADF9_gf_KL_InitializeLevel (int lp_level) {
+    // Automatic Variable Declarations
+    int autoD6A10D30_val;
+
+    // Implementation
+    libNtve_gf_SetAllSoundChannelVolumes(libNtve_ge_VolumeChannelMode_Game, PlayerGroupAll(), 0.0);
+    libNtve_gf_SetAllianceOneWay(1, 2, libNtve_ge_AllianceSetting_Enemy);
+    libNtve_gf_SetAllianceOneWay(2, 1, libNtve_ge_AllianceSetting_Neutral);
+    UISetWorldVisible(PlayerGroupAll(), true);
+    lib08CCADF9_gv_kL_CurrentWave = 0;
+    lib08CCADF9_gv_kL_CurrentLevel = 1;
+    lib08CCADF9_gf_KL_UpdateWave();
+    lib08CCADF9_gf_KL_PauseUnpauseGame(false);
+    lib08CCADF9_gv_kL_StartButtonEnabled = true;
+    lib08CCADF9_gf_ShowHideGameUIPanel(false, lib08CCADF9_ge_GameUIPanels_HeroPanel);
+    autoD6A10D30_val = lp_level;
+    if (autoD6A10D30_val == 1) {
+        lib08CCADF9_gv_kL_AmbientSoundtrack = "Ambience_MarSara";
+        SoundtrackPlay(PlayerGroupAll(), c_soundtrackCategoryAmbience, lib08CCADF9_gv_kL_AmbientSoundtrack, c_soundtrackCueAny, c_soundtrackIndexAny, true);
+        RegionPlayableMapSet(RegionFromId(1));
+        CameraSetBounds(PlayerGroupSingle(1), RegionFromId(6), true);
+        CameraSetBounds(PlayerGroupSingle(1), RegionFromId(7), false);
+        PlayerSetBounds(1, RegionFromId(6));
+        lib08CCADF9_gf_KL_SetLevelData("Level 1");
+        lib08CCADF9_gv_kL_GameSoundtrack = "Music_TerrLow_SCI";
+        TriggerEnable(lib08CCADF9_gt_KL_Lv1_PathAMovement, true);
+        TriggerEnable(lib08CCADF9_gt_KL_Lv1_PathBMovement, true);
+        TriggerExecute(lib08CCADF9_gv_lv1_StageSetup, true, false);
+    }
+    else if (autoD6A10D30_val == 2) {
+    }
+    else {
+    }
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMinimapPanel, true);
+}
+
+void lib08CCADF9_gf_DisplayTransitionAnimation (int lp_inOut, bool lp_doDoNot) {
+    // Automatic Variable Declarations
+    int autoC8BFD448_val;
+
+    // Implementation
+    autoC8BFD448_val = lp_inOut;
+    if (autoC8BFD448_val == lib08CCADF9_ge_KL_TransitionType_TransitionIn) {
+        CameraLockInput(1, true);
+        DialogCreate(1920, 1080, c_anchorCenter, 0, 0, true);
+        lib08CCADF9_gv_kL_TransitionDialog = DialogLastCreated();
+        DialogSetFullscreen(DialogLastCreated(), true);
+        DialogSetImageVisible(DialogLastCreated(), false);
+        DialogControlCreateFromTemplate(lib08CCADF9_gv_kL_TransitionDialog, c_triggerControlTypePanel, "NamelessTD_TransitionPanel/TransitionPanelAnchor");
+        lib08CCADF9_gv_kL_TransitionPanel = DialogControlLastCreated();
+        DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
+        Wait(2.0, c_timeGame);
+        CinematicFade(false, 0.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, false);
+    }
+    else if (autoC8BFD448_val == lib08CCADF9_ge_KL_TransitionType_TransitionOut) {
+        if ((lp_doDoNot == true)) {
+            CinematicFade(true, 3.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, false);
+        }
+        else {
+            CinematicFade(true, 0.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, false);
+        }
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_TransitionPanel, PlayerGroupAll(), "Hide");
+        Wait(2.5, c_timeGame);
+        DialogDestroy(lib08CCADF9_gv_kL_TransitionDialog);
+        CameraLockInput(1, false);
+    }
+    else {
+    }
+}
+
+void lib08CCADF9_gf_TurnGamePropertyOnOff (int lp_property, bool lp_onOff) {
+    // Automatic Variable Declarations
+    int auto968E2041_val;
+
+    // Implementation
+    auto968E2041_val = lp_property;
+    if (auto968E2041_val == lib08CCADF9_ge_KL_GameProperty_MineralGain) {
+        TriggerEnable(lib08CCADF9_gt_KL_DisplayReward, lp_onOff);
+    }
+    else if (auto968E2041_val == lib08CCADF9_ge_KL_GameProperty_LifeLoss) {
+        TriggerEnable(lib08CCADF9_gt_KL_UnitReachesEnd, lp_onOff);
+    }
+    else {
+    }
+}
+
+void lib08CCADF9_gf_KL_LoadPlayerDataBank () {
+    // Automatic Variable Declarations
+    // Implementation
+    BankLoad((lib08CCADF9_gv_namelessBank + "_" + lib08CCADF9_gv_playerDataString), 1);
+    BankOptionSet(BankLastCreated(), c_bankOptionSignature, true);
+    BankOptionSet(BankLastCreated(), c_bankOptionSignature, true);
+    lib08CCADF9_gv_kL_SettingsBank = BankLastCreated();
+    BankWait(lib08CCADF9_gv_kL_SettingsBank);
+    TriggerExecute(lib08CCADF9_gt_KL_CheckBankExistence, true, true);
+    lib08CCADF9_gv_kL_GameDifficulty = BankValueGetAsInt(lib08CCADF9_gv_kL_SettingsBank, "PlayerData", "PreviousDifficulty");
+}
+
+void lib08CCADF9_gf_KL_PreloadBankData () {
+    // Automatic Variable Declarations
+    // Implementation
+    BankValueSetFromInt(lib08CCADF9_gv_kL_SettingsBank, "PlayerData", "PreviousDifficulty", 2);
+    BankValueSetFromFlag(lib08CCADF9_gv_kL_SettingsBank, "GameData", "DataInitialized", true);
+    BankSave(lib08CCADF9_gv_kL_SettingsBank);
+}
+
+trigger auto_lib08CCADF9_gf_KL_CreateHealthBar_Trigger = null;
+unit auto_lib08CCADF9_gf_KL_CreateHealthBar_lp_unit;
+
+void lib08CCADF9_gf_KL_CreateHealthBar (unit lp_unit) {
+    auto_lib08CCADF9_gf_KL_CreateHealthBar_lp_unit = lp_unit;
+
+    if (auto_lib08CCADF9_gf_KL_CreateHealthBar_Trigger == null) {
+        auto_lib08CCADF9_gf_KL_CreateHealthBar_Trigger = TriggerCreate("auto_lib08CCADF9_gf_KL_CreateHealthBar_TriggerFunc");
+    }
+
+    TriggerExecute(auto_lib08CCADF9_gf_KL_CreateHealthBar_Trigger, false, false);
+}
+
+bool auto_lib08CCADF9_gf_KL_CreateHealthBar_TriggerFunc (bool testConds, bool runActions) {
+    unit lp_unit = auto_lib08CCADF9_gf_KL_CreateHealthBar_lp_unit;
+
+    // Variable Declarations
+    int lv_dialog;
+    int lv_panelAnchor;
+    int lv_vitalsFrame;
+    int lv_healthBar;
+    int lv_shieldBar;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_dialog = c_invalidDialogId;
+    lv_panelAnchor = c_invalidDialogControlId;
+    lv_vitalsFrame = c_invalidDialogControlId;
+    lv_healthBar = c_invalidDialogControlId;
+    lv_shieldBar = c_invalidDialogControlId;
+
+    // Implementation
+    UnitSetCustomValue(lp_unit, 1, 1.0);
+    DialogCreate(250, 120, c_anchorCenter, 0, 0, true);
+    lv_dialog = DialogLastCreated();
+    DialogSetImageVisible(DialogLastCreated(), false);
+    DialogSetPositionRelativeToUnitWithAnchor(DialogLastCreated(), lp_unit, "Ref_Overhead", c_anchorBottom, 0, 10);
+    DialogControlCreateFromTemplate(lv_dialog, c_triggerControlTypePanel, "NamelessTD_HUD/UnitHealthBarAnchor");
+    lv_panelAnchor = DialogControlLastCreated();
+    DialogControlHookup(lv_panelAnchor, c_triggerControlTypeUnitStatus, "UnitVitalsFrame");
+    lv_vitalsFrame = DialogControlLastCreated();
+    DialogControlHookup(lv_vitalsFrame, c_triggerControlTypeProgressBar, "VitalsBar_Health");
+    lv_healthBar = DialogControlLastCreated();
+    DialogControlHookup(lv_vitalsFrame, c_triggerControlTypeProgressBar, "VitalsBar_Shields");
+    lv_shieldBar = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemUnit(lv_vitalsFrame, lp_unit, PlayerGroupAll());
+    if ((UnitGetPropertyFixed(lp_unit, c_unitPropShieldsMax, c_unitPropCurrent) != 0.0)) {
+        DialogControlSetVisible(lv_shieldBar, PlayerGroupAll(), true);
+    }
+
+    DialogSetVisible(lv_dialog, PlayerGroupAll(), true);
+    while (!((UnitIsAlive(lp_unit) == false))) {
+        Wait(0.1, c_timeGame);
+    }
+    DialogControlSendAnimationEvent(DialogControlLastCreated(), PlayerGroupAll(), "Hide");
+    Wait(0.4, c_timeGame);
+    DialogDestroy(lv_dialog);
+    return true;
+}
+
+void lib08CCADF9_gf_KL_GameUIInitialize () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogCreate(1920, 1080, c_anchorCenter, 0, 0, true);
+    lib08CCADF9_gv_gameUI.lv_gameUIDialog = DialogLastCreated();
+    DialogSetFullscreen(DialogLastCreated(), true);
+    DialogSetImageVisible(DialogLastCreated(), false);
+    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_gameUI.lv_gameUIDialog, c_triggerControlTypePanel, "NamelessTD_GameUI/GameUI");
+    lib08CCADF9_gv_gameUI.lv_gameUIPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_gameUI.lv_gameUIPanel, c_triggerControlTypePanel, "LevelSelectionContainer");
+    lib08CCADF9_gv_gameUI.lv_levelSelectionContainer = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_gameUI.lv_gameUIPanel, c_triggerControlTypePanel, "AchievementContainer");
+    lib08CCADF9_gv_gameUI.lv_achievementContainer = DialogControlLastCreated();
+}
+
+void lib08CCADF9_gf_ShowHideUIContainer (bool lp_showHide) {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogSetVisible(lib08CCADF9_gv_gameUI.lv_uIContainer, PlayerGroupAll(), lp_showHide);
+}
+
+void lib08CCADF9_gf_ShowHideGameUI (bool lp_showHide) {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    bool auto73FE5363_val;
+    int auto60E652F6_ae;
+    const int auto60E652F6_ai = 1;
+    int auto1EA28BF5_val;
+    int autoFA873D11_ae;
+    const int autoFA873D11_ai = 1;
+
+    // Variable Initialization
+
+    // Implementation
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMinimapPanel, lp_showHide);
+    auto73FE5363_val = lp_showHide;
+    if (auto73FE5363_val == true) {
+        if ((lib08CCADF9_gv_kL_StartButtonEnabled == true)) {
+            DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_startGameButton, PlayerGroupAll(), true);
+        }
+
+        if ((lib08CCADF9_gv_kL_CurrentlyActiveCallouts != 0)) {
+            auto60E652F6_ae = lib08CCADF9_gv_kL_CurrentlyActiveCallouts;
+            lv_index = 1;
+            for ( ; ( (auto60E652F6_ai >= 0 && lv_index <= auto60E652F6_ae) || (auto60E652F6_ai < 0 && lv_index >= auto60E652F6_ae) ) ; lv_index += auto60E652F6_ai ) {
+                DialogSetVisible(lib08CCADF9_gv_kL_CalloutUI.lv_calloutDialog[lv_index], PlayerGroupAll(), true);
+            }
+        }
+
+        DialogSetVisible(lib08CCADF9_gv_gameUI.lv_game, PlayerGroupAll(), true);
+        lib08CCADF9_gf_ShowHideGameUIPanel(true, lib08CCADF9_ge_GameUIPanels_GameStatusPanel);
+        if ((lib08CCADF9_gv_kL_CurrentWave == 0)) {
+            auto1EA28BF5_val = lib08CCADF9_gv_kL_CurrentLevel;
+            if (auto1EA28BF5_val == 1) {
+                lib08CCADF9_gf_KL_CreateWaveCallout(lib08CCADF9_gv_lv1_DummyA, c_anchorRight, false);
+            }
+            else {
+            }
+        }
+
+    }
+    else if (auto73FE5363_val == false) {
+        if ((lib08CCADF9_gv_kL_StartButtonEnabled == true)) {
+            DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameHUD.lv_startGameButton, PlayerGroupAll(), "HidePanel");
+        }
+
+        if ((lib08CCADF9_gv_kL_CurrentlyActiveCallouts != 0)) {
+            autoFA873D11_ae = lib08CCADF9_gv_kL_CurrentlyActiveCallouts;
+            lv_index = 1;
+            for ( ; ( (autoFA873D11_ai >= 0 && lv_index <= autoFA873D11_ae) || (autoFA873D11_ai < 0 && lv_index >= autoFA873D11_ae) ) ; lv_index += autoFA873D11_ai ) {
+                DialogSetVisible(lib08CCADF9_gv_kL_CalloutUI.lv_calloutDialog[lv_index], PlayerGroupAll(), false);
+            }
+        }
+
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameHUD.lv_statusAnchor, PlayerGroupAll(), "Hide");
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameHUD.lv_heroAnchor, PlayerGroupAll(), "Hide");
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameHUD.lv_unitInfoPanel, PlayerGroupAll(), "Hide");
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameHUD.lv_pauseAnchor, PlayerGroupAll(), "Hide");
+        Wait(2.0, c_timeReal);
+        DialogSetVisible(lib08CCADF9_gv_gameUI.lv_game, PlayerGroupAll(), false);
+    }
+    else {
+    }
+}
+
+void lib08CCADF9_gf_ShowHideGameUIPanel (bool lp_showHide, int lp_panel) {
+    // Automatic Variable Declarations
+    int autoBDCF5FA8_val;
+
+    // Implementation
+    autoBDCF5FA8_val = lp_panel;
+    if (autoBDCF5FA8_val == lib08CCADF9_ge_GameUIPanels_GameStatusPanel) {
+        if ((lp_showHide == false)) {
+            DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameHUD.lv_statusAnchor, PlayerGroupAll(), "Hide");
+        }
+        else {
+            DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_statusAnchor, PlayerGroupAll(), lp_showHide);
+        }
+    }
+    else if (autoBDCF5FA8_val == lib08CCADF9_ge_GameUIPanels_PausePanel) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_pauseAnchor, PlayerGroupAll(), lp_showHide);
+    }
+    else if (autoBDCF5FA8_val == lib08CCADF9_ge_GameUIPanels_HeroPanel) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_heroAnchor, PlayerGroupAll(), lp_showHide);
+    }
+    else if (autoBDCF5FA8_val == lib08CCADF9_ge_GameUIPanels_UnitInfoPanel) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_unitInfoPanel, PlayerGroupAll(), lp_showHide);
+    }
+    else {
+    }
+}
+
+void lib08CCADF9_gf_KL_HookupAchievementPanel () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookup(lib08CCADF9_gv_gameUI.lv_achievementContainer, c_triggerControlTypePanel, "AchievementAnchor1");
+    lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[1] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[1], c_triggerControlTypeImage, libNtve_gf_ConvertStringToUILayoutFrameName("Background/Icon"));
+    lib08CCADF9_gv_kL_AchievementPanel.lv_icon[1] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[1], c_triggerControlTypeLabel, libNtve_gf_ConvertStringToUILayoutFrameName("Background/TitleLabel"));
+    lib08CCADF9_gv_kL_AchievementPanel.lv_title[1] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[1], c_triggerControlTypeLabel, libNtve_gf_ConvertStringToUILayoutFrameName("Background/TextLabel"));
+    lib08CCADF9_gv_kL_AchievementPanel.lv_filler[1] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_gameUI.lv_achievementContainer, c_triggerControlTypePanel, "AchievementAnchor2");
+    lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[2] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[2], c_triggerControlTypeImage, libNtve_gf_ConvertStringToUILayoutFrameName("Background/Icon"));
+    lib08CCADF9_gv_kL_AchievementPanel.lv_icon[2] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[2], c_triggerControlTypeLabel, libNtve_gf_ConvertStringToUILayoutFrameName("Background/TitleLabel"));
+    lib08CCADF9_gv_kL_AchievementPanel.lv_title[2] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[2], c_triggerControlTypeLabel, libNtve_gf_ConvertStringToUILayoutFrameName("Background/TextLabel"));
+    lib08CCADF9_gv_kL_AchievementPanel.lv_filler[2] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_gameUI.lv_achievementContainer, c_triggerControlTypePanel, "AchievementAnchor3");
+    lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[3] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[3], c_triggerControlTypeImage, libNtve_gf_ConvertStringToUILayoutFrameName("Background/Icon"));
+    lib08CCADF9_gv_kL_AchievementPanel.lv_icon[3] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[3], c_triggerControlTypeLabel, libNtve_gf_ConvertStringToUILayoutFrameName("Background/TitleLabel"));
+    lib08CCADF9_gv_kL_AchievementPanel.lv_title[3] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[3], c_triggerControlTypeLabel, libNtve_gf_ConvertStringToUILayoutFrameName("Background/TextLabel"));
+    lib08CCADF9_gv_kL_AchievementPanel.lv_filler[3] = DialogControlLastCreated();
+}
+
+trigger auto_lib08CCADF9_gf_AwardAchievement_Trigger = null;
+string auto_lib08CCADF9_gf_AwardAchievement_lp_achievement;
+
+void lib08CCADF9_gf_AwardAchievement (string lp_achievement) {
+    auto_lib08CCADF9_gf_AwardAchievement_lp_achievement = lp_achievement;
+
+    if (auto_lib08CCADF9_gf_AwardAchievement_Trigger == null) {
+        auto_lib08CCADF9_gf_AwardAchievement_Trigger = TriggerCreate("auto_lib08CCADF9_gf_AwardAchievement_TriggerFunc");
+    }
+
+    TriggerExecute(auto_lib08CCADF9_gf_AwardAchievement_Trigger, false, false);
+}
+
+bool auto_lib08CCADF9_gf_AwardAchievement_TriggerFunc (bool testConds, bool runActions) {
+    string lp_achievement = auto_lib08CCADF9_gf_AwardAchievement_lp_achievement;
+
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    const int auto84E8CE67_ae = 4;
+    const int auto84E8CE67_ai = 1;
+
+    // Variable Initialization
+
+    // Implementation
+    if ((lp_achievement == null)) {
+
+    }
+
+    lv_index = 1;
+    for ( ; ( (auto84E8CE67_ai >= 0 && lv_index <= auto84E8CE67_ae) || (auto84E8CE67_ai < 0 && lv_index >= auto84E8CE67_ae) ) ; lv_index += auto84E8CE67_ai ) {
+        if ((lv_index != 4)) {
+            if ((lib08CCADF9_gv_kL_IsAchievementActive[lv_index] == false)) {
+                lib08CCADF9_gv_kL_IsAchievementActive[lv_index] = true;
+                libNtve_gf_SetDialogItemImage(lib08CCADF9_gv_kL_AchievementPanel.lv_icon[lv_index], UserDataGetImagePath("GameAchievements", lp_achievement, "Icon", 1), PlayerGroupAll());
+                libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_AchievementPanel.lv_title[lv_index], StringToText(UserDataGetString("GameAchievements", lp_achievement, "Title", 1)), PlayerGroupAll());
+                libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_AchievementPanel.lv_filler[lv_index], StringToText(UserDataGetString("GameAchievements", lp_achievement, "Award Description", 1)), PlayerGroupAll());
+                Wait(lib08CCADF9_gv_kL_AchievementDelay, c_timeReal);
+                DialogControlSetVisible(lib08CCADF9_gv_kL_AchievementPanel.lv_anchors[lv_index], PlayerGroupAll(), true);
+                Wait(lib08CCADF9_gv_kL_AchievementDuration, c_timeReal);
+                lib08CCADF9_gv_kL_IsAchievementActive[lv_index] = false;
+                break;
+            }
+
+        }
+        else {
+            Wait(1.5, c_timeReal);
+            lib08CCADF9_gf_AwardAchievement(lp_achievement);
+        }
+    }
+    return true;
+}
+
+void lib08CCADF9_gf_AddHintHero (string lp_hint) {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    const int auto059300A8_ae = 6;
+    const int auto059300A8_ai = 1;
+
+    // Variable Initialization
+
+    // Implementation
+    lv_index = 1;
+    for ( ; ( (auto059300A8_ai >= 0 && lv_index <= auto059300A8_ae) || (auto059300A8_ai < 0 && lv_index >= auto059300A8_ae) ) ; lv_index += auto059300A8_ai ) {
+        if ((lv_index != 6)) {
+            if ((lib08CCADF9_gv_kL_HintVisible[lv_index] == false)) {
+                TextExpressionSetToken("Param/Expression/lib_08CCADF9_E1F41736", "A", IntToText(lv_index));
+                UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, TextExpressionAssemble("Param/Expression/lib_08CCADF9_E1F41736"));
+                libNtve_gf_SetDialogItemImage(lib08CCADF9_gv_kL_GameHUD.lv_hintIcon[lv_index], UserDataGetImagePath("HeroHints", lp_hint, "HeroIcon", 1), PlayerGroupAll());
+                DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[lv_index], PlayerGroupAll(), "StateVisible");
+                lib08CCADF9_gv_kL_SetHint[lv_index] = lp_hint;
+                lib08CCADF9_gv_kL_HintVisible[lv_index] = true;
+                lib08CCADF9_gv_kL_HintType[lv_index] = (lib08CCADF9_ge_KL_HintType_Hero);
+                TimerStart(lib08CCADF9_gv_kL_HintTimer[lv_index], 30.0, false, c_timeReal);
+                return ;
+            }
+            else {
+                TextExpressionSetToken("Param/Expression/lib_08CCADF9_3C1C2952", "A", IntToText(lv_index));
+                UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, TextExpressionAssemble("Param/Expression/lib_08CCADF9_3C1C2952"));
+            }
+        }
+        else {
+            UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_08CCADF9_5ED6B7AC"));
+        }
+    }
+}
+
+void lib08CCADF9_gf_KL_PauseUnpauseHintTimers (bool lp_pauseUnpause) {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    const int auto12B665A9_ae = 6;
+    const int auto12B665A9_ai = 1;
+
+    // Variable Initialization
+
+    // Implementation
+    lv_index = 1;
+    for ( ; ( (auto12B665A9_ai >= 0 && lv_index <= auto12B665A9_ae) || (auto12B665A9_ai < 0 && lv_index >= auto12B665A9_ae) ) ; lv_index += auto12B665A9_ai ) {
+        TimerPause(lib08CCADF9_gv_kL_HintTimer[lv_index], lp_pauseUnpause);
+    }
+}
+
+void lib08CCADF9_gf_KL_DisplayHintPanelHero (string lp_heroHint, bool lp_hideGameUI) {
+    // Variable Declarations
+    const string lv_newHeroString = "New Hero: ";
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    if ((lp_heroHint == null)) {
+        return ;
+    }
+
+    DialogCreate(1920, 1080, c_anchorCenter, 0, 0, true);
+    lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog = DialogLastCreated();
+    DialogSetFullscreen(DialogLastCreated(), true);
+    DialogSetImageVisible(DialogLastCreated(), false);
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog, c_triggerControlTypePanel, "NamelessTD_TransitionPanel/CenterMenuHalfTransition");
+    lib08CCADF9_gv_kL_GameMenus.lv_halfTransitionPanel = DialogControlLastCreated();
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog, c_triggerControlTypePanel, "NamelessTD_GameMenus/AnchorPanel");
+    lib08CCADF9_gv_kL_GameMenus.lv_gameMenuAnchor = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuAnchor, c_triggerControlTypePanel, "HeroHint");
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPanel, c_triggerControlTypeButton, "CloseButton");
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintQuitBtn = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPanel, c_triggerControlTypePortrait, "Portrait");
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintPortrait = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPanel, c_triggerControlTypeUnitModel, "UnitDisplay");
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintUnitDisplay = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPanel, c_triggerControlTypeLabel, "TitleLabel");
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintTitleLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPanel, c_triggerControlTypeLabel, "SubtitleLabel");
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintSubtitleLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPanel, c_triggerControlTypeLabel, "DescriptionLabel");
+    lib08CCADF9_gv_kL_GameMenus.lv_heroHintDescLabel = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameMenus.lv_heroHintUnitDisplay, UserDataGetGameLink("HeroHints", lp_heroHint, "Hero Type", 1), PlayerGroupAll());
+    libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPortrait, UserDataGetGameLink("HeroHints", lp_heroHint, "Portrait", 1), PlayerGroupAll());
+    libNtve_gf_SetDialogItemLight(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPortrait, UserDataGetGameLink("HeroHints", lp_heroHint, "Portrait Lighting", 1), PlayerGroupAll());
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameMenus.lv_heroHintTitleLabel, StringToText((lv_newHeroString + UserDataGetString("HeroHints", lp_heroHint, "UnitName", 1))), PlayerGroupAll());
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameMenus.lv_heroHintSubtitleLabel, StringToText(UserDataGetString("HeroHints", lp_heroHint, "Subtitle", 1)), PlayerGroupAll());
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameMenus.lv_heroHintDescLabel, StringToText(UserDataGetString("HeroHints", lp_heroHint, "Description", 1)), PlayerGroupAll());
+    DialogSetVisible(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog, PlayerGroupAll(), true);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPanel, PlayerGroupAll(), true);
+    if ((lp_hideGameUI == true)) {
+        lib08CCADF9_gf_ShowHideGameUI(false);
+        lib08CCADF9_gf_KL_PauseUnpauseGame(true);
+    }
+
+}
+
+void lib08CCADF9_gf_KL_DisplayHint () {
+    // Automatic Variable Declarations
+}
+
+void lib08CCADF9_gf_KL_SetGameUnitData (unit lp_unit, int lp_type) {
+    // Variable Declarations
+    const int lv_backgroundWidth = 70;
+    const int lv_backgroundHeight = 110;
+    int lv_height;
+    fixed lv_moveSpeed;
+
+    // Automatic Variable Declarations
+    int auto7BABCE9B_val;
+
+    // Variable Initialization
+    lv_height = lv_backgroundHeight;
+
+    // Implementation
+    DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_hPStatPanel, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_attackStatPanel, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_armorStatPanel, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_attSpeedStatPanel, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_livesStatPanel, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_moveSpeedStatPanel, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_respawnStatPanel, PlayerGroupAll(), false);
+    auto7BABCE9B_val = lp_type;
+    if (auto7BABCE9B_val == lib08CCADF9_ge_KL_GameUnitType_EnemyUnit) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_hPStatPanel, PlayerGroupAll(), true);
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_attackStatPanel, PlayerGroupAll(), true);
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_armorStatPanel, PlayerGroupAll(), true);
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_livesStatPanel, PlayerGroupAll(), true);
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_moveSpeedStatPanel, PlayerGroupAll(), true);
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_hPStatLabel, FixedToText(UnitGetPropertyFixed(lp_unit, c_unitPropLifeMax, c_unitPropCurrent), c_fixedPrecisionAny), PlayerGroupAll());
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_attackStatLabel, FixedToText(UnitWeaponDamage(lp_unit, 1, c_unitAttributeNone, false), c_fixedPrecisionAny), PlayerGroupAll());
+        if ((FixedToInt(UnitGetPropertyFixed(lp_unit, c_unitPropLifeArmor, c_unitPropCurrent)) == 0)) {
+            libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_armorStatLabel, StringExternal("Param/Value/lib_08CCADF9_44B9F26D"), PlayerGroupAll());
+        }
+        else {
+            libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_armorStatLabel, FixedToText(UnitGetPropertyFixed(lp_unit, c_unitPropLifeArmor, c_unitPropCurrent), c_fixedPrecisionAny), PlayerGroupAll());
+        }
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_livesStatLabel, FixedToText(FixedToInt(libNtve_gf_CatalogFieldValueGetAsReal(c_gameCatalogUnit, UnitGetType(lp_unit), "Food", c_playerAny)), c_fixedPrecisionAny), PlayerGroupAll());
+        lv_moveSpeed = libNtve_gf_CatalogFieldValueGetAsReal(c_gameCatalogUnit, UnitGetType(lp_unit), "Speed", c_playerAny);
+        if ((lv_moveSpeed < 3.5)) {
+            libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_moveSpeedStatLabel, StringToText(lib08CCADF9_gv_kL_SpeedStringA), PlayerGroupAll());
+        }
+        else {
+            libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_moveSpeedStatLabel, StringExternal("Param/Value/lib_08CCADF9_A0EC27E5"), PlayerGroupAll());
+        }
+        libNtve_gf_SetDialogItemStyle(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitTitle, "NamelessUnitNameLabel_Enemy", PlayerGroupAll());
+        lv_height += 60;
+    }
+    else if (auto7BABCE9B_val == lib08CCADF9_ge_KL_GameUnitType_HeroUnit) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_hPStatPanel, PlayerGroupAll(), true);
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_attackStatPanel, PlayerGroupAll(), true);
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_armorStatPanel, PlayerGroupAll(), true);
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_hPStatLabel, FixedToText(UnitGetPropertyFixed(lp_unit, c_unitPropLifeMax, c_unitPropCurrent), c_fixedPrecisionAny), PlayerGroupAll());
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_attackStatLabel, FixedToText(UnitWeaponDamage(lp_unit, 1, c_unitAttributeNone, false), c_fixedPrecisionAny), PlayerGroupAll());
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_armorStatLabel, FixedToText(UnitGetPropertyFixed(EventUnit(), c_unitPropLifeArmor, c_unitPropCurrent), c_fixedPrecisionAny), PlayerGroupAll());
+        libNtve_gf_SetDialogItemStyle(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitTitle, "NamelessUnitNameLabel_Hero", PlayerGroupAll());
+    }
+    else if (auto7BABCE9B_val == lib08CCADF9_ge_KL_GameUnitType_BlockerUnit) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_hPStatPanel, PlayerGroupAll(), true);
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_attackStatPanel, PlayerGroupAll(), true);
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_armorStatPanel, PlayerGroupAll(), true);
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_hPStatLabel, FixedToText(UnitGetPropertyFixed(lp_unit, c_unitPropLifeMax, c_unitPropCurrent), c_fixedPrecisionAny), PlayerGroupAll());
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_attackStatLabel, FixedToText(UnitWeaponDamage(lp_unit, 1, c_unitAttributeNone, false), c_fixedPrecisionAny), PlayerGroupAll());
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_armorStatLabel, FixedToText(UnitGetPropertyFixed(EventUnit(), c_unitPropLifeArmor, c_unitPropCurrent), c_fixedPrecisionAny), PlayerGroupAll());
+        libNtve_gf_SetDialogItemStyle(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitTitle, "NamelessUnitNameLabel_Ally", PlayerGroupAll());
+    }
+    else if (auto7BABCE9B_val == lib08CCADF9_ge_KL_GameUnitType_AttackTower) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_attackStatPanel, PlayerGroupAll(), true);
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_attSpeedStatPanel, PlayerGroupAll(), true);
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_attackStatLabel, FixedToText(UnitWeaponDamage(lp_unit, 1, c_unitAttributeNone, false), c_fixedPrecisionAny), PlayerGroupAll());
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_attSpeedStatLabel, FixedToText(UnitGetPropertyFixed(EventUnit(), c_unitPropLifeArmor, c_unitPropCurrent), c_fixedPrecisionAny), PlayerGroupAll());
+        libNtve_gf_SetDialogItemStyle(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitTitle, "NamelessUnitNameLabel_Ally", PlayerGroupAll());
+        lv_height -= 30;
+    }
+    else {
+    }
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitTitle, StringExternal(CatalogFieldValueGet(c_gameCatalogUnit, UnitGetType(EventUnit()), "Name", c_playerAny)), PlayerGroupAll());
+    DialogControlSetSize(lib08CCADF9_gv_kL_GameHUD.lv_unitStatsFrame, PlayerGroupAll(), lv_backgroundWidth, lv_height);
+}
+
+trigger auto_lib08CCADF9_gf_ShowTextCrawl_Trigger = null;
+string auto_lib08CCADF9_gf_ShowTextCrawl_lp_title;
+string auto_lib08CCADF9_gf_ShowTextCrawl_lp_text;
+
+void lib08CCADF9_gf_ShowTextCrawl (string lp_title, string lp_text) {
+    auto_lib08CCADF9_gf_ShowTextCrawl_lp_title = lp_title;
+    auto_lib08CCADF9_gf_ShowTextCrawl_lp_text = lp_text;
+
+    if (auto_lib08CCADF9_gf_ShowTextCrawl_Trigger == null) {
+        auto_lib08CCADF9_gf_ShowTextCrawl_Trigger = TriggerCreate("auto_lib08CCADF9_gf_ShowTextCrawl_TriggerFunc");
+    }
+
+    TriggerExecute(auto_lib08CCADF9_gf_ShowTextCrawl_Trigger, false, false);
+}
+
+bool auto_lib08CCADF9_gf_ShowTextCrawl_TriggerFunc (bool testConds, bool runActions) {
+    string lp_title = auto_lib08CCADF9_gf_ShowTextCrawl_lp_title;
+    string lp_text = auto_lib08CCADF9_gf_ShowTextCrawl_lp_text;
+
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    DialogCreate(700, 250, c_anchorBottomLeft, 0, 100, true);
+    lib08CCADF9_gv_kLCrawlingTextDialog = DialogLastCreated();
+    DialogSetImageVisible(DialogLastCreated(), false);
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_kLCrawlingTextDialog, c_triggerControlTypePanel, "NamelessTD_StoryUI/TextCrawlAnchor");
+    lib08CCADF9_gv_kL_CrawlAnchor = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_CrawlAnchor, c_triggerControlTypeLabel, libNtve_gf_ConvertStringToUILayoutFrameName("CrawlingTextFrame/Title"));
+    lib08CCADF9_gv_kL_CrawlTitleLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_CrawlAnchor, c_triggerControlTypeLabel, libNtve_gf_ConvertStringToUILayoutFrameName("CrawlingTextFrame/Text"));
+    lib08CCADF9_gv_kL_CrawlTextLabel = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_CrawlTitleLabel, StringToText(lp_title), PlayerGroupAll());
+    DialogSetVisible(lib08CCADF9_gv_kLCrawlingTextDialog, PlayerGroupAll(), true);
+    lib08CCADF9_gv_kL_TextCharacters = StringLength(lp_text);
+    lib08CCADF9_gv_kL_TextLabel = lp_text;
+    lib08CCADF9_gv_kL_SingleCharacterTypeTime = (1.5 / IntToFixed(lib08CCADF9_gv_kL_TextCharacters));
+    libNtve_gf_SetDialogItemTextWriteoutDuration(lib08CCADF9_gv_kL_CrawlTextLabel, 1.5, PlayerGroupAll());
+    TriggerExecute(lib08CCADF9_gt_KL_PlayCrawlAnim, true, true);
+    return true;
+}
+
+trigger auto_lib08CCADF9_gf_HideTextCrawl_Trigger = null;
+
+void lib08CCADF9_gf_HideTextCrawl () {
+    if (auto_lib08CCADF9_gf_HideTextCrawl_Trigger == null) {
+        auto_lib08CCADF9_gf_HideTextCrawl_Trigger = TriggerCreate("auto_lib08CCADF9_gf_HideTextCrawl_TriggerFunc");
+    }
+
+    TriggerExecute(auto_lib08CCADF9_gf_HideTextCrawl_Trigger, false, false);
+}
+
+bool auto_lib08CCADF9_gf_HideTextCrawl_TriggerFunc (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Implementation
+    TriggerStop(lib08CCADF9_gt_KL_PlayCrawlAnim);
+    DialogDestroy(lib08CCADF9_gv_kLCrawlingTextDialog);
+    return true;
+}
+
+void lib08CCADF9_gf_DisplayDialogueBubble (unit lp_unit, int lp_offset, text lp_dialogueText, fixed lp_duration) {
+    // Variable Declarations
+    int lv_offset;
+
+    // Automatic Variable Declarations
+    bool auto3E310064_val;
+
+    // Variable Initialization
+
+    // Implementation
+    auto3E310064_val = lib08CCADF9_gv_inCinematic;
+    if (auto3E310064_val == true) {
+        lv_offset = -50;
+    }
+    else if (auto3E310064_val == false) {
+        lv_offset = -10;
+    }
+    else {
+    }
+    if ((lib08CCADF9_gv_kL_BubbleDialog != c_invalidDialogId)) {
+        DialogDestroy(lib08CCADF9_gv_kL_BubbleDialog);
+    }
+
+    DialogCreate(260, 120, c_anchorCenter, 0, 0, true);
+    lib08CCADF9_gv_kL_BubbleDialog = DialogLastCreated();
+    DialogSetImageVisible(DialogLastCreated(), false);
+    DialogSetPositionRelativeToUnitWithAnchor(DialogLastCreated(), lp_unit, "Ref_Overhead", c_anchorBottomLeft, 0, -50);
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_kL_BubbleDialog, c_triggerControlTypePanel, "NamelessTD_StoryUI/ChatBubbleAnchor");
+    lib08CCADF9_gv_kL_BubbleAnchor = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_BubbleAnchor, c_triggerControlTypeLabel, "Dialogue");
+    lib08CCADF9_gv_kL_DialogueLabel = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_DialogueLabel, lp_dialogueText, PlayerGroupAll());
+    DialogSetVisible(lib08CCADF9_gv_kL_BubbleDialog, PlayerGroupAll(), true);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_BubbleAnchor, PlayerGroupAll(), true);
+    UnitFlashSelection(lp_unit, lp_duration);
+    Wait((2.4 + lp_duration), c_timeReal);
+    DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_BubbleAnchor, PlayerGroupAll(), "FadeOut");
+    Wait(0.3, c_timeReal);
+    DialogDestroy(lib08CCADF9_gv_kL_BubbleDialog);
+}
+
+void lib08CCADF9_gf_CreateHeroUnit (int lp_heroUnit) {
+    // Variable Declarations
+    const int lv_standardHeight = 65;
+    int lv_height;
+
+    // Automatic Variable Declarations
+    int auto5F10F535_val;
+
+    // Variable Initialization
+
+    // Implementation
+    lib08CCADF9_gf_ShowHideGameUIPanel(true, lib08CCADF9_ge_GameUIPanels_HeroPanel);
+    auto5F10F535_val = lp_heroUnit;
+    if (auto5F10F535_val == lib08CCADF9_ge_HeroType_Raynor) {
+        libNtve_gf_CreateUnitsAtPoint2(1, "Vulture", 0, 1, PointFromName(("Lv" + IntToString(lib08CCADF9_gv_kL_CurrentLevel) + "_HeroSpawn")));
+        libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameHUD.lv_heroPortrait, "RaynorCommanderPortrait", PlayerGroupAll());
+    }
+    else if (auto5F10F535_val == lib08CCADF9_ge_HeroType_SpaceCow) {
+        libNtve_gf_CreateUnitsAtPoint2(1, "TaurenSpaceMarine", 0, 1, PointFromName(("Lv" + IntToString(lib08CCADF9_gv_kL_CurrentLevel) + "_HeroSpawn")));
+        libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameHUD.lv_heroPortrait, "TaurenMarinePortrait", PlayerGroupAll());
+        libNtve_gf_SetDialogItemLight(lib08CCADF9_gv_kL_GameHUD.lv_heroPortrait, "TaurenMarinePortrait", PlayerGroupAll());
+    }
+    else {
+    }
+    lib08CCADF9_gv_kL_HeroUnit = UnitLastCreated();
+    libNtve_gf_SetDialogItemUnit(lib08CCADF9_gv_kL_GameHUD.lv_heroVitals, lib08CCADF9_gv_kL_HeroUnit, PlayerGroupAll());
+    libNtve_gf_SetDialogItemUnitGroup(lib08CCADF9_gv_kL_GameHUD.lv_globalCastingPanel, libNtve_gf_ConvertUnitToUnitGroup(lib08CCADF9_gv_kL_HeroUnit), PlayerGroupAll());
+    if ((UnitGetPropertyFixed(lib08CCADF9_gv_kL_HeroUnit, c_unitPropShieldsMax, c_unitPropCurrent) == 0.0)) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_shieldsBar, PlayerGroupAll(), false);
+    }
+    else {
+        lv_height += 10;
+    }
+    if ((UnitGetPropertyFixed(lib08CCADF9_gv_kL_HeroUnit, c_unitPropEnergyMax, c_unitPropCurrent) == 0.0)) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_energyBar, PlayerGroupAll(), false);
+    }
+    else {
+        lv_height += 5;
+    }
+    lv_height += lv_standardHeight;
+    DialogControlSetSize(lib08CCADF9_gv_kL_GameHUD.lv_vitalsBackground, PlayerGroupAll(), 0, lv_height);
+}
+
+void lib08CCADF9_gf_SetHeroUnit (unit lp_heroUnit) {
+    // Variable Declarations
+    const int lv_standardHeight = 65;
+    int lv_height;
+
+    // Automatic Variable Declarations
+    string auto4482AA51_val;
+
+    // Variable Initialization
+
+    // Implementation
+    lib08CCADF9_gf_ShowHideGameUIPanel(true, lib08CCADF9_ge_GameUIPanels_HeroPanel);
+    auto4482AA51_val = UnitGetType(lp_heroUnit);
+    if (auto4482AA51_val == "TaurenSpaceMarine") {
+        libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameHUD.lv_heroPortrait, "TaurenMarinePortrait", PlayerGroupAll());
+        libNtve_gf_SetDialogItemLight(lib08CCADF9_gv_kL_GameHUD.lv_heroPortrait, "TaurenMarinePortrait", PlayerGroupAll());
+    }
+    else {
+    }
+    lib08CCADF9_gv_kL_HeroUnit = lp_heroUnit;
+    libNtve_gf_SetDialogItemUnit(lib08CCADF9_gv_kL_GameHUD.lv_heroVitals, lib08CCADF9_gv_kL_HeroUnit, PlayerGroupAll());
+    libNtve_gf_SetDialogItemUnitGroup(lib08CCADF9_gv_kL_GameHUD.lv_globalCastingPanel, libNtve_gf_ConvertUnitToUnitGroup(lib08CCADF9_gv_kL_HeroUnit), PlayerGroupAll());
+    if ((UnitGetPropertyFixed(lib08CCADF9_gv_kL_HeroUnit, c_unitPropShieldsMax, c_unitPropCurrent) == 0.0)) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_shieldsBar, PlayerGroupAll(), false);
+    }
+    else {
+        lv_height += 10;
+    }
+    if ((UnitGetPropertyFixed(lib08CCADF9_gv_kL_HeroUnit, c_unitPropEnergyMax, c_unitPropCurrent) == 0.0)) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_energyBar, PlayerGroupAll(), false);
+    }
+    else {
+        lv_height += 5;
+    }
+    lv_height += lv_standardHeight;
+    DialogControlSetSize(lib08CCADF9_gv_kL_GameHUD.lv_vitalsBackground, PlayerGroupAll(), 0, lv_height);
+}
+
+void lib08CCADF9_gf_KL_CreateWaveCallout (unit lp_position, int lp_direction, bool lp_timerState) {
+    // Automatic Variable Declarations
+    int auto5E1E32A1_val;
+    bool auto7EF2380F_val;
+
+    // Implementation
+    lib08CCADF9_gv_kL_CurrentlyActiveCallouts += 1;
+    DialogCreate(150, 150, c_anchorCenter, 0, 0, true);
+    lib08CCADF9_gv_kL_CalloutUI.lv_calloutDialog[lib08CCADF9_gv_kL_CurrentlyActiveCallouts] = DialogLastCreated();
+    DialogSetImageVisible(DialogLastCreated(), false);
+    DialogSetPositionRelativeToUnitWithAnchor(DialogLastCreated(), lp_position, "Ref_Origin", lp_direction, 0, 0);
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_kL_CalloutUI.lv_calloutDialog[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], c_triggerControlTypePanel, "NamelessTD_HUD/WaveCalloutPanel");
+    lib08CCADF9_gv_kL_CalloutUI.lv_calloutPanel[lib08CCADF9_gv_kL_CurrentlyActiveCallouts] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_CalloutUI.lv_calloutPanel[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], c_triggerControlTypeImage, "RaceIndicator");
+    lib08CCADF9_gv_kL_CalloutUI.lv_raceIndicator[lib08CCADF9_gv_kL_CurrentlyActiveCallouts] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_CalloutUI.lv_calloutPanel[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], c_triggerControlTypeProgressBar, "Fill");
+    lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[lib08CCADF9_gv_kL_CurrentlyActiveCallouts] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_CalloutUI.lv_calloutPanel[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], c_triggerControlTypeLabel, "EnemyCountLabel");
+    lib08CCADF9_gv_kL_CalloutUI.lv_enemyCountLabel[lib08CCADF9_gv_kL_CurrentlyActiveCallouts] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_CalloutUI.lv_calloutPanel[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], c_triggerControlTypeButton, "CalloutHitTest");
+    lib08CCADF9_gv_kL_CalloutUI.lv_hitTest[lib08CCADF9_gv_kL_CurrentlyActiveCallouts] = DialogControlLastCreated();
+    auto5E1E32A1_val = lp_direction;
+    if (auto5E1E32A1_val == c_anchorTop) {
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_CalloutUI.lv_calloutPanel[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], PlayerGroupAll(), "AimNorth");
+    }
+    else if (auto5E1E32A1_val == c_anchorBottom) {
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_CalloutUI.lv_calloutPanel[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], PlayerGroupAll(), "AimSouth");
+    }
+    else if (auto5E1E32A1_val == c_anchorLeft) {
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_CalloutUI.lv_calloutPanel[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], PlayerGroupAll(), "AimWest");
+    }
+    else if (auto5E1E32A1_val == c_anchorRight) {
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_CalloutUI.lv_calloutPanel[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], PlayerGroupAll(), "AimEast");
+    }
+    else {
+    }
+    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
+    auto7EF2380F_val = lp_timerState;
+    if (auto7EF2380F_val == false) {
+        libNtve_gf_SetDialogItemMaximumValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], 1.0, PlayerGroupAll());
+        libNtve_gf_SetDialogItemCurrentValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[lib08CCADF9_gv_kL_CurrentlyActiveCallouts], 1.0, PlayerGroupAll());
+    }
+    else {
+    }
+}
+
+void lib08CCADF9_gf_KL_DestroyAllCallouts () {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    const int auto70D7A21F_ae = lib08CCADF9_gv_kL_MaxActiveCallouts;
+    const int auto70D7A21F_ai = 1;
+
+    // Variable Initialization
+
+    // Implementation
+    lv_index = 1;
+    for ( ; ( (auto70D7A21F_ai >= 0 && lv_index <= auto70D7A21F_ae) || (auto70D7A21F_ai < 0 && lv_index >= auto70D7A21F_ae) ) ; lv_index += auto70D7A21F_ai ) {
+        if ((lib08CCADF9_gv_kL_CalloutUI.lv_calloutDialog[lv_index] != c_invalidDialogId)) {
+            DialogDestroy(lib08CCADF9_gv_kL_CalloutUI.lv_calloutDialog[lv_index]);
+        }
+
+    }
+    lib08CCADF9_gv_kL_CurrentlyActiveCallouts = 0;
+}
+
+trigger auto_lib08CCADF9_gf_CreateFloatingText_Trigger = null;
+unit auto_lib08CCADF9_gf_CreateFloatingText_lp_displayUnit;
+string auto_lib08CCADF9_gf_CreateFloatingText_lp_displayText;
+string auto_lib08CCADF9_gf_CreateFloatingText_lp_style;
+int auto_lib08CCADF9_gf_CreateFloatingText_lp_direction;
+playergroup auto_lib08CCADF9_gf_CreateFloatingText_lp_displayPlayers;
+int auto_lib08CCADF9_gf_CreateFloatingText_lp_yOffset;
+
+void lib08CCADF9_gf_CreateFloatingText (unit lp_displayUnit, string lp_displayText, string lp_style, int lp_direction, playergroup lp_displayPlayers, int lp_yOffset) {
+    auto_lib08CCADF9_gf_CreateFloatingText_lp_displayUnit = lp_displayUnit;
+    auto_lib08CCADF9_gf_CreateFloatingText_lp_displayText = lp_displayText;
+    auto_lib08CCADF9_gf_CreateFloatingText_lp_style = lp_style;
+    auto_lib08CCADF9_gf_CreateFloatingText_lp_direction = lp_direction;
+    auto_lib08CCADF9_gf_CreateFloatingText_lp_displayPlayers = lp_displayPlayers;
+    auto_lib08CCADF9_gf_CreateFloatingText_lp_yOffset = lp_yOffset;
+
+    if (auto_lib08CCADF9_gf_CreateFloatingText_Trigger == null) {
+        auto_lib08CCADF9_gf_CreateFloatingText_Trigger = TriggerCreate("auto_lib08CCADF9_gf_CreateFloatingText_TriggerFunc");
+    }
+
+    TriggerExecute(auto_lib08CCADF9_gf_CreateFloatingText_Trigger, false, false);
+}
+
+bool auto_lib08CCADF9_gf_CreateFloatingText_TriggerFunc (bool testConds, bool runActions) {
+    unit lp_displayUnit = auto_lib08CCADF9_gf_CreateFloatingText_lp_displayUnit;
+    string lp_displayText = auto_lib08CCADF9_gf_CreateFloatingText_lp_displayText;
+    string lp_style = auto_lib08CCADF9_gf_CreateFloatingText_lp_style;
+    int lp_direction = auto_lib08CCADF9_gf_CreateFloatingText_lp_direction;
+    playergroup lp_displayPlayers = auto_lib08CCADF9_gf_CreateFloatingText_lp_displayPlayers;
+    int lp_yOffset = auto_lib08CCADF9_gf_CreateFloatingText_lp_yOffset;
+
+    // Variable Declarations
+    int lv_dialog;
+    int lv_frame;
+    int lv_textFrame;
+    int lv_xOffsetActual;
+    int lv_yOffsetActual;
+    string lv_directionH;
+    string lv_directionV;
+    string lv_animateMessage;
+    string lv_iconState;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_dialog = c_invalidDialogId;
+    lv_frame = c_invalidDialogControlId;
+    lv_textFrame = c_invalidDialogControlId;
+    lv_directionH = "";
+    lv_directionV = "";
+    lv_animateMessage = "";
+    lv_iconState = "";
+
+    // Implementation
+    lv_yOffsetActual = (-200 - lp_yOffset);
+    lv_xOffsetActual = -200;
+    DialogCreate(400, 400, c_anchorCenter, 0, 0, true);
+    lv_dialog = DialogLastCreated();
+    DialogSetImageVisible(lv_dialog, false);
+    DialogSetPositionRelativeToUnit(lv_dialog, lp_displayUnit, "Ref_Center", lv_xOffsetActual, lv_yOffsetActual);
+    DialogSetVisible(lv_dialog, lp_displayPlayers, true);
+    DialogControlCreateFromTemplate(DialogLastCreated(), c_triggerControlTypePanel, "PiratedFloatingText/FloatingTextFrame");
+    lv_frame = DialogControlLastCreated();
+    DialogControlHookup(lv_frame, c_triggerControlTypeLabel, "Text");
+    lv_textFrame = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemText(lv_textFrame, StringToText(lp_displayText), lp_displayPlayers);
+    libNtve_gf_SetDialogItemStyle(lv_textFrame, "FloatingText_Minerals", lp_displayPlayers);
+    lib08CCADF9_gf_FloatingCombatTextApplyDirection(lv_frame, lp_direction, lp_displayPlayers);
+    lib08CCADF9_gf_FloatingCombatTextApplyAnimation(lv_textFrame, lp_style, lp_displayPlayers);
+    Wait(2.5, c_timeGame);
+    DialogDestroy(lv_dialog);
+    return true;
+}
+
+void lib08CCADF9_gf_FloatingCombatTextApplyAnimation (int lp_textFrame, string lp_style, playergroup lp_displayPlayers) {
+    // Variable Declarations
+    string lv_animateMessage;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_animateMessage = "";
+
+    // Implementation
+    lv_animateMessage = "EventAnimate";
+    if ((lp_style == "FCT_Status_Crit")) {
+        lv_animateMessage = "EventAnimateFast";
+    }
+    DialogControlSendAnimationEvent(lp_textFrame, lp_displayPlayers, lv_animateMessage);
+}
+
+void lib08CCADF9_gf_FloatingCombatTextApplyDirection (int lp_frame, int lp_direction, playergroup lp_displayPlayers) {
+    // Variable Declarations
+    int lv_indexH;
+    int lv_indexV;
+    string lv_directionH;
+    string lv_directionV;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_directionH = "";
+    lv_directionV = "";
+
+    // Implementation
+    if ((lp_direction == lib08CCADF9_ge_FCTDirection_Right)) {
+        lv_indexH = RandomInt(0, 3);
+        lv_indexV = RandomInt(0, 3);
+    }
+    else if ((lp_direction == lib08CCADF9_ge_FCTDirection_Left)) {
+        lv_indexH = RandomInt(4, 7);
+        lv_indexV = RandomInt(0, 3);
+    }
+    else if ((lp_direction == lib08CCADF9_ge_FCTDirection_Middle)) {
+        lv_indexH = RandomInt(8, 11);
+        lv_indexV = RandomInt(1, 3);
+    }
+    else if ((lp_direction == lib08CCADF9_ge_FCTDirection_Vertical)) {
+        lv_indexH = 12;
+        lv_indexV = 4;
+    }
+    else if ((lp_direction == lib08CCADF9_ge_FCTDirection_Random)) {
+        lv_indexH = RandomInt(0, 11);
+        lv_indexV = RandomInt(0, 3);
+    }
+    lv_directionH = ("PiratedFloatingTextTemplates/H" + lib08CCADF9_gf_ConvertIntegerToStringDoubleDigit(lv_indexH));
+    lv_directionV = ("PiratedFloatingTextTemplates/V" + lib08CCADF9_gf_ConvertIntegerToStringDoubleDigit(lv_indexV));
+    DialogControlCreateInPanelFromTemplate(lp_frame, c_triggerControlTypePanel, lv_directionH);
+    DialogControlCreateInPanelFromTemplate(lp_frame, c_triggerControlTypePanel, lv_directionV);
+}
+
+string lib08CCADF9_gf_ConvertIntegerToStringDoubleDigit (int lp_integer) {
+    // Variable Declarations
+    string lv_integerString;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_integerString = "";
+
+    // Implementation
+    lv_integerString = IntToString(lp_integer);
+    if ((StringLength(lv_integerString) == 1)) {
+        lv_integerString = ("0" + lv_integerString);
+    }
+
+    return lv_integerString;
+}
+
+void lib08CCADF9_gf_KL_TurretUICreate (int lp_uIType, unit lp_unit) {
+    // Automatic Variable Declarations
+    int autoD485C0AB_val;
+
+    // Implementation
+    DialogCreate(280, 280, c_anchorCenter, 0, 0, true);
+    lib08CCADF9_gv_kL_GameHUD.lv_turretDialog = DialogLastCreated();
+    DialogSetImageVisible(DialogLastCreated(), false);
+    DialogSetPositionRelativeToUnitWithAnchor(DialogLastCreated(), lp_unit, "Ref_Origin", c_anchorCenter, 0, 0);
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_kL_GameHUD.lv_turretDialog, c_triggerControlTypePanel, "NamelessTD_HUD/TurretAnchor");
+    lib08CCADF9_gv_kL_GameHUD.lv_turretAnchor = DialogControlLastCreated();
+    DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameHUD.lv_turretAnchor, PlayerGroupAll(), "HidePanels");
+    autoD485C0AB_val = lp_uIType;
+    if (autoD485C0AB_val == lib08CCADF9_ge_KL_TurretUIType_Build) {
+        DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_turretAnchor, c_triggerControlTypeCommandPanel, "TurretBuildCommand");
+        lib08CCADF9_gv_kL_GameHUD.lv_turretCommandPanel = DialogControlLastCreated();
+        DialogControlSetVisible(DialogControlLastCreated(), PlayerGroupAll(), true);
+    }
+    else if (autoD485C0AB_val == lib08CCADF9_ge_KL_TurretUIType_Upgrade) {
+        DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_turretAnchor, c_triggerControlTypeCommandPanel, "TurretUpgradeCommand");
+        lib08CCADF9_gv_kL_GameHUD.lv_turretCommandPanel = DialogControlLastCreated();
+        DialogControlSetVisible(DialogControlLastCreated(), PlayerGroupAll(), true);
+    }
+    else {
+    }
+    lib08CCADF9_gv_kL_CasterUnit = lp_unit;
+    libNtve_gf_SetDialogItemUnitGroup(lib08CCADF9_gv_kL_GameHUD.lv_turretCommandPanel, libNtve_gf_ConvertUnitToUnitGroup(lp_unit), PlayerGroupAll());
+    DialogSetVisible(lib08CCADF9_gv_kL_GameHUD.lv_turretDialog, PlayerGroupAll(), true);
+}
+
+int lib08CCADF9_gf_ReturnUnitRewardasInteger (unit lp_unit) {
+    // Automatic Variable Declarations
+    // Implementation
+    return FixedToInt(UnitGetPropertyFixed(lp_unit, c_unitPropKillXP, c_unitPropCurrent));
+}
+
+void lib08CCADF9_gf_KL_CreatePauseMenu () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogCreate(1920, 1080, c_anchorCenter, 0, 0, true);
+    lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog = DialogLastCreated();
+    DialogSetFullscreen(DialogLastCreated(), true);
+    DialogSetImageVisible(DialogLastCreated(), false);
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog, c_triggerControlTypePanel, "NamelessTD_TransitionPanel/CenterMenuHalfTransition");
+    lib08CCADF9_gv_kL_GameMenus.lv_halfTransitionPanel = DialogControlLastCreated();
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog, c_triggerControlTypePanel, "NamelessTD_GameMenus/AnchorPanel");
+    lib08CCADF9_gv_kL_GameMenus.lv_gameMenuAnchor = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuAnchor, c_triggerControlTypePanel, "PausePanel");
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_pausePanel, c_triggerControlTypeLabel, "LevelTitle");
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanelTitle = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_pausePanel, c_triggerControlTypeLabel, "LevelDescriptionLabel");
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanelDesc = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_pausePanel, c_triggerControlTypeButton, "ResumeButton");
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanelResumeBtn = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_pausePanel, c_triggerControlTypeButton, "QuitButton");
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanelQuitBtn = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_pausePanel, c_triggerControlTypeButton, "RestartButton");
+    lib08CCADF9_gv_kL_GameMenus.lv_pausePanelRestartBtn = DialogControlLastCreated();
+    DialogSetVisible(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog, PlayerGroupAll(), true);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_GameMenus.lv_pausePanel, PlayerGroupAll(), true);
+}
+
+void lib08CCADF9_gf_KL_UpdateLevelDataPauseMenu (int lp_stage) {
+    // Automatic Variable Declarations
+    int auto9CEF6E15_val;
+
+    // Implementation
+    auto9CEF6E15_val = lp_stage;
+    if (auto9CEF6E15_val == 1) {
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameMenus.lv_pausePanelTitle, StringToText(UserDataGetString("LevelData", "Wasteland Lv1", "Title", 1)), PlayerGroupAll());
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameMenus.lv_pausePanelDesc, UserDataGetText("LevelData", "Wasteland Lv1", "Description", 1), PlayerGroupAll());
+    }
+    else {
+    }
+}
+
+void lib08CCADF9_gf_KL_CreateDefeatScreen () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogCreate(1920, 1080, c_anchorCenter, 0, 0, true);
+    lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog = DialogLastCreated();
+    DialogSetFullscreen(DialogLastCreated(), true);
+    DialogSetImageVisible(DialogLastCreated(), false);
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog, c_triggerControlTypePanel, "NamelessTD_TransitionPanel/CenterMenuHalfTransition");
+    lib08CCADF9_gv_kL_GameMenus.lv_halfTransitionPanel = DialogControlLastCreated();
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog, c_triggerControlTypePanel, "NamelessTD_GameMenus/AnchorPanel");
+    lib08CCADF9_gv_kL_GameMenus.lv_gameMenuAnchor = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuAnchor, c_triggerControlTypePanel, "DefeatPanel");
+    lib08CCADF9_gv_kL_GameMenus.lv_defeatPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_defeatPanel, c_triggerControlTypeLabel, "TipLabel");
+    lib08CCADF9_gv_kL_GameMenus.lv_defeatPanelTip = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_defeatPanel, c_triggerControlTypeButton, "QuitButton");
+    lib08CCADF9_gv_kL_GameMenus.lv_defeatPanelQuitBtn = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameMenus.lv_defeatPanel, c_triggerControlTypeButton, "RestartButton");
+    lib08CCADF9_gv_kL_GameMenus.lv_defeatPanelRestartBtn = DialogControlLastCreated();
+    DialogSetVisible(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog, PlayerGroupAll(), true);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_GameMenus.lv_defeatPanel, PlayerGroupAll(), true);
+}
+
+void lib08CCADF9_gf_KL_UpdateDefeatMenu (string lp_stage) {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    lv_index = RandomInt(1, UserDataGetInt("DefeatHints", lp_stage, "MaxHints", 1));
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameMenus.lv_defeatPanelTip, StringToText(UserDataGetString("DefeatHints", lp_stage, "Hint", lv_index)), PlayerGroupAll());
+}
+
+void lib08CCADF9_gf_KL_SetMenuMusic () {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    int auto7A24BEA7_val;
+
+    // Variable Initialization
+
+    // Implementation
+    SoundtrackStop(PlayerGroupAll(), c_soundtrackCategoryMusic, true);
+    SoundtrackStop(PlayerGroupAll(), c_soundtrackCategoryAmbience, true);
+    libNtve_gf_SetAllSoundChannelVolumes(libNtve_ge_VolumeChannelMode_Cinematic, PlayerGroupAll(), 0.0);
+    lv_index = RandomInt(1, 5);
+    auto7A24BEA7_val = lv_index;
+    if (auto7A24BEA7_val == 1) {
+        lib08CCADF9_gv_kL_GameSoundtrack = "Music_Takeover_ReBrand_BG";
+    }
+    else if (auto7A24BEA7_val == 2) {
+        lib08CCADF9_gv_kL_GameSoundtrack = "Music_Takeover_Alarak_BG";
+    }
+    else if (auto7A24BEA7_val == 3) {
+        lib08CCADF9_gv_kL_GameSoundtrack = "Music_Takeover_NovaPack3_BG";
+    }
+    else if (auto7A24BEA7_val == 4) {
+        lib08CCADF9_gv_kL_GameSoundtrack = "Music_Takeover_NovaCommander_BG";
+    }
+    else if (auto7A24BEA7_val == 5) {
+        lib08CCADF9_gv_kL_GameSoundtrack = "Music_Takeover_Abathur_BG";
+    }
+    else {
+    }
+    SoundtrackPlay(PlayerGroupAll(), c_soundtrackCategoryMusic, lib08CCADF9_gv_kL_GameSoundtrack, c_soundtrackCueAny, c_soundtrackIndexAny, true);
+    SoundtrackPlay(PlayerGroupAll(), c_soundtrackCategoryAmbience, "Ambience_Space01", c_soundtrackCueAny, c_soundtrackIndexAny, true);
+}
+
+void lib08CCADF9_gf_ShowHideLevelSelectionPanel (bool lp_showHide) {
+    // Automatic Variable Declarations
+    // Implementation
+    if ((lib08CCADF9_gv_gameUI.lv_uIContainer == c_invalidDialogId)) {
+        TriggerExecute(lib08CCADF9_gt_KL_LevelSelectionUIHookup, true, false);
+    }
+
+    DialogControlSetVisible(lib08CCADF9_gv_gameUI.lv_levelSelectionContainer, PlayerGroupAll(), lp_showHide);
+    TriggerExecute(lib08CCADF9_gt_KL_UpdateDifficulty, true, false);
+    lib08CCADF9_gf_KL_SetMenuMusic();
+}
+
+void lib08CCADF9_gf_KL_UpdateLevelData (string lp_stage) {
+    // Automatic Variable Declarations
+    string auto38F8F288_val;
+
+    // Implementation
+    lib08CCADF9_gv_kL_SelectedLevel = UserDataGetInt("LevelData", lp_stage, "LvID", 1);
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_LevelSelection.lv_titleLabel, StringToText(UserDataGetString("LevelData", lp_stage, "Title", 1)), PlayerGroupAll());
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_LevelSelection.lv_descriptionLabel, UserDataGetText("LevelData", lp_stage, "Description", 1), PlayerGroupAll());
+    libNtve_gf_SetDialogItemImage(lib08CCADF9_gv_kL_LevelSelection.lv_previewImage, UserDataGetImagePath("LevelData", lp_stage, "PreviewImage", 1), PlayerGroupAll());
+    auto38F8F288_val = lp_stage;
+    if (auto38F8F288_val == "Wasteland Lv1") {
+        lib08CCADF9_gv_kL_NextWave[1] = lib08CCADF9_gt_KL_Lv1_SendWave1;
+        lib08CCADF9_gv_kL_NextWave[2] = lib08CCADF9_gt_KL_Lv1_SendWave2;
+        lib08CCADF9_gv_kL_NextWave[3] = lib08CCADF9_gt_KL_Lv1_SendWave3;
+    }
+    else {
+    }
+}
+
+void lib08CCADF9_gf_KL_SetGameDifficulty (int lp_gameDifficulty) {
+    // Automatic Variable Declarations
+    int auto93089902_val;
+
+    // Implementation
+    auto93089902_val = lp_gameDifficulty;
+    if (auto93089902_val == lib08CCADF9_ge_KL_GameDifficulty_Easy) {
+        lib08CCADF9_gv_kL_GameDifficulty = 1;
+    }
+    else if (auto93089902_val == lib08CCADF9_ge_KL_GameDifficulty_Normal) {
+        lib08CCADF9_gv_kL_GameDifficulty = 2;
+    }
+    else if (auto93089902_val == lib08CCADF9_ge_KL_GameDifficulty_Hard) {
+        lib08CCADF9_gv_kL_GameDifficulty = 3;
+    }
+    else {
+        lib08CCADF9_gv_kL_GameDifficulty = 1;
+    }
+}
+
+string lib08CCADF9_gf_ReturnGameDifficultyasInteger () {
+    // Automatic Variable Declarations
+    int autoFC48580B_val;
+
+    // Implementation
+    autoFC48580B_val = lib08CCADF9_gv_kL_GameDifficulty;
+    if (autoFC48580B_val == 1) {
+        return IntToString(0);
+    }
+    else {
+        return "A";
+    }
+}
+
+// Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_Lv1_SendWave1
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_Lv1_SendWave1_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_index;
+    int lv_index2;
+
+    // Automatic Variable Declarations
+    int auto0931DB6D_ae;
+    const int auto0931DB6D_ai = 1;
+    int auto2C8578E7_ae;
+    const int auto2C8578E7_ai = 1;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gv_currentWaveMaxGroups = UserDataGetInt("WaveData", "Wave 1", "Max Groups", 1);
+    lib08CCADF9_gv_waveData = "WaveData";
+    lib08CCADF9_gv_timerDuration = UserDataGetFixed(lib08CCADF9_gv_waveData, "Wave 1", "WaveDuration", 1);
+    TimerStart(lib08CCADF9_gv_halfTimer, (lib08CCADF9_gv_timerDuration / 2.0), false, c_timeGame);
+    auto0931DB6D_ae = lib08CCADF9_gv_currentWaveMaxGroups;
+    lv_index = 1;
+    for ( ; ( (auto0931DB6D_ai >= 0 && lv_index <= auto0931DB6D_ae) || (auto0931DB6D_ai < 0 && lv_index >= auto0931DB6D_ae) ) ; lv_index += auto0931DB6D_ai ) {
+        lib08CCADF9_gv_nextGroup = UserDataGetUserInstance(lib08CCADF9_gv_waveData, "Wave 1", "Groups", lv_index);
+        auto2C8578E7_ae = UserDataGetInt("Wave1Groups", lib08CCADF9_gv_nextGroup, "Quantity", 1);
+        lv_index2 = 1;
+        for ( ; ( (auto2C8578E7_ai >= 0 && lv_index2 <= auto2C8578E7_ae) || (auto2C8578E7_ai < 0 && lv_index2 >= auto2C8578E7_ae) ) ; lv_index2 += auto2C8578E7_ai ) {
+            lib08CCADF9_gf_KL_SpawnWaveUnitInstantly("Wave1Groups", lib08CCADF9_gv_nextGroup);
+            Wait(UserDataGetFixed("Wave1Groups", lib08CCADF9_gv_nextGroup, "Spawn Delay", 1), c_timeGame);
+        }
+        Wait(UserDataGetFixed("Wave1Groups", lib08CCADF9_gv_nextGroup, "GroupDelay", 1), c_timeGame);
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_Lv1_SendWave1_Init () {
+    lib08CCADF9_gt_KL_Lv1_SendWave1 = TriggerCreate("lib08CCADF9_gt_KL_Lv1_SendWave1_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_Lv1_SendWave2
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_Lv1_SendWave2_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_index;
+    int lv_index2;
+
+    // Automatic Variable Declarations
+    int auto337D5940_ae;
+    const int auto337D5940_ai = 1;
+    int autoF5301A32_ae;
+    const int autoF5301A32_ai = 1;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gf_KL_PauseUnpauseGame(true);
+    TriggerExecute(lib08CCADF9_gt_KL_Lv1_HeroUnlockEvent, true, true);
+    lib08CCADF9_gv_currentWaveMaxGroups = UserDataGetInt("WaveData", "Wave 2", "Max Groups", 1);
+    lib08CCADF9_gv_timerDuration = UserDataGetFixed(lib08CCADF9_gv_waveData, "Wave 2", "WaveDuration", 1);
+    TimerStart(lib08CCADF9_gv_halfTimer, (lib08CCADF9_gv_timerDuration / 2.0), false, c_timeGame);
+    auto337D5940_ae = lib08CCADF9_gv_currentWaveMaxGroups;
+    lv_index = 1;
+    for ( ; ( (auto337D5940_ai >= 0 && lv_index <= auto337D5940_ae) || (auto337D5940_ai < 0 && lv_index >= auto337D5940_ae) ) ; lv_index += auto337D5940_ai ) {
+        lib08CCADF9_gv_nextGroup = UserDataGetUserInstance(lib08CCADF9_gv_waveData, "Wave 2", "Groups", lv_index);
+        autoF5301A32_ae = UserDataGetInt("Wave2Groups", lib08CCADF9_gv_nextGroup, "Quantity", 1);
+        lv_index2 = 1;
+        for ( ; ( (autoF5301A32_ai >= 0 && lv_index2 <= autoF5301A32_ae) || (autoF5301A32_ai < 0 && lv_index2 >= autoF5301A32_ae) ) ; lv_index2 += autoF5301A32_ai ) {
+            lib08CCADF9_gf_KL_SpawnWaveUnitInstantly("Wave2Groups", lib08CCADF9_gv_nextGroup);
+            Wait(UserDataGetFixed("Wave2Groups", lib08CCADF9_gv_nextGroup, "Spawn Delay", 1), c_timeGame);
+        }
+        Wait(UserDataGetFixed("Wave2Groups", lib08CCADF9_gv_nextGroup, "GroupDelay", 1), c_timeGame);
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_Lv1_SendWave2_Init () {
+    lib08CCADF9_gt_KL_Lv1_SendWave2 = TriggerCreate("lib08CCADF9_gt_KL_Lv1_SendWave2_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_Lv1_SendWave3
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_Lv1_SendWave3_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_index;
+    int lv_index2;
+
+    // Automatic Variable Declarations
+    int autoA526C442_ae;
+    const int autoA526C442_ai = 1;
+    int autoC5416B29_ae;
+    const int autoC5416B29_ai = 1;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerExecute(lib08CCADF9_gt_KL_Lv1_ReinforcementUnlockEvent, true, true);
+    lib08CCADF9_gv_currentWaveMaxGroups = UserDataGetInt("WaveData", "Wave 3", "Max Groups", 1);
+    lib08CCADF9_gv_timerDuration = UserDataGetFixed(lib08CCADF9_gv_waveData, "Wave 3", "WaveDuration", 1);
+    TimerStart(lib08CCADF9_gv_halfTimer, (lib08CCADF9_gv_timerDuration / 2.0), false, c_timeGame);
+    autoA526C442_ae = lib08CCADF9_gv_currentWaveMaxGroups;
+    lv_index = 1;
+    for ( ; ( (autoA526C442_ai >= 0 && lv_index <= autoA526C442_ae) || (autoA526C442_ai < 0 && lv_index >= autoA526C442_ae) ) ; lv_index += autoA526C442_ai ) {
+        lib08CCADF9_gv_nextGroup = UserDataGetUserInstance(lib08CCADF9_gv_waveData, "Wave 3", "Groups", lv_index);
+        autoC5416B29_ae = UserDataGetInt("Wave3Groups", lib08CCADF9_gv_nextGroup, "Quantity", 1);
+        lv_index2 = 1;
+        for ( ; ( (autoC5416B29_ai >= 0 && lv_index2 <= autoC5416B29_ae) || (autoC5416B29_ai < 0 && lv_index2 >= autoC5416B29_ae) ) ; lv_index2 += autoC5416B29_ai ) {
+            lib08CCADF9_gf_KL_SpawnWaveUnitInstantly("Wave3Groups", lib08CCADF9_gv_nextGroup);
+            Wait(UserDataGetFixed("Wave3Groups", lib08CCADF9_gv_nextGroup, "Spawn Delay", 1), c_timeGame);
+        }
+        Wait(UserDataGetFixed("Wave3Groups", lib08CCADF9_gv_nextGroup, "GroupDelay", 1), c_timeGame);
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_Lv1_SendWave3_Init () {
+    lib08CCADF9_gt_KL_Lv1_SendWave3 = TriggerCreate("lib08CCADF9_gt_KL_Lv1_SendWave3_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_Lv1_SendWave4
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_Lv1_SendWave4_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_index;
+    int lv_index2;
+
+    // Automatic Variable Declarations
+    int autoF80D145C_ae;
+    const int autoF80D145C_ai = 1;
+    int auto1B56E4F6_ae;
+    const int auto1B56E4F6_ai = 1;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gv_currentWaveMaxGroups = UserDataGetInt("WaveData", "Wave 4", "Max Groups", 1);
+    lib08CCADF9_gv_timerDuration = UserDataGetFixed(lib08CCADF9_gv_waveData, "Wave 4", "WaveDuration", 1);
+    TimerStart(lib08CCADF9_gv_halfTimer, (lib08CCADF9_gv_timerDuration / 2.0), false, c_timeGame);
+    autoF80D145C_ae = lib08CCADF9_gv_currentWaveMaxGroups;
+    lv_index = 1;
+    for ( ; ( (autoF80D145C_ai >= 0 && lv_index <= autoF80D145C_ae) || (autoF80D145C_ai < 0 && lv_index >= autoF80D145C_ae) ) ; lv_index += autoF80D145C_ai ) {
+        lib08CCADF9_gv_nextGroup = UserDataGetUserInstance(lib08CCADF9_gv_waveData, "Wave 4", "Groups", lv_index);
+        auto1B56E4F6_ae = UserDataGetInt("Wave4Groups", lib08CCADF9_gv_nextGroup, "Quantity", 1);
+        lv_index2 = 1;
+        for ( ; ( (auto1B56E4F6_ai >= 0 && lv_index2 <= auto1B56E4F6_ae) || (auto1B56E4F6_ai < 0 && lv_index2 >= auto1B56E4F6_ae) ) ; lv_index2 += auto1B56E4F6_ai ) {
+            lib08CCADF9_gf_KL_SpawnWaveUnitInstantly("Wave4Groups", lib08CCADF9_gv_nextGroup);
+            Wait(UserDataGetFixed("Wave4Groups", lib08CCADF9_gv_nextGroup, "Spawn Delay", 1), c_timeGame);
+        }
+        Wait(UserDataGetFixed("Wave4Groups", lib08CCADF9_gv_nextGroup, "GroupDelay", 1), c_timeGame);
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_Lv1_SendWave4_Init () {
+    lib08CCADF9_gt_KL_Lv1_SendWave4 = TriggerCreate("lib08CCADF9_gt_KL_Lv1_SendWave4_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_Lv1_HeroUnlockEvent
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_Lv1_HeroUnlockEvent_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    CameraApplyInfo(1, CameraInfoFromId(577436495), 2.0, -1, 10.0, true);
+    Wait(1.0, c_timeGame);
+    lib08CCADF9_gf_DisplayDialogueBubble(lib08CCADF9_gv_kL_SCVCharacter, 0, StringExternal("Param/Value/lib_08CCADF9_FC81BA6F"), 0.5);
+    libNtve_gf_PauseUnit(lib08CCADF9_gv_kL_HeroCharacter, false);
+    lib08CCADF9_gf_DisplayDialogueBubble(lib08CCADF9_gv_kL_HeroCharacter, 0, StringExternal("Param/Value/lib_08CCADF9_67D30501"), 0.5);
+    UnitSetState(lib08CCADF9_gv_kL_HeroCharacter, c_unitStateSleeping, false);
+    lib08CCADF9_gf_SetHeroUnit(lib08CCADF9_gv_kL_HeroCharacter);
+    UnitIssueOrder(lib08CCADF9_gv_kL_HeroCharacter, OrderTargetingPoint(AbilityCommand("move", 0), PointFromId(741254002)), c_orderQueueReplace);
+    TechTreeAbilityAllow(1, AbilityCommand("CalldownReinforcements", 0), false);
+    TechTreeAbilityAllow(1, AbilityCommand("TDBarrage", 0), false);
+    TechTreeAbilityAllow(1, AbilityCommand("MiniNukeCharge", 0), false);
+    while (!((DistanceBetweenPoints(UnitGetPosition(lib08CCADF9_gv_kL_HeroCharacter), PointFromId(741254002)) <= 1.0))) {
+        Wait(0.5, c_timeGame);
+    }
+    lib08CCADF9_gf_KL_DisplayHintPanelHero("Tauren Marine", true);
+    UnitSetState(lib08CCADF9_gv_kL_HeroCharacter, c_unitStateTargetable, true);
+    UnitSetState(lib08CCADF9_gv_kL_HeroCharacter, c_unitStateSelectable, true);
+    UnitSetState(lib08CCADF9_gv_kL_HeroCharacter, c_unitStateFidget, true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_Lv1_HeroUnlockEvent_Init () {
+    lib08CCADF9_gt_KL_Lv1_HeroUnlockEvent = TriggerCreate("lib08CCADF9_gt_KL_Lv1_HeroUnlockEvent_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_Lv1_ReinforcementUnlockEvent
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_Lv1_ReinforcementUnlockEvent_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gf_AddHintHero("Tauren Marine");
+    TechTreeAbilityAllow(1, AbilityCommand("CalldownReinforcements", 0), true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_Lv1_ReinforcementUnlockEvent_Init () {
+    lib08CCADF9_gt_KL_Lv1_ReinforcementUnlockEvent = TriggerCreate("lib08CCADF9_gt_KL_Lv1_ReinforcementUnlockEvent_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_HalfTimerExpires
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_HalfTimerExpires_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TimerStart(lib08CCADF9_gv_nextWaveTimer, (lib08CCADF9_gv_timerDuration / 2.0), false, c_timeGame);
+    TriggerEnable(lib08CCADF9_gt_KL_TimerExpires, true);
+    if ((lib08CCADF9_gv_kL_CurrentWave == 1)) {
+        lib08CCADF9_gf_KL_CreateWaveCallout(lib08CCADF9_gv_lv1_DummyA, c_anchorRight, true);
+        libNtve_gf_SetDialogItemMaximumValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[1], (lib08CCADF9_gv_timerDuration / 2.0), PlayerGroupAll());
+        libNtve_gf_SetDialogItemCurrentValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[1], TimerGetRemaining(lib08CCADF9_gv_nextWaveTimer), PlayerGroupAll());
+    }
+
+    if ((lib08CCADF9_gv_kL_CurrentWave == 2)) {
+        lib08CCADF9_gf_KL_CreateWaveCallout(lib08CCADF9_gv_lv1_DummyA, c_anchorRight, true);
+        libNtve_gf_SetDialogItemMaximumValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[1], (lib08CCADF9_gv_timerDuration / 2.0), PlayerGroupAll());
+        libNtve_gf_SetDialogItemCurrentValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[1], TimerGetRemaining(lib08CCADF9_gv_nextWaveTimer), PlayerGroupAll());
+    }
+
+    if ((lib08CCADF9_gv_kL_CurrentWave == 3)) {
+        lib08CCADF9_gf_KL_CreateWaveCallout(lib08CCADF9_gv_lv1_DummyA, c_anchorRight, true);
+        lib08CCADF9_gf_KL_CreateWaveCallout(lib08CCADF9_gv_lv1_DummyB, c_anchorTop, true);
+        libNtve_gf_SetDialogItemMaximumValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[1], (lib08CCADF9_gv_timerDuration / 2.0), PlayerGroupAll());
+        libNtve_gf_SetDialogItemCurrentValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[1], TimerGetRemaining(lib08CCADF9_gv_nextWaveTimer), PlayerGroupAll());
+        libNtve_gf_SetDialogItemMaximumValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[2], (lib08CCADF9_gv_timerDuration / 2.0), PlayerGroupAll());
+        libNtve_gf_SetDialogItemCurrentValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[2], TimerGetRemaining(lib08CCADF9_gv_nextWaveTimer), PlayerGroupAll());
+    }
+
+    TriggerEnable(lib08CCADF9_gt_KL_UpdateTimers, true);
+    TriggerEnable(lib08CCADF9_gt_KL_StartWaveEarly, true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_HalfTimerExpires_Init () {
+    lib08CCADF9_gt_KL_HalfTimerExpires = TriggerCreate("lib08CCADF9_gt_KL_HalfTimerExpires_Func");
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_HalfTimerExpires, lib08CCADF9_gv_halfTimer);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_UpdateTimers
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_UpdateTimers_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    if ((lib08CCADF9_gv_kL_CurrentWave == 1)) {
+        libNtve_gf_SetDialogItemCurrentValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[1], TimerGetRemaining(lib08CCADF9_gv_nextWaveTimer), PlayerGroupAll());
+    }
+
+    if ((lib08CCADF9_gv_kL_CurrentWave == 2)) {
+        libNtve_gf_SetDialogItemCurrentValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[1], TimerGetRemaining(lib08CCADF9_gv_nextWaveTimer), PlayerGroupAll());
+    }
+
+    if ((lib08CCADF9_gv_kL_CurrentWave == 3)) {
+        libNtve_gf_SetDialogItemCurrentValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[1], TimerGetRemaining(lib08CCADF9_gv_nextWaveTimer), PlayerGroupAll());
+        libNtve_gf_SetDialogItemCurrentValue(lib08CCADF9_gv_kL_CalloutUI.lv_timerBar[2], TimerGetRemaining(lib08CCADF9_gv_nextWaveTimer), PlayerGroupAll());
+    }
+
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_UpdateTimers_Init () {
+    lib08CCADF9_gt_KL_UpdateTimers = TriggerCreate("lib08CCADF9_gt_KL_UpdateTimers_Func");
+    TriggerEnable(lib08CCADF9_gt_KL_UpdateTimers, false);
+    TriggerAddEventTimePeriodic(lib08CCADF9_gt_KL_UpdateTimers, 0.3, c_timeGame);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_TimerExpires
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_TimerExpires_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerEnable(TriggerGetCurrent(), false);
+    lib08CCADF9_gf_KL_DestroyAllCallouts();
+    lib08CCADF9_gv_kL_CurrentWave += 1;
+    lib08CCADF9_gf_KL_UpdateWave();
+    TriggerExecute(lib08CCADF9_gv_kL_NextWave[lib08CCADF9_gv_kL_CurrentWave], true, false);
+    TriggerEnable(lib08CCADF9_gt_KL_UpdateTimers, false);
+    TriggerEnable(lib08CCADF9_gt_KL_StartWaveEarly, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_TimerExpires_Init () {
+    lib08CCADF9_gt_KL_TimerExpires = TriggerCreate("lib08CCADF9_gt_KL_TimerExpires_Func");
+    TriggerEnable(lib08CCADF9_gt_KL_TimerExpires, false);
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_TimerExpires, lib08CCADF9_gv_nextWaveTimer);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_StartWaveEarly
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_StartWaveEarly_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((TriggerIsEnabled(TriggerGetCurrent()) == true))) {
+            return false;
+        }
+
+        if (!(((EventDialogControl() == lib08CCADF9_gv_kL_CalloutUI.lv_hitTest[1]) || (EventDialogControl() == lib08CCADF9_gv_kL_CalloutUI.lv_hitTest[2]) || (EventDialogControl() == lib08CCADF9_gv_kL_CalloutUI.lv_hitTest[3]) || (EventDialogControl() == lib08CCADF9_gv_kL_CalloutUI.lv_hitTest[4])))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerEnable(TriggerGetCurrent(), false);
+    lib08CCADF9_gv_kL_SavedTime = FixedToInt(TimerGetRemaining(lib08CCADF9_gv_nextWaveTimer));
+    lib08CCADF9_gf_KL_StopWaveTimers();
+    lib08CCADF9_gf_KL_DestroyAllCallouts();
+    lib08CCADF9_gv_kL_CurrentWave += 1;
+    lib08CCADF9_gf_KL_UpdateWave();
+    lib08CCADF9_gf_KL_AwardSkipGold(1);
+    TriggerExecute(lib08CCADF9_gv_kL_NextWave[lib08CCADF9_gv_kL_CurrentWave], true, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_StartWaveEarly_Init () {
+    lib08CCADF9_gt_KL_StartWaveEarly = TriggerCreate("lib08CCADF9_gt_KL_StartWaveEarly_Func");
+    TriggerEnable(lib08CCADF9_gt_KL_StartWaveEarly, false);
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_StartWaveEarly, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_Lv1_PathAMovement
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_Lv1_PathAMovement_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_newUnit;
+    int lv_index;
+
+    // Automatic Variable Declarations
+    int auto9F9EDCA8_ae;
+    const int auto9F9EDCA8_ai = 1;
+
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!((UnitGetOwner(EventUnit()) != 1))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libNtve_gf_MakeUnitFacePoint(EventUnit(), PointFromName(("Lv1_PathA_" + "1")), 0.0);
+    UnitIssueOrder(EventUnit(), OrderTargetingPoint(AbilityCommand("move", 0), PointFromName(("Lv1_PathA_" + "1"))), c_orderQueueReplace);
+    auto9F9EDCA8_ae = lib08CCADF9_gv_kL_Path1MaxPoints;
+    lv_index = 2;
+    for ( ; ( (auto9F9EDCA8_ai >= 0 && lv_index <= auto9F9EDCA8_ae) || (auto9F9EDCA8_ai < 0 && lv_index >= auto9F9EDCA8_ae) ) ; lv_index += auto9F9EDCA8_ai ) {
+        UnitIssueOrder(EventUnit(), OrderTargetingPoint(AbilityCommand("move", 0), PointFromName(("Lv1_PathA_" + IntToString(lv_index)))), c_orderQueueAddToEnd);
+    }
+    UnitIssueOrder(EventUnit(), OrderTargetingPoint(AbilityCommand("move", 0), PointFromName(("Lv" + IntToString(lib08CCADF9_gv_kL_CurrentLevel) + "_End"))), c_orderQueueAddToEnd);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_Lv1_PathAMovement_Init () {
+    lib08CCADF9_gt_KL_Lv1_PathAMovement = TriggerCreate("lib08CCADF9_gt_KL_Lv1_PathAMovement_Func");
+    TriggerEnable(lib08CCADF9_gt_KL_Lv1_PathAMovement, false);
+    TriggerAddEventUnitRegion(lib08CCADF9_gt_KL_Lv1_PathAMovement, null, RegionFromId(2), true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_Lv1_PathBMovement
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_Lv1_PathBMovement_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_newUnit;
+    int lv_index;
+
+    // Automatic Variable Declarations
+    int auto4D81AF38_ae;
+    const int auto4D81AF38_ai = 1;
+
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!((UnitGetOwner(EventUnit()) != 1))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libNtve_gf_MakeUnitFacePoint(EventUnit(), PointFromId(248868257), 0.0);
+    UnitIssueOrder(EventUnit(), OrderTargetingPoint(AbilityCommand("move", 0), PointFromId(248868257)), c_orderQueueReplace);
+    UnitIssueOrder(EventUnit(), OrderTargetingPoint(AbilityCommand("move", 0), PointFromId(2125841793)), c_orderQueueAddToEnd);
+    UnitIssueOrder(EventUnit(), OrderTargetingPoint(AbilityCommand("move", 0), PointFromId(1809023231)), c_orderQueueAddToEnd);
+    UnitIssueOrder(EventUnit(), OrderTargetingPoint(AbilityCommand("move", 0), PointFromId(1511665701)), c_orderQueueAddToEnd);
+    UnitIssueOrder(EventUnit(), OrderTargetingPoint(AbilityCommand("move", 0), PointFromId(832568152)), c_orderQueueAddToEnd);
+    auto4D81AF38_ae = lib08CCADF9_gv_kL_Path1MaxPoints;
+    lv_index = 7;
+    for ( ; ( (auto4D81AF38_ai >= 0 && lv_index <= auto4D81AF38_ae) || (auto4D81AF38_ai < 0 && lv_index >= auto4D81AF38_ae) ) ; lv_index += auto4D81AF38_ai ) {
+        UnitIssueOrder(EventUnit(), OrderTargetingPoint(AbilityCommand("move", 0), PointFromName((("Lv" + IntToString(lib08CCADF9_gv_kL_CurrentLevel) + "_PathA_") + IntToString(lv_index)))), c_orderQueueAddToEnd);
+    }
+    UnitIssueOrder(EventUnit(), OrderTargetingPoint(AbilityCommand("move", 0), PointFromName(("Lv" + IntToString(lib08CCADF9_gv_kL_CurrentLevel) + "_End"))), c_orderQueueAddToEnd);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_Lv1_PathBMovement_Init () {
+    lib08CCADF9_gt_KL_Lv1_PathBMovement = TriggerCreate("lib08CCADF9_gt_KL_Lv1_PathBMovement_Func");
+    TriggerEnable(lib08CCADF9_gt_KL_Lv1_PathBMovement, false);
+    TriggerAddEventUnitRegion(lib08CCADF9_gt_KL_Lv1_PathBMovement, null, RegionFromId(3), true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Intro Start
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_IntroStart_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_08CCADF9_855072FE"));
+    lib08CCADF9_gf_ShowHideLevelSelectionPanel(true);
+    DialogControlSendAnimationEvent(lib08CCADF9_gv_gameUI.lv_levelSelectionContainer, PlayerGroupAll(), "IntroQ");
+    TriggerSkippableBegin(PlayerGroupSingle(1), 0, null, true, false);
+    Wait(4.0, c_timeReal);
+    lib08CCADF9_gv_introFinished = true;
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_IntroStart_Init () {
+    lib08CCADF9_gt_IntroStart = TriggerCreate("lib08CCADF9_gt_IntroStart_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Intro End
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_IntroEnd_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    if ((lib08CCADF9_gv_introFinished == false)) {
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_gameUI.lv_levelSelectionContainer, PlayerGroupAll(), "LoopStart");
+    }
+
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_IntroEnd_Init () {
+    lib08CCADF9_gt_IntroEnd = TriggerCreate("lib08CCADF9_gt_IntroEnd_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Intro Cleanup
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_IntroCleanup_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_IntroCleanup_Init () {
+    lib08CCADF9_gt_IntroCleanup = TriggerCreate("lib08CCADF9_gt_IntroCleanup_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Global Initialization
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_GlobalInitialization_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerExecute(lib08CCADF9_gt__1Settings, true, true);
+    TriggerExecute(lib08CCADF9_gt__2UI, true, true);
+    TriggerExecute(lib08CCADF9_gt__3IntroQ, true, true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_GlobalInitialization_Init () {
+    lib08CCADF9_gt_GlobalInitialization = TriggerCreate("lib08CCADF9_gt_GlobalInitialization_Func");
+    TriggerAddEventMapInit(lib08CCADF9_gt_GlobalInitialization);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: 1. Settings
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt__1Settings_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerExecute(lib08CCADF9_gt_KL_SetupCalloutPositions, true, false);
+    TriggerExecute(lib08CCADF9_gt_KL_StandardUIOverrides, true, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt__1Settings_Init () {
+    lib08CCADF9_gt__1Settings = TriggerCreate("lib08CCADF9_gt__1Settings_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: 2. UI
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt__2UI_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerExecute(lib08CCADF9_gt_KL_HUD_Ini, true, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt__2UI_Init () {
+    lib08CCADF9_gt__2UI = TriggerCreate("lib08CCADF9_gt__2UI_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: 3. Intro Q
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt__3IntroQ_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerQueueEnter();
+    TriggerExecute(lib08CCADF9_gt_IntroStart, true, false);
+    TriggerExecute(lib08CCADF9_gt_IntroEnd, true, false);
+    TriggerExecute(lib08CCADF9_gt_IntroCleanup, true, false);
+    TriggerQueueExit();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt__3IntroQ_Init () {
+    lib08CCADF9_gt__3IntroQ = TriggerCreate("lib08CCADF9_gt__3IntroQ_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_StandardUIOverrides
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_StandardUIOverrides_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gf_KL_GameUIInitialize();
+    UISetWorldVisible(PlayerGroupAll(), false);
+    CameraLockInput(1, true);
+    VisRevealerCreate(1, RegionEntireMap());
+    UISetDragSelectEnabled(PlayerGroupAll(), false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeConsolePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeControlGroupPanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMinimapPanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMinimapPanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMissionTimePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeIdleWorkerButton, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeArmyButton, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeAllianceButton, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeInfoPanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMenuBar, false);
+    PlayerOptionOverride(1, "gametooltips", "0");
+    PlayerOptionOverride(1, "showunitpoints", "0");
+    PlayerOptionOverride(1, "simplecommandcard", "0");
+    lib08CCADF9_gf_KL_LoadPlayerDataBank();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_StandardUIOverrides_Init () {
+    lib08CCADF9_gt_KL_StandardUIOverrides = TriggerCreate("lib08CCADF9_gt_KL_StandardUIOverrides_Func");
+    TriggerAddEventMapInit(lib08CCADF9_gt_KL_StandardUIOverrides);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_SetupCalloutPositions
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_SetupCalloutPositions_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((TriggerIsEnabled(TriggerGetCurrent()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerEnable(TriggerGetCurrent(), false);
+    libNtve_gf_CreateUnitsWithDefaultFacing(1, "InvisibleTargetDummy", 0, 0, PointFromId(334088302));
+    lib08CCADF9_gv_lv1_DummyA = UnitLastCreated();
+    libNtve_gf_CreateUnitsWithDefaultFacing(1, "InvisibleTargetDummy", 0, 0, PointFromId(470450452));
+    lib08CCADF9_gv_lv1_DummyB = UnitLastCreated();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_SetupCalloutPositions_Init () {
+    lib08CCADF9_gt_KL_SetupCalloutPositions = TriggerCreate("lib08CCADF9_gt_KL_SetupCalloutPositions_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_UnitReachesEnd
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_UnitReachesEnd_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    unitgroup auto1DC29EDF_g;
+    int auto1DC29EDF_u;
+    unit auto1DC29EDF_var;
+
+    // Conditions
+    if (testConds) {
+        if (!((UnitGetOwner(EventUnit()) != 1))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    UnitRemove(EventUnit());
+    if ((lib08CCADF9_gv_kL_PlayerLives <= 0) && (lib08CCADF9_gv_isPlayerInGame == true)) {
+        lib08CCADF9_gv_isPlayerInGame = false;
+        auto1DC29EDF_g = UnitGroup(null, 1, RegionPlayableMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+        auto1DC29EDF_u = UnitGroupCount(auto1DC29EDF_g, c_unitCountAll);
+        for (;; auto1DC29EDF_u -= 1) {
+            auto1DC29EDF_var = UnitGroupUnitFromEnd(auto1DC29EDF_g, auto1DC29EDF_u);
+            if (auto1DC29EDF_var == null) { break; }
+            UnitSetOwner(auto1DC29EDF_var, 0, true);
+        }
+        lib08CCADF9_gf_ShowHideGameUI(false);
+        TriggerExecute(lib08CCADF9_gt_KL_ShowDefetScreen, true, false);
+    }
+    else {
+        lib08CCADF9_gv_kL_PlayerLives -= 1;
+        lib08CCADF9_gf_KL_UpdateLives();
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_UnitReachesEnd_Init () {
+    lib08CCADF9_gt_KL_UnitReachesEnd = TriggerCreate("lib08CCADF9_gt_KL_UnitReachesEnd_Func");
+    TriggerAddEventUnitRangePoint(lib08CCADF9_gt_KL_UnitReachesEnd, null, PointFromId(250484462), 1.5, true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_StartGame
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_StartGame_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_pathindex;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!(((EventDialogControl() == lib08CCADF9_gv_kL_GameHUD.lv_startGameButton) || (EventDialogControl() == lib08CCADF9_gv_kL_CalloutUI.lv_hitTest[1]) || (EventDialogControl() == lib08CCADF9_gv_kL_CalloutUI.lv_hitTest[2]) || (EventDialogControl() == lib08CCADF9_gv_kL_CalloutUI.lv_hitTest[3]) || (EventDialogControl() == lib08CCADF9_gv_kL_CalloutUI.lv_hitTest[4])))) {
+            return false;
+        }
+
+        if (!((TriggerIsEnabled(TriggerGetCurrent()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gv_kL_StartButtonEnabled = false;
+    TriggerEnable(TriggerGetCurrent(), false);
+    DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameHUD.lv_startGameButton, PlayerGroupAll(), "HidePanel");
+    lib08CCADF9_gv_isGameActive = true;
+    lib08CCADF9_gf_KL_PauseUnpauseGame(false);
+    lib08CCADF9_gf_KL_DestroyAllCallouts();
+    TechTreeAbilityAllow(1, AbilityCommand("CalldownReinforcements", 0), true);
+    lib08CCADF9_gv_kL_CurrentWave += 1;
+    lib08CCADF9_gf_KL_UpdateWave();
+    TriggerExecute(lib08CCADF9_gv_kL_NextWave[lib08CCADF9_gv_kL_CurrentWave], true, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_StartGame_Init () {
+    lib08CCADF9_gt_KL_StartGame = TriggerCreate("lib08CCADF9_gt_KL_StartGame_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_StartGame, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_UnitAttacked
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_UnitAttacked_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((UnitGetOwner(EventUnit()) != 1))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    if ((UnitGetType(EventUnitTarget()) != "EmptySlot") && (UnitGetType(EventUnitTarget()) != "GaussTurret") && (UnitGetType(EventUnitTarget()) != "TDGarrisonTower")) {
+        UnitIssueOrder(EventUnit(), OrderTargetingUnit(AbilityCommand("attack", 0), EventUnitTarget()), c_orderQueueAddToFront);
+    }
+
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_UnitAttacked_Init () {
+    lib08CCADF9_gt_KL_UnitAttacked = TriggerCreate("lib08CCADF9_gt_KL_UnitAttacked_Func");
+    TriggerAddEventUnitAttacked2(lib08CCADF9_gt_KL_UnitAttacked, null, null);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_CheckBankExistence
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_CheckBankExistence_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    if ((BankKeyExists(lib08CCADF9_gv_kL_SettingsBank, "PlayerData", "PreviousDifficulty") == false)) {
+        lib08CCADF9_gf_KL_PreloadBankData();
+    }
+
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_CheckBankExistence_Init () {
+    lib08CCADF9_gt_KL_CheckBankExistence = TriggerCreate("lib08CCADF9_gt_KL_CheckBankExistence_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_CheckUnits
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_CheckUnits_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    unitgroup auto383AA7D1_g;
+    int auto383AA7D1_u;
+    unit auto383AA7D1_var;
+
+    // Conditions
+    if (testConds) {
+        if (!((lib08CCADF9_gf_GamePaused() == false))) {
+            return false;
+        }
+
+        if (!((lib08CCADF9_gv_inCinematic == false))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    auto383AA7D1_g = UnitGroup(null, c_playerAny, RegionPlayableMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    auto383AA7D1_u = UnitGroupCount(auto383AA7D1_g, c_unitCountAll);
+    for (;; auto383AA7D1_u -= 1) {
+        auto383AA7D1_var = UnitGroupUnitFromEnd(auto383AA7D1_g, auto383AA7D1_u);
+        if (auto383AA7D1_var == null) { break; }
+        if ((UnitGetCustomValue(auto383AA7D1_var, 1) != 1)) {
+            if (((UnitGetType(auto383AA7D1_var) != "EmptySlot") || (UnitGetType(auto383AA7D1_var) != "TDGaussTurret") || (UnitGetType(auto383AA7D1_var) != "InvisibleTargetDummy") || (UnitGetType(auto383AA7D1_var) != "MineralField") || (UnitGetType(auto383AA7D1_var) != "MineralField750"))) {
+                lib08CCADF9_gf_KL_CreateHealthBar(auto383AA7D1_var);
+            }
+
+        }
+
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_CheckUnits_Init () {
+    lib08CCADF9_gt_KL_CheckUnits = TriggerCreate("lib08CCADF9_gt_KL_CheckUnits_Func");
+    TriggerEnable(lib08CCADF9_gt_KL_CheckUnits, false);
+    TriggerAddEventTimePeriodic(lib08CCADF9_gt_KL_CheckUnits, 1.0, c_timeGame);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_HUD_Ini
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_HUD_Ini_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    const int auto8D806596_ae = 6;
+    const int auto8D806596_ai = 1;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DialogCreate(1920, 1080, c_anchorCenter, 0, 0, true);
+    lib08CCADF9_gv_gameUI.lv_game = DialogLastCreated();
+    DialogSetFullscreen(DialogLastCreated(), true);
+    DialogSetImageVisible(DialogLastCreated(), false);
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_gameUI.lv_game, c_triggerControlTypePanel, "NamelessTD_HUD/GameStatusAnchor");
+    lib08CCADF9_gv_kL_GameHUD.lv_statusAnchor = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_statusAnchor, c_triggerControlTypePanel, "ResourcePanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_resourcePanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_resourcePanel, c_triggerControlTypeLabel, "LivesLabel");
+    lib08CCADF9_gv_kL_GameHUD.lv_livesLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_resourcePanel, c_triggerControlTypeLabel, "MineralsLabel");
+    lib08CCADF9_gv_kL_GameHUD.lv_mineralsLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_statusAnchor, c_triggerControlTypePanel, "WaveCounterPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_waveCounter = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_waveCounter, c_triggerControlTypeLabel, "WaveLabel");
+    lib08CCADF9_gv_kL_GameHUD.lv_waveLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_statusAnchor, c_triggerControlTypeButton, "WaveStartButton");
+    lib08CCADF9_gv_kL_GameHUD.lv_startGameButton = DialogControlLastCreated();
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_gameUI.lv_game, c_triggerControlTypePanel, "NamelessTD_HUD/PauseAnchor");
+    lib08CCADF9_gv_kL_GameHUD.lv_pauseAnchor = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_pauseAnchor, c_triggerControlTypeButton, "PauseButton");
+    lib08CCADF9_gv_kL_GameHUD.lv_pauseButton = DialogControlLastCreated();
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_gameUI.lv_game, c_triggerControlTypePanel, "NamelessTD_HUD/HeroStatusAnchor");
+    lib08CCADF9_gv_kL_GameHUD.lv_heroAnchor = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_heroAnchor, c_triggerControlTypeButton, "HeroHitTest");
+    lib08CCADF9_gv_kL_GameHUD.lv_heroHitTest = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_heroAnchor, c_triggerControlTypePanel, "HeroPortraitPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_heroPortraitPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_heroPortraitPanel, c_triggerControlTypePortrait, "Portrait");
+    lib08CCADF9_gv_kL_GameHUD.lv_heroPortrait = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_heroAnchor, c_triggerControlTypeUnitStatus, "HeroVitalsFrame");
+    lib08CCADF9_gv_kL_GameHUD.lv_heroVitals = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_heroVitals, c_triggerControlTypeProgressBar, "VitalsBar_Shields");
+    lib08CCADF9_gv_kL_GameHUD.lv_shieldsBar = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_heroVitals, c_triggerControlTypeProgressBar, "VitalsBar_Energy");
+    lib08CCADF9_gv_kL_GameHUD.lv_energyBar = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_heroVitals, c_triggerControlTypeImage, "VitalsBackground");
+    lib08CCADF9_gv_kL_GameHUD.lv_vitalsBackground = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_heroAnchor, c_triggerControlTypeCommandPanel, "GlobalCommandPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_globalCastingPanel = DialogControlLastCreated();
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_gameUI.lv_game, c_triggerControlTypePanel, "NamelessTD_HUD/HintsAnchorPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_hintAnchorPanel = DialogControlLastCreated();
+    lv_index = 1;
+    for ( ; ( (auto8D806596_ai >= 0 && lv_index <= auto8D806596_ae) || (auto8D806596_ai < 0 && lv_index >= auto8D806596_ae) ) ; lv_index += auto8D806596_ai ) {
+        DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_hintAnchorPanel, c_triggerControlTypeButton, libNtve_gf_ConvertStringToUILayoutFrameName(("HintButton" + IntToString(lv_index))));
+        lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[lv_index] = DialogControlLastCreated();
+        DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[lv_index], c_triggerControlTypeImage, libNtve_gf_ConvertStringToUILayoutFrameName("Icon"));
+        lib08CCADF9_gv_kL_GameHUD.lv_hintIcon[lv_index] = DialogControlLastCreated();
+    }
+    DialogControlCreateFromTemplate(lib08CCADF9_gv_gameUI.lv_game, c_triggerControlTypePanel, "NamelessTD_HUD/UnitInfoPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_unitInfoPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitInfoPanel, c_triggerControlTypePanel, "UnitPortraitPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_unitPortaitFrame = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitPortaitFrame, c_triggerControlTypePortrait, "Portrait");
+    lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitPortrait = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitPortaitFrame, c_triggerControlTypeLabel, "UnitTitle");
+    lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitTitle = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitInfoPanel, c_triggerControlTypePanel, "UnitStatsPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_unitStatsFrame = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitStatsFrame, c_triggerControlTypePanel, "HPPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_hPStatPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_hPStatPanel, c_triggerControlTypeLabel, "Label");
+    lib08CCADF9_gv_kL_GameHUD.lv_hPStatLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitStatsFrame, c_triggerControlTypePanel, "AttackPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_attackStatPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_attackStatPanel, c_triggerControlTypeLabel, "Label");
+    lib08CCADF9_gv_kL_GameHUD.lv_attackStatLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitStatsFrame, c_triggerControlTypePanel, "ArmorPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_armorStatPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_armorStatPanel, c_triggerControlTypeLabel, "Label");
+    lib08CCADF9_gv_kL_GameHUD.lv_armorStatLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitStatsFrame, c_triggerControlTypePanel, "MoveSpdPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_moveSpeedStatPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_moveSpeedStatPanel, c_triggerControlTypeLabel, "Label");
+    lib08CCADF9_gv_kL_GameHUD.lv_moveSpeedStatLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitStatsFrame, c_triggerControlTypePanel, "LivesPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_livesStatPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_livesStatPanel, c_triggerControlTypeLabel, "Label");
+    lib08CCADF9_gv_kL_GameHUD.lv_livesStatLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitStatsFrame, c_triggerControlTypePanel, "AttackSpdPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_attSpeedStatPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_attSpeedStatPanel, c_triggerControlTypeLabel, "Label");
+    lib08CCADF9_gv_kL_GameHUD.lv_attSpeedStatLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_unitStatsFrame, c_triggerControlTypePanel, "RespawnPanel");
+    lib08CCADF9_gv_kL_GameHUD.lv_respawnStatPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_GameHUD.lv_respawnStatPanel, c_triggerControlTypeLabel, "Label");
+    lib08CCADF9_gv_kL_GameHUD.lv_respawnStatLabel = DialogControlLastCreated();
+    lib08CCADF9_gf_KL_HookupAchievementPanel();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_HUD_Ini_Init () {
+    lib08CCADF9_gt_KL_HUD_Ini = TriggerCreate("lib08CCADF9_gt_KL_HUD_Ini_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_HintExpired
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_HintExpired_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    timer auto7052B9D9_val;
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    auto7052B9D9_val = EventTimer();
+    if (auto7052B9D9_val == lib08CCADF9_gv_kL_HintTimer[1]) {
+        lib08CCADF9_gv_kL_HintVisible[1] = false;
+    }
+    else if (auto7052B9D9_val == lib08CCADF9_gv_kL_HintTimer[2]) {
+        lib08CCADF9_gv_kL_HintVisible[2] = false;
+    }
+    else if (auto7052B9D9_val == lib08CCADF9_gv_kL_HintTimer[3]) {
+        lib08CCADF9_gv_kL_HintVisible[3] = false;
+    }
+    else if (auto7052B9D9_val == lib08CCADF9_gv_kL_HintTimer[4]) {
+        lib08CCADF9_gv_kL_HintVisible[4] = false;
+    }
+    else if (auto7052B9D9_val == lib08CCADF9_gv_kL_HintTimer[5]) {
+        lib08CCADF9_gv_kL_HintVisible[5] = false;
+    }
+    else if (auto7052B9D9_val == lib08CCADF9_gv_kL_HintTimer[6]) {
+        lib08CCADF9_gv_kL_HintVisible[6] = false;
+    }
+    else {
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_HintExpired_Init () {
+    lib08CCADF9_gt_KL_HintExpired = TriggerCreate("lib08CCADF9_gt_KL_HintExpired_Func");
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_HintExpired, lib08CCADF9_gv_kL_HintTimer[1]);
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_HintExpired, lib08CCADF9_gv_kL_HintTimer[2]);
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_HintExpired, lib08CCADF9_gv_kL_HintTimer[3]);
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_HintExpired, lib08CCADF9_gv_kL_HintTimer[4]);
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_HintExpired, lib08CCADF9_gv_kL_HintTimer[5]);
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_HintExpired, lib08CCADF9_gv_kL_HintTimer[6]);
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_HintExpired, lib08CCADF9_gv_kL_HintTimer[7]);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_HintBtnUsed
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_HintBtnUsed_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_usedItem;
+
+    // Automatic Variable Declarations
+    int autoDCCFC699_val;
+    int auto35C6EAEF_val;
+
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!(((EventDialogControl() == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[1]) || (EventDialogControl() == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[2]) || (EventDialogControl() == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[3]) || (EventDialogControl() == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[4]) || (EventDialogControl() == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[5]) || (EventDialogControl() == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[6])))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    autoDCCFC699_val = EventDialogControl();
+    if (autoDCCFC699_val == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[1]) {
+        lib08CCADF9_gv_kL_HintVisible[1] = false;
+        libNtve_gf_StopTimer(lib08CCADF9_gv_kL_HintTimer[1]);
+        lv_usedItem = 1;
+    }
+    else if (autoDCCFC699_val == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[2]) {
+        lib08CCADF9_gv_kL_HintVisible[2] = false;
+        libNtve_gf_StopTimer(lib08CCADF9_gv_kL_HintTimer[2]);
+        lv_usedItem = 2;
+    }
+    else if (autoDCCFC699_val == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[3]) {
+        lib08CCADF9_gv_kL_HintVisible[3] = false;
+        libNtve_gf_StopTimer(lib08CCADF9_gv_kL_HintTimer[3]);
+        lv_usedItem = 3;
+    }
+    else if (autoDCCFC699_val == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[4]) {
+        lib08CCADF9_gv_kL_HintVisible[4] = false;
+        libNtve_gf_StopTimer(lib08CCADF9_gv_kL_HintTimer[4]);
+        lv_usedItem = 4;
+    }
+    else if (autoDCCFC699_val == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[5]) {
+        lib08CCADF9_gv_kL_HintVisible[5] = false;
+        libNtve_gf_StopTimer(lib08CCADF9_gv_kL_HintTimer[5]);
+        lv_usedItem = 5;
+    }
+    else if (autoDCCFC699_val == lib08CCADF9_gv_kL_GameHUD.lv_hintButtons[6]) {
+        lib08CCADF9_gv_kL_HintVisible[6] = false;
+        libNtve_gf_StopTimer(lib08CCADF9_gv_kL_HintTimer[6]);
+        lv_usedItem = 6;
+    }
+    else {
+    }
+    auto35C6EAEF_val = lib08CCADF9_gv_kL_HintType[lv_usedItem];
+    if (auto35C6EAEF_val == (lib08CCADF9_ge_KL_HintType_Hero)) {
+        lib08CCADF9_gf_KL_DisplayHintPanelHero(lib08CCADF9_gv_kL_SetHint[1], true);
+    }
+    else {
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_HintBtnUsed_Init () {
+    lib08CCADF9_gt_KL_HintBtnUsed = TriggerCreate("lib08CCADF9_gt_KL_HintBtnUsed_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_HintBtnUsed, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_DebugOpenHintPanel
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_DebugOpenHintPanel_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPortrait, "TaurenMarinePortrait", PlayerGroupAll());
+    libNtve_gf_SetDialogItemLight(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPortrait, "TaurenMarinePortrait", PlayerGroupAll());
+    lib08CCADF9_gf_ShowHideGameUI(false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_DebugOpenHintPanel_Init () {
+    lib08CCADF9_gt_KL_DebugOpenHintPanel = TriggerCreate("lib08CCADF9_gt_KL_DebugOpenHintPanel_Func");
+    TriggerAddEventChatMessage(lib08CCADF9_gt_KL_DebugOpenHintPanel, c_playerAny, "HeroHint", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_CloseHintMenu
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_CloseHintMenu_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib08CCADF9_gv_kL_GameMenus.lv_heroHintQuitBtn))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameMenus.lv_heroHintPanel, PlayerGroupAll(), "Hide");
+    DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameMenus.lv_halfTransitionPanel, PlayerGroupAll(), "DestroyFade");
+    Wait(1.5, c_timeGame);
+    lib08CCADF9_gf_ShowHideGameUI(true);
+    Wait(0.5, c_timeGame);
+    DialogDestroy(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog);
+    lib08CCADF9_gf_KL_PauseUnpauseGame(false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_CloseHintMenu_Init () {
+    lib08CCADF9_gt_KL_CloseHintMenu = TriggerCreate("lib08CCADF9_gt_KL_CloseHintMenu_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_CloseHintMenu, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_GameUnitSelected
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_GameUnitSelected_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_random;
+    string lv_unitActor;
+
+    // Automatic Variable Declarations
+    string auto6D2224EC_val;
+
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!((UnitGetType(EventUnit()) != "EmptySlot"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "TDGaussTurret"))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerExecute(lib08CCADF9_gt_KL_AutoDeselectUnit, true, false);
+    lib08CCADF9_gv_kL_SelectedUnit = EventUnit();
+    UnitClearSelection(1);
+    UnitSelect(EventUnit(), 1, true);
+    libNtve_gf_StopTimer(lib08CCADF9_gv_kL_DeselectUnitTimer);
+    if ((UnitGetOwner(EventUnit()) != 1)) {
+        lib08CCADF9_gf_KL_SetGameUnitData(EventUnit(), lib08CCADF9_ge_KL_GameUnitType_EnemyUnit);
+        UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_08CCADF9_3F78DF66"));
+    }
+    else {
+        if (((UnitGetType(EventUnit()) == "TaurenSpaceMarine"))) {
+            lib08CCADF9_gf_KL_SetGameUnitData(EventUnit(), lib08CCADF9_ge_KL_GameUnitType_HeroUnit);
+            UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_08CCADF9_38748393"));
+        }
+        else {
+            if (((UnitGetType(EventUnit()) == "GaussTurret"))) {
+                lib08CCADF9_gf_KL_SetGameUnitData(EventUnit(), lib08CCADF9_ge_KL_GameUnitType_AttackTower);
+                UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_08CCADF9_9E99E5B3"));
+            }
+            else {
+                if (((UnitGetType(EventUnit()) == "Separatist") || (UnitGetType(EventUnit()) == "Reinforcement"))) {
+                    lib08CCADF9_gf_KL_SetGameUnitData(EventUnit(), lib08CCADF9_ge_KL_GameUnitType_BlockerUnit);
+                    UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_08CCADF9_FADEE65C"));
+                }
+
+            }
+        }
+    }
+    auto6D2224EC_val = UnitGetType(EventUnit());
+    if (auto6D2224EC_val == "Zergling") {
+        libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitPortrait, "ZerglingPortrait", PlayerGroupAll());
+    }
+    else if (auto6D2224EC_val == "TaurenSpaceMarine") {
+        libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitPortrait, "TaurenMarinePortrait", PlayerGroupAll());
+    }
+    else if (auto6D2224EC_val == "Separatist") {
+        lv_random = RandomInt(1, 11);
+        libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitPortrait, (("Portrait - Male Civilian " + IntToString(lv_random))), PlayerGroupAll());
+    }
+    else if (auto6D2224EC_val == "Reinforcement") {
+        lv_random = RandomInt(1, 11);
+        libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitPortrait, (("Portrait - Male Civilian " + IntToString(lv_random))), PlayerGroupAll());
+    }
+    else if (auto6D2224EC_val == "GaussTurret") {
+        libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitPortrait, "AdjutantPortrait", PlayerGroupAll());
+    }
+    else if (auto6D2224EC_val == "TDGarrisonTower") {
+        libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitPortrait, "AdjutantPortrait", PlayerGroupAll());
+    }
+    else {
+        libNtve_gf_SetDialogItemModel(lib08CCADF9_gv_kL_GameHUD.lv_unitPortraitPortrait, "RaynorMarinePortrait3D", PlayerGroupAll());
+    }
+    lib08CCADF9_gf_ShowHideGameUIPanel(true, lib08CCADF9_ge_GameUIPanels_UnitInfoPanel);
+    TimerStart(lib08CCADF9_gv_kL_DeselectUnitTimer, lib08CCADF9_gv_kL_DeselectUnitConstant, false, c_timeReal);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_GameUnitSelected_Init () {
+    lib08CCADF9_gt_KL_GameUnitSelected = TriggerCreate("lib08CCADF9_gt_KL_GameUnitSelected_Func");
+    TriggerAddEventUnitSelected(lib08CCADF9_gt_KL_GameUnitSelected, null, c_playerAny, true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_DeselectUnit
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_DeselectUnit_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gf_ShowHideGameUIPanel(false, lib08CCADF9_ge_GameUIPanels_UnitInfoPanel);
+    UnitSelect(lib08CCADF9_gv_kL_SelectedUnit, 1, false);
+    lib08CCADF9_gv_kL_SelectedUnit = null;
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_DeselectUnit_Init () {
+    lib08CCADF9_gt_KL_DeselectUnit = TriggerCreate("lib08CCADF9_gt_KL_DeselectUnit_Func");
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_DeselectUnit, lib08CCADF9_gv_kL_DeselectUnitTimer);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_DeselectOnDeath
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_DeselectOnDeath_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventUnit() == lib08CCADF9_gv_kL_SelectedUnit))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libNtve_gf_StopTimer(lib08CCADF9_gv_kL_DeselectUnitTimer);
+    lib08CCADF9_gf_ShowHideGameUIPanel(false, lib08CCADF9_ge_GameUIPanels_UnitInfoPanel);
+    lib08CCADF9_gv_kL_SelectedUnit = null;
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_DeselectOnDeath_Init () {
+    lib08CCADF9_gt_KL_DeselectOnDeath = TriggerCreate("lib08CCADF9_gt_KL_DeselectOnDeath_Func");
+    TriggerAddEventUnitDied(lib08CCADF9_gt_KL_DeselectOnDeath, null);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_PlayCrawlAnim
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_PlayCrawlAnim_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    int auto82FD45CA_ae;
+    const int auto82FD45CA_ai = 1;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    Wait(2.4, c_timeReal);
+    DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_CrawlAnchor, PlayerGroupAll(), "Writeout");
+    Wait(0.2, c_timeReal);
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_CrawlTextLabel, StringToText(lib08CCADF9_gv_kL_TextLabel), PlayerGroupAll());
+    auto82FD45CA_ae = lib08CCADF9_gv_kL_TextCharacters;
+    lv_index = 2;
+    for ( ; ( (auto82FD45CA_ai >= 0 && lv_index <= auto82FD45CA_ae) || (auto82FD45CA_ai < 0 && lv_index >= auto82FD45CA_ae) ) ; lv_index += auto82FD45CA_ai ) {
+        SoundPlayForPlayer(SoundLink("TextCrawlType", -1), c_maxPlayers, PlayerGroupAll(), 100.0, 0.0);
+        Wait(lib08CCADF9_gv_kL_SingleCharacterTypeTime, c_timeGame);
+    }
+    Wait(2.9, c_timeGame);
+    DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_CrawlAnchor, PlayerGroupAll(), "DestroyCrawl");
+    Wait(0.5, c_timeGame);
+    DialogDestroy(lib08CCADF9_gv_kLCrawlingTextDialog);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_PlayCrawlAnim_Init () {
+    lib08CCADF9_gt_KL_PlayCrawlAnim = TriggerCreate("lib08CCADF9_gt_KL_PlayCrawlAnim_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_SelectHero
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_SelectHero_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib08CCADF9_gv_kL_GameHUD.lv_heroHitTest))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    UnitClearSelection(1);
+    UnitSelect(lib08CCADF9_gv_kL_HeroUnit, 1, true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_SelectHero_Init () {
+    lib08CCADF9_gt_KL_SelectHero = TriggerCreate("lib08CCADF9_gt_KL_SelectHero_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_SelectHero, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_DisplayReward
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_DisplayReward_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    point lv_unitDeathPoint;
+    unit lv_dummyUnit;
+    int lv_textTag;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_textTag = c_textTagNone;
+
+    // Conditions
+    if (testConds) {
+        if (!((TriggerIsEnabled(TriggerGetCurrent()) == true))) {
+            return false;
+        }
+
+        if (!((UnitGetOwner(EventUnit()) != 1))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lv_unitDeathPoint = UnitGetPosition(EventUnit());
+    UnitCreate(1, "InvisibleTargetDummy", c_unitCreateIgnorePlacement, 0, lv_unitDeathPoint, 270.0);
+    lv_dummyUnit = UnitLastCreated();
+    PlayerModifyPropertyInt(libNtve_gf_KillingPlayer(), c_playerPropMinerals, c_playerPropOperAdd, lib08CCADF9_gf_ReturnUnitRewardasInteger(EventUnit()));
+    lib08CCADF9_gf_CreateFloatingText(lv_dummyUnit, ("+" + IntToString(lib08CCADF9_gf_ReturnUnitRewardasInteger(EventUnit()))), "FCT_Status_Crit", lib08CCADF9_ge_FCTDirection_Vertical, PlayerGroupAll(), 2);
+    Wait(1.2, c_timeReal);
+    UnitRemove(lv_dummyUnit);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_DisplayReward_Init () {
+    lib08CCADF9_gt_KL_DisplayReward = TriggerCreate("lib08CCADF9_gt_KL_DisplayReward_Func");
+    TriggerAddEventUnitDied(lib08CCADF9_gt_KL_DisplayReward, null);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_UnitIsClicked
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_UnitIsClicked_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((UnitGetOwner(EventUnit()) == 1))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DialogDestroy(lib08CCADF9_gv_kL_GameHUD.lv_turretDialog);
+    UnitClearSelection(1);
+    UnitSelect(EventUnit(), 1, true);
+    if ((UnitGetType(EventUnit()) == "EmptySlot")) {
+        if ((lib08CCADF9_gv_kL_GameHUD.lv_turretDialog != c_invalidDialogId)) {
+            DialogDestroy(lib08CCADF9_gv_kL_GameHUD.lv_turretDialog);
+        }
+
+        lib08CCADF9_gf_KL_TurretUICreate(lib08CCADF9_ge_KL_TurretUIType_Build, EventUnit());
+    }
+
+    if (((UnitGetType(EventUnit()) == "GaussTurret") || (UnitGetType(EventUnit()) == "TDGarrisonTower"))) {
+        if ((lib08CCADF9_gv_kL_GameHUD.lv_turretDialog != c_invalidDialogId)) {
+            DialogDestroy(lib08CCADF9_gv_kL_GameHUD.lv_turretDialog);
+        }
+
+        lib08CCADF9_gf_KL_TurretUICreate(lib08CCADF9_ge_KL_TurretUIType_Upgrade, EventUnit());
+    }
+
+    TriggerEnable(lib08CCADF9_gt_KL_AutoDeselectUnit, true);
+    TimerStart(lib08CCADF9_gv_kL_DeselectTimer, lib08CCADF9_gv_kL_DeselectTime, false, c_timeGame);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_UnitIsClicked_Init () {
+    lib08CCADF9_gt_KL_UnitIsClicked = TriggerCreate("lib08CCADF9_gt_KL_UnitIsClicked_Func");
+    TriggerAddEventUnitSelected(lib08CCADF9_gt_KL_UnitIsClicked, null, 1, true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_TowerRefunded
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_TowerRefunded_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((TriggerIsEnabled(TriggerGetCurrent()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    UnitSelect(lib08CCADF9_gv_kL_CasterUnit, 1, false);
+    DialogDestroy(lib08CCADF9_gv_kL_GameHUD.lv_turretDialog);
+    lib08CCADF9_gv_kL_CasterUnit = null;
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_TowerRefunded_Init () {
+    lib08CCADF9_gt_KL_TowerRefunded = TriggerCreate("lib08CCADF9_gt_KL_TowerRefunded_Func");
+    TriggerAddEventUnitAbility(lib08CCADF9_gt_KL_TowerRefunded, null, AbilityCommand("TDRefundEffectInstantAbility", 0), c_unitAbilStageAll, false);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_AutoDeselectUnit
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_AutoDeselectUnit_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((TriggerIsEnabled(TriggerGetCurrent()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerEnable(TriggerGetCurrent(), false);
+    UnitSelect(lib08CCADF9_gv_kL_CasterUnit, 1, false);
+    DialogDestroy(lib08CCADF9_gv_kL_GameHUD.lv_turretDialog);
+    lib08CCADF9_gv_kL_CasterUnit = null;
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_AutoDeselectUnit_Init () {
+    lib08CCADF9_gt_KL_AutoDeselectUnit = TriggerCreate("lib08CCADF9_gt_KL_AutoDeselectUnit_Func");
+    TriggerEnable(lib08CCADF9_gt_KL_AutoDeselectUnit, false);
+    TriggerAddEventTimer(lib08CCADF9_gt_KL_AutoDeselectUnit, lib08CCADF9_gv_kL_DeselectTimer);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_UpdateMinerals
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_UpdateMinerals_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((TriggerIsEnabled(TriggerGetCurrent()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TextExpressionSetToken("Param/Expression/lib_08CCADF9_9015EF1C", "PlayerGold", FixedToText(PlayerGetPropertyFixed(1, c_playerPropMinerals), c_fixedPrecisionAny));
+    libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_GameHUD.lv_mineralsLabel, TextExpressionAssemble("Param/Expression/lib_08CCADF9_9015EF1C"), PlayerGroupAll());
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_UpdateMinerals_Init () {
+    lib08CCADF9_gt_KL_UpdateMinerals = TriggerCreate("lib08CCADF9_gt_KL_UpdateMinerals_Func");
+    TriggerAddEventPlayerPropChange(lib08CCADF9_gt_KL_UpdateMinerals, 1, c_playerPropMinerals);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_OpenPauseMenu
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_OpenPauseMenu_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib08CCADF9_gv_kL_GameHUD.lv_pauseButton))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gf_KL_PauseUnpauseGame(true);
+    lib08CCADF9_gf_KL_CreatePauseMenu();
+    lib08CCADF9_gf_KL_UpdateLevelDataPauseMenu(lib08CCADF9_gv_kL_CurrentLevel);
+    lib08CCADF9_gf_ShowHideGameUI(false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_OpenPauseMenu_Init () {
+    lib08CCADF9_gt_KL_OpenPauseMenu = TriggerCreate("lib08CCADF9_gt_KL_OpenPauseMenu_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_OpenPauseMenu, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_ClosePauseMenu
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_ClosePauseMenu_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib08CCADF9_gv_kL_GameMenus.lv_pausePanelResumeBtn))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameMenus.lv_pausePanel, PlayerGroupAll(), "Hide");
+    DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_GameMenus.lv_halfTransitionPanel, PlayerGroupAll(), "DestroyFade");
+    Wait(1.5, c_timeGame);
+    lib08CCADF9_gf_ShowHideGameUI(true);
+    Wait(0.5, c_timeGame);
+    DialogDestroy(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog);
+    lib08CCADF9_gf_KL_PauseUnpauseGame(false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_ClosePauseMenu_Init () {
+    lib08CCADF9_gt_KL_ClosePauseMenu = TriggerCreate("lib08CCADF9_gt_KL_ClosePauseMenu_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_ClosePauseMenu, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_PauseQuitToMenu
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_PauseQuitToMenu_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib08CCADF9_gv_kL_GameMenus.lv_pausePanelQuitBtn))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gf_DisplayTransitionAnimation(lib08CCADF9_ge_KL_TransitionType_TransitionIn, false);
+    DialogDestroy(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog);
+    lib08CCADF9_gf_KL_EndGame(lib08CCADF9_ge_KL_EndGameType_Normal);
+    lib08CCADF9_gf_ShowHideLevelSelectionPanel(true);
+    lib08CCADF9_gf_DisplayTransitionAnimation(lib08CCADF9_ge_KL_TransitionType_TransitionOut, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_PauseQuitToMenu_Init () {
+    lib08CCADF9_gt_KL_PauseQuitToMenu = TriggerCreate("lib08CCADF9_gt_KL_PauseQuitToMenu_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_PauseQuitToMenu, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_PauseRestartGame
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_PauseRestartGame_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib08CCADF9_gv_kL_GameMenus.lv_pausePanelRestartBtn))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gf_DisplayTransitionAnimation(lib08CCADF9_ge_KL_TransitionType_TransitionIn, false);
+    DialogDestroy(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog);
+    lib08CCADF9_gf_KL_EndGame(lib08CCADF9_ge_KL_EndGameType_Restart);
+    lib08CCADF9_gf_DisplayTransitionAnimation(lib08CCADF9_ge_KL_TransitionType_TransitionOut, false);
+    lib08CCADF9_gf_ShowHideGameUI(true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_PauseRestartGame_Init () {
+    lib08CCADF9_gt_KL_PauseRestartGame = TriggerCreate("lib08CCADF9_gt_KL_PauseRestartGame_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_PauseRestartGame, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_ShowDefetScreen
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_ShowDefetScreen_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    int auto2B390B02_val;
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib08CCADF9_gf_KL_PauseUnpauseGame(true);
+    lib08CCADF9_gf_KL_CreateDefeatScreen();
+    auto2B390B02_val = lib08CCADF9_gv_kL_CurrentLevel;
+    if (auto2B390B02_val == 1) {
+        lib08CCADF9_gf_KL_UpdateDefeatMenu("Level1Hints");
+    }
+    else {
+    }
+    lib08CCADF9_gf_ShowHideGameUI(false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_ShowDefetScreen_Init () {
+    lib08CCADF9_gt_KL_ShowDefetScreen = TriggerCreate("lib08CCADF9_gt_KL_ShowDefetScreen_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_DefeatQuitToMenu
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_DefeatQuitToMenu_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib08CCADF9_gv_kL_GameMenus.lv_defeatPanelQuitBtn))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_08CCADF9_9A77701D"));
+    lib08CCADF9_gf_DisplayTransitionAnimation(lib08CCADF9_ge_KL_TransitionType_TransitionIn, false);
+    DialogDestroy(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog);
+    lib08CCADF9_gf_KL_EndGame(lib08CCADF9_ge_KL_EndGameType_Normal);
+    lib08CCADF9_gf_ShowHideLevelSelectionPanel(true);
+    lib08CCADF9_gf_DisplayTransitionAnimation(lib08CCADF9_ge_KL_TransitionType_TransitionOut, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_DefeatQuitToMenu_Init () {
+    lib08CCADF9_gt_KL_DefeatQuitToMenu = TriggerCreate("lib08CCADF9_gt_KL_DefeatQuitToMenu_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_DefeatQuitToMenu, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_DefeatRestartGame
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_DefeatRestartGame_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib08CCADF9_gv_kL_GameMenus.lv_defeatPanelRestartBtn))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_08CCADF9_E618CA41"));
+    lib08CCADF9_gf_DisplayTransitionAnimation(lib08CCADF9_ge_KL_TransitionType_TransitionIn, false);
+    DialogDestroy(lib08CCADF9_gv_kL_GameMenus.lv_gameMenuDialog);
+    lib08CCADF9_gf_KL_EndGame(lib08CCADF9_ge_KL_EndGameType_Restart);
+    lib08CCADF9_gf_DisplayTransitionAnimation(lib08CCADF9_ge_KL_TransitionType_TransitionOut, false);
+    lib08CCADF9_gf_ShowHideGameUI(true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_DefeatRestartGame_Init () {
+    lib08CCADF9_gt_KL_DefeatRestartGame = TriggerCreate("lib08CCADF9_gt_KL_DefeatRestartGame_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_DefeatRestartGame, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_LevelSelectionUIHookup
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_LevelSelectionUIHookup_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DialogControlHookup(lib08CCADF9_gv_gameUI.lv_levelSelectionContainer, c_triggerControlTypePanel, "BackgroundPanel");
+    lib08CCADF9_gv_kL_LevelSelection.lv_backgroundPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_LevelSelection.lv_backgroundPanel, c_triggerControlTypeCutscene, "BackgroundCutscene");
+    lib08CCADF9_gv_kL_LevelSelection.lv_selectionCutscene = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_gameUI.lv_levelSelectionContainer, c_triggerControlTypePanel, "StageSelPanel");
+    lib08CCADF9_gv_kL_LevelSelection.lv_stageSelectionPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_LevelSelection.lv_stageSelectionPanel, c_triggerControlTypePanel, "Stage1Slot");
+    lib08CCADF9_gv_kL_LevelSelection.lv_stageSlot[1] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_LevelSelection.lv_stageSlot[1], c_triggerControlTypeButton, "ButtonHitTest");
+    lib08CCADF9_gv_kL_LevelSelection.lv_stageButton[1] = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_gameUI.lv_levelSelectionContainer, c_triggerControlTypePanel, "SelectionPanel");
+    lib08CCADF9_gv_kL_LevelSelection.lv_selectionAnchor = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_LevelSelection.lv_selectionAnchor, c_triggerControlTypePanel, "InfoPanel");
+    lib08CCADF9_gv_kL_LevelSelection.lv_infoPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_LevelSelection.lv_infoPanel, c_triggerControlTypeLabel, "LevelTitle");
+    lib08CCADF9_gv_kL_LevelSelection.lv_titleLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_LevelSelection.lv_infoPanel, c_triggerControlTypePanel, "PreviewPanel");
+    lib08CCADF9_gv_kL_LevelSelection.lv_previewPanel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_LevelSelection.lv_previewPanel, c_triggerControlTypeImage, "PreviewImage");
+    lib08CCADF9_gv_kL_LevelSelection.lv_previewImage = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_LevelSelection.lv_infoPanel, c_triggerControlTypeLabel, "LevelDescriptionLabel");
+    lib08CCADF9_gv_kL_LevelSelection.lv_descriptionLabel = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_LevelSelection.lv_infoPanel, c_triggerControlTypeButton, "PlayButton");
+    lib08CCADF9_gv_kL_LevelSelection.lv_playButton = DialogControlLastCreated();
+    DialogControlHookup(lib08CCADF9_gv_kL_LevelSelection.lv_infoPanel, c_triggerControlTypeButton, "DifficultyButton");
+    lib08CCADF9_gv_kL_LevelSelection.lv_difficultyBtn = DialogControlLastCreated();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_LevelSelectionUIHookup_Init () {
+    lib08CCADF9_gt_KL_LevelSelectionUIHookup = TriggerCreate("lib08CCADF9_gt_KL_LevelSelectionUIHookup_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_SelectionPlayBtn
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_SelectionPlayBtn_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib08CCADF9_gv_kL_LevelSelection.lv_playButton))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    BankValueSetFromInt(lib08CCADF9_gv_kL_SettingsBank, "PlayerData", "PreviousDifficulty", lib08CCADF9_gv_kL_GameDifficulty);
+    BankSave(lib08CCADF9_gv_kL_SettingsBank);
+    SoundtrackStop(PlayerGroupAll(), c_soundtrackCategoryMusic, true);
+    SoundtrackStop(PlayerGroupAll(), c_soundtrackCategoryAmbience, true);
+    lib08CCADF9_gf_DisplayTransitionAnimation(lib08CCADF9_ge_KL_TransitionType_TransitionIn, false);
+    lib08CCADF9_gf_ShowHideLevelSelectionPanel(false);
+    lib08CCADF9_gf_KL_InitializeLevel(lib08CCADF9_gv_kL_SelectedLevel);
+    DialogControlSetVisible(lib08CCADF9_gv_kL_LevelSelection.lv_selectionAnchor, PlayerGroupAll(), false);
+    lib08CCADF9_gv_kL_InfoPanelVisible = false;
+    if ((lib08CCADF9_gv_kL_SelectedLevel == 1)) {
+        TriggerExecute(lib08CCADF9_gv_lv1_Cutscene, true, true);
+    }
+
+    lib08CCADF9_gf_ShowHideGameUI(true);
+    lib08CCADF9_gf_ShowHideGameUIPanel(true, lib08CCADF9_ge_GameUIPanels_PausePanel);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_SelectionPlayBtn_Init () {
+    lib08CCADF9_gt_KL_SelectionPlayBtn = TriggerCreate("lib08CCADF9_gt_KL_SelectionPlayBtn_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_SelectionPlayBtn, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_StageBtnPress
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_StageBtnPress_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    int auto1E3DF53E_val;
+
+    // Conditions
+    if (testConds) {
+        if (!(((EventDialogControl() == lib08CCADF9_gv_kL_LevelSelection.lv_stageButton[1]) || (EventDialogControl() == lib08CCADF9_gv_kL_LevelSelection.lv_stageButton[2])))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    if ((lib08CCADF9_gv_kL_InfoPanelVisible == false)) {
+        DialogControlSetVisible(lib08CCADF9_gv_kL_LevelSelection.lv_selectionAnchor, PlayerGroupAll(), true);
+        DialogControlSendAnimationEvent(lib08CCADF9_gv_kL_LevelSelection.lv_backgroundPanel, PlayerGroupAll(), "Fade");
+        lib08CCADF9_gv_kL_InfoPanelVisible = true;
+    }
+
+    auto1E3DF53E_val = EventDialogControl();
+    if (auto1E3DF53E_val == lib08CCADF9_gv_kL_LevelSelection.lv_stageButton[1]) {
+        lib08CCADF9_gf_KL_UpdateLevelData("Wasteland Lv1");
+    }
+    else {
+    }
+    lib08CCADF9_gv_isPlayerInGame = true;
+    lib08CCADF9_gv_kL_StartButtonEnabled = true;
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_StageBtnPress_Init () {
+    lib08CCADF9_gt_KL_StageBtnPress = TriggerCreate("lib08CCADF9_gt_KL_StageBtnPress_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_StageBtnPress, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_DifficultyBtnPress
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_DifficultyBtnPress_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    int auto505A55D5_val;
+
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib08CCADF9_gv_kL_LevelSelection.lv_difficultyBtn))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    auto505A55D5_val = lib08CCADF9_gv_kL_GameDifficulty;
+    if (auto505A55D5_val == 1) {
+        lib08CCADF9_gf_KL_SetGameDifficulty(lib08CCADF9_ge_KL_GameDifficulty_Normal);
+    }
+    else if (auto505A55D5_val == 2) {
+        lib08CCADF9_gf_KL_SetGameDifficulty(lib08CCADF9_ge_KL_GameDifficulty_Hard);
+    }
+    else if (auto505A55D5_val == 3) {
+        lib08CCADF9_gf_KL_SetGameDifficulty(lib08CCADF9_ge_KL_GameDifficulty_Easy);
+    }
+    else {
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_LevelSelection.lv_difficultyBtn, StringExternal("Param/Value/lib_08CCADF9_84556A2A"), PlayerGroupAll());
+    }
+    TriggerExecute(lib08CCADF9_gt_KL_UpdateDifficulty, true, false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_DifficultyBtnPress_Init () {
+    lib08CCADF9_gt_KL_DifficultyBtnPress = TriggerCreate("lib08CCADF9_gt_KL_DifficultyBtnPress_Func");
+    TriggerAddEventDialogControl(lib08CCADF9_gt_KL_DifficultyBtnPress, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: KL_UpdateDifficulty
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_gt_KL_UpdateDifficulty_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    int autoD1604EB8_val;
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    autoD1604EB8_val = lib08CCADF9_gv_kL_GameDifficulty;
+    if (autoD1604EB8_val == 1) {
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_LevelSelection.lv_difficultyBtn, StringExternal("Param/Value/lib_08CCADF9_846C1874"), PlayerGroupAll());
+    }
+    else if (autoD1604EB8_val == 2) {
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_LevelSelection.lv_difficultyBtn, StringExternal("Param/Value/lib_08CCADF9_FB078C53"), PlayerGroupAll());
+    }
+    else if (autoD1604EB8_val == 3) {
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_LevelSelection.lv_difficultyBtn, StringExternal("Param/Value/lib_08CCADF9_7283B5ED"), PlayerGroupAll());
+    }
+    else {
+        libNtve_gf_SetDialogItemText(lib08CCADF9_gv_kL_LevelSelection.lv_difficultyBtn, StringExternal("Param/Value/lib_08CCADF9_D2998D60"), PlayerGroupAll());
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib08CCADF9_gt_KL_UpdateDifficulty_Init () {
+    lib08CCADF9_gt_KL_UpdateDifficulty = TriggerCreate("lib08CCADF9_gt_KL_UpdateDifficulty_Func");
+}
+
+void lib08CCADF9_InitTriggers () {
+    lib08CCADF9_gt_KL_Lv1_SendWave1_Init();
+    lib08CCADF9_gt_KL_Lv1_SendWave2_Init();
+    lib08CCADF9_gt_KL_Lv1_SendWave3_Init();
+    lib08CCADF9_gt_KL_Lv1_SendWave4_Init();
+    lib08CCADF9_gt_KL_Lv1_HeroUnlockEvent_Init();
+    lib08CCADF9_gt_KL_Lv1_ReinforcementUnlockEvent_Init();
+    lib08CCADF9_gt_KL_HalfTimerExpires_Init();
+    lib08CCADF9_gt_KL_UpdateTimers_Init();
+    lib08CCADF9_gt_KL_TimerExpires_Init();
+    lib08CCADF9_gt_KL_StartWaveEarly_Init();
+    lib08CCADF9_gt_KL_Lv1_PathAMovement_Init();
+    lib08CCADF9_gt_KL_Lv1_PathBMovement_Init();
+    lib08CCADF9_gt_IntroStart_Init();
+    lib08CCADF9_gt_IntroEnd_Init();
+    lib08CCADF9_gt_IntroCleanup_Init();
+    lib08CCADF9_gt_GlobalInitialization_Init();
+    lib08CCADF9_gt__1Settings_Init();
+    lib08CCADF9_gt__2UI_Init();
+    lib08CCADF9_gt__3IntroQ_Init();
+    lib08CCADF9_gt_KL_StandardUIOverrides_Init();
+    lib08CCADF9_gt_KL_SetupCalloutPositions_Init();
+    lib08CCADF9_gt_KL_UnitReachesEnd_Init();
+    lib08CCADF9_gt_KL_StartGame_Init();
+    lib08CCADF9_gt_KL_UnitAttacked_Init();
+    lib08CCADF9_gt_KL_CheckBankExistence_Init();
+    lib08CCADF9_gt_KL_CheckUnits_Init();
+    lib08CCADF9_gt_KL_HUD_Ini_Init();
+    lib08CCADF9_gt_KL_HintExpired_Init();
+    lib08CCADF9_gt_KL_HintBtnUsed_Init();
+    lib08CCADF9_gt_KL_DebugOpenHintPanel_Init();
+    lib08CCADF9_gt_KL_CloseHintMenu_Init();
+    lib08CCADF9_gt_KL_GameUnitSelected_Init();
+    lib08CCADF9_gt_KL_DeselectUnit_Init();
+    lib08CCADF9_gt_KL_DeselectOnDeath_Init();
+    lib08CCADF9_gt_KL_PlayCrawlAnim_Init();
+    lib08CCADF9_gt_KL_SelectHero_Init();
+    lib08CCADF9_gt_KL_DisplayReward_Init();
+    lib08CCADF9_gt_KL_UnitIsClicked_Init();
+    lib08CCADF9_gt_KL_TowerRefunded_Init();
+    lib08CCADF9_gt_KL_AutoDeselectUnit_Init();
+    lib08CCADF9_gt_KL_UpdateMinerals_Init();
+    lib08CCADF9_gt_KL_OpenPauseMenu_Init();
+    lib08CCADF9_gt_KL_ClosePauseMenu_Init();
+    lib08CCADF9_gt_KL_PauseQuitToMenu_Init();
+    lib08CCADF9_gt_KL_PauseRestartGame_Init();
+    lib08CCADF9_gt_KL_ShowDefetScreen_Init();
+    lib08CCADF9_gt_KL_DefeatQuitToMenu_Init();
+    lib08CCADF9_gt_KL_DefeatRestartGame_Init();
+    lib08CCADF9_gt_KL_LevelSelectionUIHookup_Init();
+    lib08CCADF9_gt_KL_SelectionPlayBtn_Init();
+    lib08CCADF9_gt_KL_StageBtnPress_Init();
+    lib08CCADF9_gt_KL_DifficultyBtnPress_Init();
+    lib08CCADF9_gt_KL_UpdateDifficulty_Init();
+}
+
+//--------------------------------------------------------------------------------------------------
+// Library Initialization
+//--------------------------------------------------------------------------------------------------
+bool lib08CCADF9_InitLib_completed = false;
+
+void lib08CCADF9_InitLib () {
+    if (lib08CCADF9_InitLib_completed) {
+        return;
+    }
+
+    lib08CCADF9_InitLib_completed = true;
+
+    lib08CCADF9_InitLibraries();
+    lib08CCADF9_InitVariables();
+    lib08CCADF9_InitTriggers();
+}
+

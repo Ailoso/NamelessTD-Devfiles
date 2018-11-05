@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+
+    <Frame type="Frame" name="ChatBubbleAnchor">
+        <Anchor relative="$parent"/>
+        <Visible val="False"/>
+
+        <Animation name="Show">
+            <Event event="OnShown" action="Reset,Play"/>
+             
+            <Controller type="Anchor" end="Pause" side="Bottom" relative="true" frame="$this/ChatBubble">
+                <Key type="Curve" time="0" value="100" out="Fast"/>
+                <Key type="Curve" time=".8" value="0" in="Slow"/>
+            </Controller>
+
+            <Controller type="Fade" end="Pause">
+                <Key type="Curve" time="0" value="0"/>
+                <Key type="Curve" time=".6" value="0" out="Fast"/>
+                <Key type="Curve" time=".9" value="255" in="Slow"/>
+            </Controller>
+
+            <Controller type="Fade" end="Pause" frame="$this/ChatMark">
+                <Key type="Curve" time="0" value="255"/>
+                <Key type="Curve" time=".9" value="255" out="Fast"/>
+                <Key type="Curve" time="1.4" value="0" in="Slow"/>
+            </Controller>
+
+            <Controller type="Event" end="Stop" frame="$this">
+                <Key type="Event" time="1.4" event="ExtendAnim"/>
+            </Controller>
+        </Animation>
+
+        <Animation name="ChatExtend">
+            <Event event="ExtendAnim" action="Reset,Play"/>
+             
+            <Controller type="Dimension" dimension="Height" relative="False" percentage="False" unclip="False" end="Pause" frame="$this/ChatBubble">
+                <Key type="Curve" time="0" value="52" out="Fast"/>
+                <Key type="Curve" time=".2" value="120" in="Slow"/>
+            </Controller>
+
+            <Controller type="Dimension" dimension="Width" relative="False" percentage="False" unclip="False" end="Pause" frame="$this/ChatBubble">
+                <Key type="Curve" time="0" value="48" out="Fast"/>
+                <Key type="Curve" time=".3" value="250" in="Slow"/>
+            </Controller>
+
+            <Controller type="Fade" end="Pause" frame="$this/Dialogue">
+                <Key type="Curve" time="0" value="0"/>
+                <Key type="Curve" time=".2" value="0" out="Fast"/>
+                <Key type="Curve" time="1" value="255" in="Slow"/>
+            </Controller>
+        </Animation>
+
+        <Animation name="Hide">
+            <Event event="FadeOut" action="Reset,Play"/>
+
+            <Controller type="Fade" end="Pause" frame="$this">
+                <Key type="Curve" time="0" value="255" out="Fast"/>
+                <Key type="Curve" time=".2" value="0" in="Slow"/>
+            </Controller>
+        </Animation>
+
+        <Frame type="Image" name="ChatBubble">
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+            <Width val="48"/>
+            <Height val="52"/>
+            <TextureType val="NineSlice"/>
+            <Texture val="Assets\Textures\ui_nameless_story_chatbubble.dds"/>
+        </Frame>
+
+        <Frame type="Image" name="ChatMark">
+            <Anchor side="Top" relative="$parent/ChatBubble" pos="Min" offset="6"/>
+            <Anchor side="Left" relative="$parent/ChatBubble" pos="Mid" offset="0"/>
+            <Anchor side="Right" relative="$parent/ChatBubble" pos="Mid" offset="0"/>
+            <Width val="35"/>
+            <Height val="35"/>
+            <Texture val="Assets\Textures\sc2_ui_userprofile_ladderlist_icon_exclamation.dds"/>
+        </Frame>
+
+        <Frame type="Label" name="Dialogue">
+            <Anchor side="Top" relative="$parent/ChatBubble" pos="Min" offset="10"/>
+            <Anchor side="Left" relative="$parent/ChatBubble" pos="Min" offset="10"/>
+            <Anchor side="Right" relative="$parent/ChatBubble" pos="Max" offset="-10"/>
+            <Style val="NamelessDialogueLabel"/>
+            <Alpha val="0"/>
+        </Frame>
+    </Frame>
+
+    <Frame type="Frame" name="TextCrawlAnchor">
+        <Anchor relative="$parent"/>
+
+        <Animation name="Show">
+            <Event event="OnShown" action="Reset,Play"/>
+
+            <Controller type="Fade" end="Pause" frame="$this/CrawlingTextFrame/Title">
+                <Key type="Curve" time="0" value="0" out="Fast"/>
+                <Key type="Curve" time="3" value="255" in="Slow"/>
+            </Controller>
+
+            <Controller type="Event" end="Stop" frame="$this/CrawlingTextFrame/Cursor">
+                <Key type="Event" time="1.8" event="CursorStart"/>
+            </Controller>
+        </Animation>
+
+        <Animation name="Hide">
+            <Event event="DestroyCrawl" action="Reset,Play"/>
+
+            <Controller type="Fade" end="Pause" frame="$this/CrawlingTextFrame/Text">
+                <Key type="Curve" time="0" value="255" out="Fast"/>
+                <Key type="Curve" time=".3" value="0" in="Slow"/>
+            </Controller>
+
+            <Controller type="Fade" end="Pause" frame="$this/CrawlingTextFrame/Title">
+                <Key type="Curve" time="0" value="255" out="Fast"/>
+                <Key type="Curve" time=".2" value="255" out="Fast"/>
+                <Key type="Curve" time=".5" value="0" in="Slow"/>
+            </Controller>
+        </Animation>
+
+        <Animation name="WriteOutCursor">
+            <Event event="Writeout" action="Play"/>
+
+            <Controller type="Anchor" end="Pause" side="Left" relative="true" frame="$this/CrawlingTextFrame/Cursor">
+                <Key type="Curve" time="0" value="0" out="Linear"/>
+                <Key type="Curve" time="1.5" value="500" in="Linear"/>
+            </Controller>
+
+            <Controller type="Event" end="Pause" frame="$this">
+                <Key type="Event" time="2" event="BlinkStop"/>
+            </Controller>
+        </Animation>
+
+        <Animation name="BlinkingStop">
+            <Event event="BlinkStop" action="Reset,Play"/>
+
+            <Controller type="Event" end="Pause" frame="$this/CrawlingTextFrame/Cursor">
+                <Key type="Event" time="0" event="CursorEnd"/>
+            </Controller>
+
+            <Controller type="Event" end="Pause" frame="$this/CrawlingTextFrame/Cursor">
+                <Key type="Event" time="0" event="CursorFadeOut"/>
+            </Controller>
+        </Animation>
+
+        <Frame type="Frame" name="CrawlingTextFrame">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="18"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="15"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="-20"/>
+
+            <Frame type="Label" name="Title">
+                <Anchor side="Top" relative="$parent" pos="Min" offset="15"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="45"/>
+                <Style val="NamelessWriteoutTitle"/>
+            </Frame>
+
+            <Frame type="Label" name="Text">
+                <Anchor side="Top" relative="$parent/Title" pos="Max" offset="5"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="45"/>
+                <Style val="NamelessWriteoutText"/>
+                <WriteOutText val="True"/>
+            </Frame>
+
+            <Frame type="Image" name="Cursor">
+                <Anchor side="Top" relative="$parent/Text" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/Text" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/Title" pos="Min" offset="0"/>
+                <Texture val="Assets\Textures\ui_nova_login_cursor.dds"/>
+                <Width val="47"/>
+                <Height val="45"/>
+                <Alpha val="0"/>
+                <CollapseLayout val="True"/>
+
+                <Animation name="LoopStart">
+                    <Event event="CursorStart" action="Play"/>
+                    <Event event="CursorEnd" action="Reset,Pause"/>
+
+                    <Controller type="Fade" end="Loop">
+                        <Key type="Curve" time="0" value="0"/>
+                        <Key type="Curve" time=".3" value="255"/>
+                        <Key type="Curve" time=".4" value="255"/>
+                        <Key type="Curve" time=".7" value="0"/>
+                        <Key type="Curve" time=".8" value="0"/>
+                    </Controller>
+                </Animation>
+
+                <Animation name="CursorFade">
+                    <Event event="CursorFadeOut" action="Reset,Play"/>
+
+                    <Controller type="Fade" end="Pause">
+                        <Key type="Curve" time="0" value="0"/>
+                        <Key type="Curve" time=".3" value="170"/>
+                        <Key type="Curve" time=".4" value="170"/>
+                        <Key type="Curve" time=".7" value="0"/>
+                        <Key type="Curve" time=".8" value="0"/>
+                        <Key type="Curve" time="1.1" value="85"/>
+                        <Key type="Curve" time="1.5" value="85"/>
+                        <Key type="Curve" time="2.2" value="0"/>
+                        <Key type="Curve" time="2.3" value="0"/>
+                    </Controller>
+                </Animation>
+            </Frame>
+        </Frame>
+    </Frame>
+<!--Assets\Textures\ui_nova_login_cursor.dds-->
+</Desc>
