@@ -213,6 +213,7 @@
             <Visible val="False"/>
 
             <Animation name="DisplaySelection">
+                <Event event="OnClick" action="Play" frame="$this/Stage0Slot/ButtonHitTest"/>
                 <Event event="OnClick" action="Play" frame="$this/Stage1Slot/ButtonHitTest"/>
                  
                 <Controller type="Visibility" end="Pause" frame="$parent/SelectionPanel">
@@ -233,9 +234,20 @@
                 <Frame type="Image" name="Icon">
                     <Texture val="Assets\Textures\ui_nova_storymode_briefing_icon_cave.dds"/>
                 </Frame>
+            </Frame>
 
-                <Frame type="Label" name="Label">
-                    <Text val="Wasteland"/>
+            <Frame type="Frame" name="Stage0Slot" template="NamelessTD_StandardTemplates/StageSlot">
+                <Anchor side="Bottom" relative="$parent" pos="Mid" offset="-110"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="200"/>
+
+                <Frame type="Button" name="ButtonHitTest">
+                </Frame>
+
+                <Frame type="Frame" name="PerformancePanel">
+                </Frame>
+
+                <Frame type="Image" name="Icon">
+                    <Texture val="Assets\Textures\ui_nova_storymode_briefing_icon_cave.dds"/>
                 </Frame>
             </Frame>
         </Frame>

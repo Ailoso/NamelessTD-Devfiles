@@ -30,19 +30,27 @@
 			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
 			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
 		</Frame>
-		
-		<Frame type="Frame" name="TransitionPanelContainer" template="NamelessTD_TransitionPanel/TransitionTemplates">
+
+		<Frame type="Frame" name="TextCrawlContainer" template="NamelessTD_StoryUI/TextCrawlAnchor">
 			<!--Priority 4-->
-			<Anchor relative="$parent"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="-200"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Width val="550"/>
+			<Height val="150"/>
 		</Frame>
 		
-		<Frame type="Frame" name="GameMenuContainer" template="NamelessTD_GameMenus/AnchorPanel">
+		<Frame type="Frame" name="TransitionPanelContainer" template="NamelessTD_TransitionPanel/TransitionTemplates">
 			<!--Priority 5-->
 			<Anchor relative="$parent"/>
 		</Frame>
 		
-		<Frame type="Frame" name="SaveStatusContainer">
+		<Frame type="Frame" name="GameMenuContainer" template="NamelessTD_GameMenus/AnchorPanel">
 			<!--Priority 6-->
+			<Anchor relative="$parent"/>
+		</Frame>
+
+		<Frame type="Frame" name="SaveStatusContainer">
+			<!--Priority 7-->
 			<Anchor side="Bottom" relative="$parent" pos="Max" offset="100"/>
 			<Anchor side="Right" relative="$parent" pos="Max" offset="-100"/>
 			<Width val="300"/>

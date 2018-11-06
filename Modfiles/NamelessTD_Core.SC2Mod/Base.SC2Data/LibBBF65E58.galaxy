@@ -1,5 +1,6 @@
 include "TriggerLibs/NativeLib"
 include "TriggerLibs/VoidCampaignLib"
+include "TriggerLibs/VoidCampaignMissionLib"
 include "Lib08CCADF9_h"
 
 include "LibBBF65E58_h"
@@ -11,6 +12,7 @@ include "LibBBF65E58_h"
 void libBBF65E58_InitLibraries () {
     libNtve_InitVariables();
     libVoiC_InitVariables();
+    libVCMI_InitVariables();
     lib08CCADF9_InitVariables();
 }
 
@@ -133,6 +135,10 @@ void libBBF65E58_gf_TD_HookupGameUI () {
     libBBF65E58_gv_tD_GameUI.lv_gameMenuContainer = DialogControlLastCreated();
     DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameUI, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("SaveStatusContainer"));
     libBBF65E58_gv_tD_GameUI.lv_saveStatusContainer = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypeButton, libNtve_gf_ConvertStringToUILayoutFrameName("StageSelPanel/Stage0Slot/ButtonHitTest"));
+    libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[0] = DialogControlLastCreated();
+    DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("StageSelPanel/Stage0Slot/PerformancePanel"));
+    libBBF65E58_gv_tD_LevelSelection.lv_stageSlotPerformance[0] = DialogControlLastCreated();
     DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypeButton, libNtve_gf_ConvertStringToUILayoutFrameName("StageSelPanel/Stage1Slot/ButtonHitTest"));
     libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[1] = DialogControlLastCreated();
     DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_levelSelectionContainer, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("StageSelPanel/Stage1Slot/PerformancePanel"));
@@ -206,7 +212,7 @@ void libBBF65E58_gf_TD_UpdateInfoPanel (string lp_level) {
     // Implementation
     libBBF65E58_gv_tD_SelectedLevel = UserDataGetInt("LevelData", lp_level, "ID", 1);
     libNtve_gf_SetDialogItemText(libBBF65E58_gv_tD_LevelSelection.lv_title, StringToText(UserDataGetString("LevelData", lp_level, "Title", 1)), PlayerGroupAll());
-    libNtve_gf_SetDialogItemText(libBBF65E58_gv_tD_LevelSelection.lv_description, UserDataGetText("LevelData", lp_level, "Description", 1), PlayerGroupAll());
+    libNtve_gf_SetDialogItemText(libBBF65E58_gv_tD_LevelSelection.lv_description, StringToText(UserDataGetString("LevelData", lp_level, "Description", 1)), PlayerGroupAll());
     libNtve_gf_SetDialogItemImage(libBBF65E58_gv_tD_LevelSelection.lv_previewImage, UserDataGetImagePath("LevelData", lp_level, "Preview Image", 1), PlayerGroupAll());
 }
 
@@ -475,6 +481,20 @@ string libBBF65E58_gf_ReturnGameDifficultyasInteger () {
     }
 }
 
+void libBBF65E58_gf_InitializeStageSettings (string lp_stage) {
+    // Automatic Variable Declarations
+    string auto683D607B_val;
+
+    // Implementation
+    auto683D607B_val = lp_stage;
+    if (auto683D607B_val == "Bootcamp 00") {
+        libBBF65E58_gf_EnableDisableHUDPanels(libBBF65E58_ge_HUDPanels_HeroPanel, false);
+        libBBF65E58_gf_EnableDisableHUDPanels(libBBF65E58_ge_HUDPanels_InfoPanel, false);
+    }
+    else {
+    }
+}
+
 void libBBF65E58_gf_InitializeStage (string lp_gameDifficulty) {
     // Automatic Variable Declarations
 }
@@ -583,11 +603,11 @@ void libBBF65E58_gt_KL_UpdateDifficulty_Init () {
 //--------------------------------------------------------------------------------------------------
 bool libBBF65E58_gt_TD_StageButtonPressed_Func (bool testConds, bool runActions) {
     // Automatic Variable Declarations
-    int auto3D0AD8F4_val;
+    int auto192F3EDA_val;
 
     // Conditions
     if (testConds) {
-        if (!(((EventDialogControl() == libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[1])))) {
+        if (!(((EventDialogControl() == libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[0]) || (EventDialogControl() == libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[1])))) {
             return false;
         }
     }
@@ -597,9 +617,14 @@ bool libBBF65E58_gt_TD_StageButtonPressed_Func (bool testConds, bool runActions)
         return true;
     }
 
-    auto3D0AD8F4_val = EventDialogControl();
-    if (auto3D0AD8F4_val == libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[1]) {
+    auto192F3EDA_val = EventDialogControl();
+    if (auto192F3EDA_val == libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[0]) {
+        libBBF65E58_gf_TD_UpdateInfoPanel("Bootcamp 00");
+        libBBF65E58_gv_tD_SelectedStage = "Bootcamp 00";
+    }
+    else if (auto192F3EDA_val == libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[1]) {
         libBBF65E58_gf_TD_UpdateInfoPanel("Wasteland 01");
+        libBBF65E58_gv_tD_SelectedStage = "Wasteland 01";
     }
     else {
     }
@@ -610,6 +635,40 @@ bool libBBF65E58_gt_TD_StageButtonPressed_Func (bool testConds, bool runActions)
 void libBBF65E58_gt_TD_StageButtonPressed_Init () {
     libBBF65E58_gt_TD_StageButtonPressed = TriggerCreate("libBBF65E58_gt_TD_StageButtonPressed_Func");
     TriggerAddEventDialogControl(libBBF65E58_gt_TD_StageButtonPressed, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: PlayBtnPressed
+//--------------------------------------------------------------------------------------------------
+bool libBBF65E58_gt_PlayBtnPressed_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == libBBF65E58_gv_tD_LevelSelection.lv_playButton))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libBBF65E58_gf_PlayTransitionAnimation(libBBF65E58_ge_TransitionType_Full, true);
+    Wait(1.5, c_timeGame);
+    CinematicFade(false, 0.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, false);
+    libNtve_gf_HideGameUI(true, PlayerGroupAll());
+    libBBF65E58_gf_ShowHideGameUIPanel(libBBF65E58_ge_UIPanelType_LevelSelection, false);
+    libBBF65E58_gf_PlayTransitionAnimation(libBBF65E58_ge_TransitionType_Full, false);
+    CinematicFade(true, 1.5, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, false);
+    libBBF65E58_gf_InitializeStageSettings("Bootcamp 00");
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libBBF65E58_gt_PlayBtnPressed_Init () {
+    libBBF65E58_gt_PlayBtnPressed = TriggerCreate("libBBF65E58_gt_PlayBtnPressed_Func");
+    TriggerAddEventDialogControl(libBBF65E58_gt_PlayBtnPressed, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -782,7 +841,6 @@ bool libBBF65E58_gt_DebugTestCompleteTransition_Func (bool testConds, bool runAc
     libBBF65E58_gf_ShowHideGameUIPanel(libBBF65E58_ge_UIPanelType_LevelSelection, false);
     libBBF65E58_gf_PlayTransitionAnimation(libBBF65E58_ge_TransitionType_Full, false);
     CinematicFade(true, 1.5, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, false);
-    libBBF65E58_gf_ShowHideGameUIPanel(libBBF65E58_ge_UIPanelType_GameHUD, true);
     return true;
 }
 
@@ -905,6 +963,7 @@ void libBBF65E58_InitTriggers () {
     libBBF65E58_gt_KL_DifficultyBtnPress_Init();
     libBBF65E58_gt_KL_UpdateDifficulty_Init();
     libBBF65E58_gt_TD_StageButtonPressed_Init();
+    libBBF65E58_gt_PlayBtnPressed_Init();
     libBBF65E58_gt_Intialization_Init();
     libBBF65E58_gt_DebugFullIn_Init();
     libBBF65E58_gt_DebugFullOut_Init();

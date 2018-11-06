@@ -88,6 +88,7 @@ bool libBBF65E58_gv_tD_GameUIHooked;
 libBBF65E58_gs_TD_GameUI libBBF65E58_gv_tD_GameUI;
 libBBF65E58_gs_TD_LevelSelection libBBF65E58_gv_tD_LevelSelection;
 libBBF65E58_gs_TD_HeadsUpDisplay libBBF65E58_gv_tD_HeadsUpDisplay;
+string libBBF65E58_gv_tD_SelectedStage;
 int libBBF65E58_gv_tD_SelectedLevel;
 libBBF65E58_gs_TD_HUDSettings libBBF65E58_gv_tD_HUDSettings;
 int libBBF65E58_gv_tD_GameDifficulty;
@@ -110,6 +111,7 @@ void libBBF65E58_gf_ResetHUDPanelStates ();
 void libBBF65E58_gf_PlayTransitionAnimation (int lp_type, bool lp_showHide);
 void libBBF65E58_gf_TD_SetGameDifficulty (int lp_gameDifficulty);
 string libBBF65E58_gf_ReturnGameDifficultyasInteger ();
+void libBBF65E58_gf_InitializeStageSettings (string lp_stage);
 void libBBF65E58_gf_InitializeStage (string lp_gameDifficulty);
 
 // Trigger Declarations
@@ -117,6 +119,7 @@ trigger libBBF65E58_gt_TD_FIrstRunCheck;
 trigger libBBF65E58_gt_KL_DifficultyBtnPress;
 trigger libBBF65E58_gt_KL_UpdateDifficulty;
 trigger libBBF65E58_gt_TD_StageButtonPressed;
+trigger libBBF65E58_gt_PlayBtnPressed;
 trigger libBBF65E58_gt_Intialization;
 trigger libBBF65E58_gt_DebugFullIn;
 trigger libBBF65E58_gt_DebugFullOut;

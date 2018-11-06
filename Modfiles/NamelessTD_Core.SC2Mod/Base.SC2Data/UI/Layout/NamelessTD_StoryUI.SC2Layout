@@ -87,7 +87,7 @@
     </Frame>
 
     <Frame type="Frame" name="TextCrawlAnchor">
-        <Anchor relative="$parent"/>
+        <Visible val="False"/>
 
         <Animation name="Show">
             <Event event="OnShown" action="Reset,Play"/>
@@ -97,13 +97,38 @@
                 <Key type="Curve" time="3" value="255" in="Slow"/>
             </Controller>
 
-            <Controller type="Event" end="Stop" frame="$this/CrawlingTextFrame/Cursor">
-                <Key type="Event" time="1.8" event="CursorStart"/>
+            <Controller type="Fade" end="Pause" frame="$this/CrawlingTextFrame/Text">
+                <Key type="Curve" time="0" value="0" out="Fast"/>
+                <Key type="Curve" time="3" value="255" in="Slow"/>
             </Controller>
+
+            <Controller type="Event" end="Stop" frame="$this/CrawlingTextFrame/Cursor">
+                <Key type="Event" time="0" event="CursorStart"/>
+            </Controller>
+
+            <Controller type="Event" end="Stop" frame="$this">
+                <Key type="Event" time="0.4" event="Level0"/>
+            </Controller>
+
+            <Controller type="Event" end="Stop" frame="$this">
+                <Key type="Event" time="4.5" event="BlinkingStop"/>
+            </Controller>
+
+                <Controller type="Event" end="Stop" frame="$this">
+                    <Key type="Event" time="5" event="HidePanel"/>
+                </Controller>
+
+                <Controller type="Text" end="Stop" frame="$this/CrawlingTextFrame/Title">
+                    <Key type="Text" time="0.0" text=""/>
+                </Controller>
+
+                <Controller type="Text" end="Stop" frame="$this/CrawlingTextFrame/Text">
+                    <Key type="Text" time="0.0" text=""/>
+                </Controller>
         </Animation>
 
         <Animation name="Hide">
-            <Event event="DestroyCrawl" action="Reset,Play"/>
+            <Event event="HidePanel" action="Reset,Play"/>
 
             <Controller type="Fade" end="Pause" frame="$this/CrawlingTextFrame/Text">
                 <Key type="Curve" time="0" value="255" out="Fast"/>
@@ -115,18 +140,10 @@
                 <Key type="Curve" time=".2" value="255" out="Fast"/>
                 <Key type="Curve" time=".5" value="0" in="Slow"/>
             </Controller>
-        </Animation>
 
-        <Animation name="WriteOutCursor">
-            <Event event="Writeout" action="Play"/>
-
-            <Controller type="Anchor" end="Pause" side="Left" relative="true" frame="$this/CrawlingTextFrame/Cursor">
-                <Key type="Curve" time="0" value="0" out="Linear"/>
-                <Key type="Curve" time="1.5" value="500" in="Linear"/>
-            </Controller>
-
-            <Controller type="Event" end="Pause" frame="$this">
-                <Key type="Event" time="2" event="BlinkStop"/>
+            <Controller type="Visibility" end="Pause" frame="$this">
+                <Key type="Bool" time="0.0" value="True"/>
+                <Key type="Bool" time="0.5" value="False"/>
             </Controller>
         </Animation>
 
@@ -142,6 +159,32 @@
             </Controller>
         </Animation>
 
+        <!-- Level Animations -->
+
+        <Animation name="Level0Text">
+            <Event event="Level0" action="Reset,Play" frame="$this"/>
+
+            <Controller type="Text" end="Pause" frame="$this/CrawlingTextFrame/Title">
+                <Key type="Text" time="0.0" text="Boot Camp"/>
+            </Controller>
+
+            <Controller type="Text" end="Pause" frame="$this/CrawlingTextFrame/Text">
+                <Key type="Text" time="0.0" text=""/>
+                <Key type="Text" time="0.15" text="1"/>
+                <Key type="Text" time="0.3" text="12"/>
+                <Key type="Text" time="0.45" text="12 "/>
+                <Key type="Text" time="0.6" text="12 h"/>
+                <Key type="Text" time="0.75" text="12 ho"/>
+                <Key type="Text" time="0.9" text="12 hou"/>
+                <Key type="Text" time="1.05" text="12 hour"/>
+                <Key type="Text" time="1.2" text="12 hours"/>
+                <Key type="Text" time="1.35" text="12 hours "/>
+                <Key type="Text" time="1.5" text="12 hours a"/>
+                <Key type="Text" time="1.65" text="12 hours ag"/>
+                <Key type="Text" time="1.8" text="12 hours ago"/>
+            </Controller>
+        </Animation>
+
         <Frame type="Frame" name="CrawlingTextFrame">
             <Anchor side="Top" relative="$parent" pos="Min" offset="18"/>
             <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
@@ -152,24 +195,24 @@
                 <Anchor side="Top" relative="$parent" pos="Min" offset="15"/>
                 <Anchor side="Left" relative="$parent" pos="Min" offset="45"/>
                 <Style val="NamelessWriteoutTitle"/>
+                <Alpha val="255"/>
             </Frame>
 
             <Frame type="Label" name="Text">
-                <Anchor side="Top" relative="$parent/Title" pos="Max" offset="5"/>
+                <Anchor side="Top" relative="$parent/Title" pos="Max" offset="3"/>
                 <Anchor side="Left" relative="$parent" pos="Min" offset="45"/>
                 <Style val="NamelessWriteoutText"/>
-                <WriteOutText val="True"/>
+                <Alpha val="255"/>
             </Frame>
 
             <Frame type="Image" name="Cursor">
                 <Anchor side="Top" relative="$parent/Text" pos="Mid" offset="0"/>
                 <Anchor side="Bottom" relative="$parent/Text" pos="Mid" offset="0"/>
-                <Anchor side="Left" relative="$parent/Title" pos="Min" offset="0"/>
+                <Anchor side="Left" relative="$parent/Text" pos="Max" offset="-5"/>
                 <Texture val="Assets\Textures\ui_nova_login_cursor.dds"/>
                 <Width val="47"/>
                 <Height val="45"/>
                 <Alpha val="0"/>
-                <CollapseLayout val="True"/>
 
                 <Animation name="LoopStart">
                     <Event event="CursorStart" action="Play"/>
@@ -177,10 +220,10 @@
 
                     <Controller type="Fade" end="Loop">
                         <Key type="Curve" time="0" value="0"/>
-                        <Key type="Curve" time=".3" value="255"/>
-                        <Key type="Curve" time=".4" value="255"/>
-                        <Key type="Curve" time=".7" value="0"/>
-                        <Key type="Curve" time=".8" value="0"/>
+                        <Key type="Curve" time=".15" value="255"/>
+                        <Key type="Curve" time=".2" value="255"/>
+                        <Key type="Curve" time=".35" value="0"/>
+                        <Key type="Curve" time=".4" value="0"/>
                     </Controller>
                 </Animation>
 

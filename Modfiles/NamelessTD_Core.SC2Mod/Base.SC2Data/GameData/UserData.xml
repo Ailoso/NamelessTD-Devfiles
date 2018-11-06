@@ -152,6 +152,17 @@
         <Fields Id="Description" Type="String" EditorColumn="3"/>
         <Fields Id="Preview Image" Type="Image" EditorColumn="4"/>
         <Instances Id="[Default]"/>
+        <Instances Id="Bootcamp 00">
+            <Image Image="Assets\Textures\ui_nameless_selection_levelpreview_level1.dds">
+                <Field Id="Preview Image"/>
+            </Image>
+            <String String="Tutorial map and feature testing for Nameless TD">
+                <Field Id="Description"/>
+            </String>
+            <String String="Bootcamp">
+                <Field Id="Title"/>
+            </String>
+        </Instances>
         <Instances Id="Wasteland 01">
             <Image Image="Assets\Textures\ui_nameless_selection_levelpreview_level1.dds">
                 <Field Id="Preview Image"/>
@@ -163,17 +174,6 @@
                 <Field Id="Description"/>
             </String>
             <String String="Wasteland">
-                <Field Id="Title"/>
-            </String>
-        </Instances>
-        <Instances Id="Bootcamp 00">
-            <Image Image="Assets\Textures\ui_nameless_selection_levelpreview_level1.dds">
-                <Field Id="Preview Image"/>
-            </Image>
-            <String String="Tutorial map and feature testing for Nameless TD">
-                <Field Id="Description"/>
-            </String>
-            <String String="Bootcamp">
                 <Field Id="Title"/>
             </String>
         </Instances>
