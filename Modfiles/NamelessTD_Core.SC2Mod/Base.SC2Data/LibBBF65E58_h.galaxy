@@ -12,6 +12,7 @@ const int libBBF65E58_ge_HUDPanels_PausePanel = 0x00000002;
 const int libBBF65E58_ge_HUDPanels_InfoPanel = 0x00000004;
 const int libBBF65E58_ge_HUDPanels_StartButton = 0x00000008;
 const int libBBF65E58_ge_HUDPanels_HeroPanel = 0x00000010;
+const int libBBF65E58_ge_HUDPanels_MinimapPanel = 0x00000020;
 const int libBBF65E58_ge_TransitionType_Full = 0;
 const int libBBF65E58_ge_TransitionType_Half = 1;
 const int libBBF65E58_ge_TD_GameDifficulty_Easy = 0x00000001;
@@ -56,6 +57,7 @@ struct libBBF65E58_gs_TD_HeadsUpDisplay {
     int lv_pausePanel;
     int lv_unitInfoPanel;
     int lv_hintsPanel;
+    int lv_minimapPanel;
 };
 
 struct libBBF65E58_gs_TD_HUDSettings {
@@ -64,6 +66,7 @@ struct libBBF65E58_gs_TD_HUDSettings {
     bool lv_startButtonEnabled;
     bool lv_pausePanelEnabled;
     bool lv_unitInfoPanelEnabled;
+    bool lv_minimapPanelEnabled;
 };
 
 // Variable Declarations

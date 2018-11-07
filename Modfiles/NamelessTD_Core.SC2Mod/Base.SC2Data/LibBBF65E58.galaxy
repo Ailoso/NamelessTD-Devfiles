@@ -60,11 +60,13 @@ void libBBF65E58_InitVariables () {
     libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel = c_invalidDialogControlId;
     libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel = c_invalidDialogControlId;
     libBBF65E58_gv_tD_HeadsUpDisplay.lv_hintsPanel = c_invalidDialogControlId;
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_minimapPanel = c_invalidDialogControlId;
     libBBF65E58_gv_tD_HUDSettings.lv_heroPanelEnabled = true;
     libBBF65E58_gv_tD_HUDSettings.lv_gameStatusPanelEnabled = true;
     libBBF65E58_gv_tD_HUDSettings.lv_startButtonEnabled = true;
     libBBF65E58_gv_tD_HUDSettings.lv_pausePanelEnabled = true;
     libBBF65E58_gv_tD_HUDSettings.lv_unitInfoPanelEnabled = true;
+    libBBF65E58_gv_tD_HUDSettings.lv_minimapPanelEnabled = true;
     libBBF65E58_gv_tD_GameDifficulty = 2;
 }
 
@@ -121,6 +123,9 @@ void libBBF65E58_gf_TD_HookupGameUI () {
     DialogSetFullscreen(DialogLastCreated(), true);
     DialogSetImageVisible(DialogLastCreated(), false);
     libBBF65E58_gv_tD_GameUI.lv_dialog = DialogLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/ConsoleUIContainer/MinimapPanel");
+    libBBF65E58_gv_tD_HeadsUpDisplay.lv_minimapPanel = DialogControlLastCreated();
+    DialogControlSendAnimationEvent(libBBF65E58_gv_tD_HeadsUpDisplay.lv_minimapPanel, PlayerGroupAll(), "OverrideMinimap");
     DialogControlCreateFromTemplate(libBBF65E58_gv_tD_GameUI.lv_dialog, c_triggerControlTypePanel, "NamelessTD_GameUI/GameUI");
     libBBF65E58_gv_tD_GameUI.lv_gameUI = DialogControlLastCreated();
     DialogControlHookup(libBBF65E58_gv_tD_GameUI.lv_gameUI, c_triggerControlTypePanel, libNtve_gf_ConvertStringToUILayoutFrameName("LevelSelectionContainer"));
@@ -227,6 +232,7 @@ void libBBF65E58_gf_ShowHideHUD (bool lp_showHide) {
     bool autoE07DD8BD_val;
     bool auto9022C0E1_val;
     bool auto118C67CD_val;
+    bool autoA0BF47ED_val;
 
     // Variable Initialization
 
@@ -295,6 +301,18 @@ void libBBF65E58_gf_ShowHideHUD (bool lp_showHide) {
         }
     }
 
+    if ((libBBF65E58_gv_tD_HUDSettings.lv_minimapPanelEnabled == true)) {
+        autoA0BF47ED_val = lp_showHide;
+        if (autoA0BF47ED_val == true) {
+            DialogControlSetVisible(libBBF65E58_gv_tD_HeadsUpDisplay.lv_minimapPanel, PlayerGroupAll(), true);
+        }
+        else if (autoA0BF47ED_val == false) {
+            DialogControlSendAnimationEvent(libBBF65E58_gv_tD_HeadsUpDisplay.lv_minimapPanel, PlayerGroupAll(), "Hide");
+        }
+        else {
+        }
+    }
+
     if ((lp_showHide == false)) {
         Wait(1.5, c_timeGame);
         DialogControlSetVisible(libBBF65E58_gv_tD_GameUI.lv_gameHUDContainer, PlayerGroupAll(), false);
@@ -322,11 +340,11 @@ void libBBF65E58_gf_EnableDisableHUDPanels (int lp_panel, bool lp_enableDisable)
     if (auto4FA646EF_val == libBBF65E58_ge_HUDPanels_GameStatus) {
         auto61072DF4_val = lp_enableDisable;
         if (auto61072DF4_val == true) {
-            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_gameStatusPanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+            DialogControlSetVisible(libBBF65E58_gv_tD_HeadsUpDisplay.lv_gameStatusPanel, PlayerGroupAll(), true);
             libBBF65E58_gv_tD_HUDSettings.lv_gameStatusPanelEnabled = true;
         }
         else if (auto61072DF4_val == false) {
-            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_gameStatusPanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+            DialogControlSendAnimationEvent(libBBF65E58_gv_tD_HeadsUpDisplay.lv_gameStatusPanel, PlayerGroupAll(), "Hide");
             libBBF65E58_gv_tD_HUDSettings.lv_gameStatusPanelEnabled = false;
         }
         else {
@@ -335,11 +353,11 @@ void libBBF65E58_gf_EnableDisableHUDPanels (int lp_panel, bool lp_enableDisable)
     else if (auto4FA646EF_val == libBBF65E58_ge_HUDPanels_HeroPanel) {
         auto7ECCF281_val = lp_enableDisable;
         if (auto7ECCF281_val == true) {
-            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_heroPanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+            DialogControlSetVisible(libBBF65E58_gv_tD_HeadsUpDisplay.lv_heroPanel, PlayerGroupAll(), true);
             libBBF65E58_gv_tD_HUDSettings.lv_heroPanelEnabled = true;
         }
         else if (auto7ECCF281_val == false) {
-            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_heroPanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+            DialogControlSendAnimationEvent(libBBF65E58_gv_tD_HeadsUpDisplay.lv_heroPanel, PlayerGroupAll(), "Hide");
             libBBF65E58_gv_tD_HUDSettings.lv_heroPanelEnabled = false;
         }
         else {
@@ -348,11 +366,11 @@ void libBBF65E58_gf_EnableDisableHUDPanels (int lp_panel, bool lp_enableDisable)
     else if (auto4FA646EF_val == libBBF65E58_ge_HUDPanels_InfoPanel) {
         autoA5142971_val = lp_enableDisable;
         if (autoA5142971_val == true) {
-            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+            DialogControlSetVisible(libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel, PlayerGroupAll(), true);
             libBBF65E58_gv_tD_HUDSettings.lv_unitInfoPanelEnabled = true;
         }
         else if (autoA5142971_val == false) {
-            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+            DialogControlSendAnimationEvent(libBBF65E58_gv_tD_HeadsUpDisplay.lv_unitInfoPanel, PlayerGroupAll(), "Hide");
             libBBF65E58_gv_tD_HUDSettings.lv_unitInfoPanelEnabled = false;
         }
         else {
@@ -361,11 +379,11 @@ void libBBF65E58_gf_EnableDisableHUDPanels (int lp_panel, bool lp_enableDisable)
     else if (auto4FA646EF_val == libBBF65E58_ge_HUDPanels_PausePanel) {
         autoB7B8C76B_val = lp_enableDisable;
         if (autoB7B8C76B_val == true) {
-            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+            DialogControlSetVisible(libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel, PlayerGroupAll(), true);
             libBBF65E58_gv_tD_HUDSettings.lv_pausePanelEnabled = true;
         }
         else if (autoB7B8C76B_val == false) {
-            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+            DialogControlSendAnimationEvent(libBBF65E58_gv_tD_HeadsUpDisplay.lv_pausePanel, PlayerGroupAll(), "Hide");
             libBBF65E58_gv_tD_HUDSettings.lv_pausePanelEnabled = false;
         }
         else {
@@ -374,11 +392,11 @@ void libBBF65E58_gf_EnableDisableHUDPanels (int lp_panel, bool lp_enableDisable)
     else if (auto4FA646EF_val == libBBF65E58_ge_HUDPanels_StartButton) {
         auto3A271A52_val = lp_enableDisable;
         if (auto3A271A52_val == true) {
-            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_waveStartButton, PlayerGroupAll(), "VisibilityToggle", lv_visibleMessage);
+            DialogControlSetVisible(libBBF65E58_gv_tD_HeadsUpDisplay.lv_minimapPanel, PlayerGroupAll(), true);
             libBBF65E58_gv_tD_HUDSettings.lv_startButtonEnabled = true;
         }
         else if (auto3A271A52_val == false) {
-            DialogControlSetAnimationState(libBBF65E58_gv_tD_HeadsUpDisplay.lv_waveStartButton, PlayerGroupAll(), "VisibilityToggle", lv_notVisibleMessage);
+            DialogControlSendAnimationEvent(libBBF65E58_gv_tD_HeadsUpDisplay.lv_minimapPanel, PlayerGroupAll(), "Hide");
             libBBF65E58_gv_tD_HUDSettings.lv_startButtonEnabled = false;
         }
         else {
@@ -396,6 +414,7 @@ void libBBF65E58_gf_ResetHUDPanelStates () {
     libBBF65E58_gv_tD_HUDSettings.lv_pausePanelEnabled = true;
     libBBF65E58_gv_tD_HUDSettings.lv_heroPanelEnabled = true;
     libBBF65E58_gv_tD_HUDSettings.lv_gameStatusPanelEnabled = true;
+    libBBF65E58_gv_tD_HUDSettings.lv_minimapPanelEnabled = true;
 }
 
 void libBBF65E58_gf_PlayTransitionAnimation (int lp_type, bool lp_showHide) {
@@ -617,6 +636,7 @@ bool libBBF65E58_gt_TD_StageButtonPressed_Func (bool testConds, bool runActions)
         return true;
     }
 
+    TriggerExecute(libBBF65E58_gt_KL_UpdateDifficulty, true, false);
     auto192F3EDA_val = EventDialogControl();
     if (auto192F3EDA_val == libBBF65E58_gv_tD_LevelSelection.lv_stageSlotButton[0]) {
         libBBF65E58_gf_TD_UpdateInfoPanel("Bootcamp 00");
@@ -841,6 +861,7 @@ bool libBBF65E58_gt_DebugTestCompleteTransition_Func (bool testConds, bool runAc
     libBBF65E58_gf_ShowHideGameUIPanel(libBBF65E58_ge_UIPanelType_LevelSelection, false);
     libBBF65E58_gf_PlayTransitionAnimation(libBBF65E58_ge_TransitionType_Full, false);
     CinematicFade(true, 1.5, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, false);
+    CameraLockInput(1, false);
     return true;
 }
 

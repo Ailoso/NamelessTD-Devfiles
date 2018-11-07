@@ -13,11 +13,7 @@
         </Animation>
     </Frame>
 
-	<!--Frame type="MinimapPanel" name="GameUI/UIContainer/ConsoleUIContainer/MinimapPanel" file="GameUI">
-        <RenderBackground val="false"/>
-    </Frame-->
-
-	<Frame type="MinimapPanel" name="GameUI/UIContainer/ConsoleUIContainer/MinimapPanel" file="GameUI">
+    <Frame type="MinimapPanel" name="GameUI/UIContainer/ConsoleUIContainer/MinimapPanel" file="GameUI">
 
         <Frame type="Image" name="MinimapBackground">
             <Anchor side="Top" relative="$parent/Minimap" pos="Mid" offset="0"/>
@@ -30,50 +26,61 @@
 
         <Frame type="Minimap" name="Minimap">
             <RenderPriority val="510"/>
-			
-			<Frame type="Image" name="HoverImage">
-				<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
-				<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
-				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
-				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
-				<Texture val="Assets/Textures/ui_nameless_minimap_lv1_hover.dds"/>
-				<RenderPriority val="520"/>
-				<Alpha val="5"/>
-				
-				<Animation name="Hover">
-					<Event event="OnMouseEnter" action="DirectionForward,Play"/>
-					<Event event="OnMouseExit" action="DirectionReverse,Play"/>
-					 
-					<Controller type="Property" property="Alpha" end="Pause" frame="$this">
-						<Key type="Property" time="0" value="5"/>
-						<Key type="Property" time=".2" value="255"/>
-					</Controller>
-				</Animation>
-			</Frame>
+
+            <Animation name="Hover">
+                <Event event="OnMouseEnter" action="DirectionForward,Play"/>
+                <Event event="OnMouseExit" action="DirectionReverse,Play"/>
+                    
+                <Controller type="Fade" end="Stop" frame="$parent/HoverButton">
+                    <Key type="Curve" time="0.0" value="150"/>
+                    <Key type="Curve" time="0.2" value="255"/>
+                </Controller>
+            </Animation>
         </Frame>
+
+        <Animation name="Show/Hide">
+            <Event event="OnShown" action="DirectionForward,Play"/>
+            <Event event="Hide" action="DirectionReverse,Play"/>
+             
+            <Controller type="Anchor" end="Pause" side="Left" relative="true">
+                <Key type="Curve" time="0" value="-350" out="Fast"/>
+                <Key type="Curve" time=".3" value="0" in="Slow"/>
+            </Controller>
+
+            <Controller type="Fade" end="Pause">
+                <Key type="Curve" time="0" value="0" out="Auto"/>
+                <Key type="Curve" time=".5" value="255" in="Auto"/>
+            </Controller>
+
+            <Controller type="Visibility" end="Pause" frame="$this">
+                <Key type="Bool" time="0" value="False"/>
+                <Key type="Bool" time="0.01" value="True"/>
+                <Key type="Bool" time=".5" value="True"/>
+            </Controller>
+        </Animation>
 		
-			<!--Frame type="Image" name="HoverImage">
-				<Anchor side="Top" relative="$parent/Minimap" pos="Mid" offset="0"/>
-				<Anchor side="Bottom" relative="$parent/Minimap" pos="Mid" offset="0"/>
-				<Anchor side="Left" relative="$parent/Minimap" pos="Mid" offset="0"/>
-				<Anchor side="Right" relative="$parent/Minimap" pos="Mid" offset="0"/>
-				<Texture val="Assets/Textures/ui_nameless_minimap_lv1_hover.dds"/>
-				<RenderPriority val="520"/>
-				<Alpha val="5"/>
+		<Frame type="Image" name="HoverButton">
+			<Anchor side="Top" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
+			<Anchor side="Left" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
+            <Anchor side="Right" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
+            <Texture val="Assets/Textures/ui_nameless_minimap_lv1_hover.dds"/>
+            <Alpha val="150"/>
+                
+            <!--Frame type="Image" name="HoverImage">
+                <Anchor side="Top" relative="$parent/$parent/MinimapBackground" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent/$parent/MinimapBackground" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent/$parent/MinimapBackground" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent/$parent/MinimapBackground" pos="Mid" offset="0"/>
+                <Texture val="Assets/Textures/ui_nameless_minimap_lv1_hover.dds"/>
+                <Alpha val="150"/>
+            </Frame-->
 				
-				<Animation name="Hover">
-					<Event event="OnMouseEnter" action="DirectionForward,Play"/>
-					<Event event="OnMouseExit" action="DirectionReverse,Play"/>
-					 
-					<Controller type="Property" property="Alpha" end="Pause" frame="$this">
-						<Key type="Property" time="0" value="5"/>
-						<Key type="Property" time=".2" value="255"/>
-					</Controller>
-				</Animation>
-			</Frame-->
+
+		</Frame>
 
         <Animation name="Override">
-            <Event event="OnShown" action="Reset,Play"/>
+            <Event event="OverrideMinimap" action="Reset,Play"/>
              
             <Controller type="Property" property="RenderBackground" end="Pause" frame="$this/Minimap">
                 <Key type="Property" time="0" value="false"/>

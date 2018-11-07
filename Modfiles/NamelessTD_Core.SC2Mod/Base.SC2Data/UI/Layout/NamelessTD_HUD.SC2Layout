@@ -397,7 +397,6 @@
 					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
 					<Anchor side="Left" relative="$parent/LivesIcon" pos="Max" offset="10"/>
-					<Text val="19"/>
 					<Style val="NamelessResourceLivesLabel"/>
 				</Frame>
 
@@ -405,7 +404,6 @@
 					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
 					<Anchor side="Right" relative="$parent/MineralIcon" pos="Min" offset="-10"/>
-					<Text val="217"/>
 					<Style val="NamelessResourceGoldLabel"/>
 				</Frame>
 			</Frame>
@@ -475,8 +473,23 @@
 					<Anchor side="Bottom" relative="$parent" pos="Max" offset="-5"/>
 					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
 					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
-					<Text val="0/7"/>
+					<Text val="{$parent/DummyWaveBar/ValueFormatter/@Text}"/>
 					<Style val="NamelessWaveValue"/>
+				</Frame>
+
+				<Frame type="ProgressBar" name="DummyWaveBar">
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Max" offset="0"/>
+					<MinValue val="0"/>
+					<MaxValue val="10"/>
+					<Value val="0"/>
+						
+					<Frame type="TextFormatFrame" name="ValueFormatter">
+						<Anchor relative="$parent"/>
+						<FormatText val="%0%/%1%"/>
+						<Replacement index="0" val="{$parent/@Value}"/>
+						<Replacement index="1" val="{$parent/@MaxValue}"/>
+					</Frame>
 				</Frame>
 			</Frame>
 		</Frame>
@@ -586,7 +599,7 @@
 			<Height val="250"/>
             <Visible val="False"/>
 
-			<Animation name="Show">
+			<Animation name="Show/Hide">
 				<Event event="OnShown" action="DirectionForward,Play"/>
 				<Event event="Hide" action="DirectionReverse,Play"/>
 				 
