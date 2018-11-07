@@ -12,6 +12,7 @@
 <Unit id="Vulture"/>
 <Unit id="TaurenSpaceMarine"/>
 <Unit id="InvisibleTargetDummy"/>
+<Unit id="EmptySlot"/>
 <User id="Wave2Groups"/>
 <User id="Wave1Groups"/>
 <User id="Wave3Groups"/>

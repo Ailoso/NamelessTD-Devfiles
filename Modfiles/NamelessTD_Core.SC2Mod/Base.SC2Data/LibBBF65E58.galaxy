@@ -417,6 +417,12 @@ void libBBF65E58_gf_ResetHUDPanelStates () {
     libBBF65E58_gv_tD_HUDSettings.lv_minimapPanelEnabled = true;
 }
 
+void libBBF65E58_gf_TD_SetWaveData () {
+    // Automatic Variable Declarations
+    // Implementation
+    libNtve_gf_SetDialogItemCurrentValue(DialogControlLastCreated(), 0.0, PlayerGroupAll());
+}
+
 void libBBF65E58_gf_PlayTransitionAnimation (int lp_type, bool lp_showHide) {
     // Automatic Variable Declarations
     int auto65C4484E_val;
@@ -466,6 +472,20 @@ void libBBF65E58_gf_PlayTransitionAnimation (int lp_type, bool lp_showHide) {
     }
 }
 
+void libBBF65E58_gf_TurnGamePropertyOnOff (int lp_property, bool lp_onOff) {
+    // Automatic Variable Declarations
+    int auto50A4A60C_val;
+
+    // Implementation
+    auto50A4A60C_val = lp_property;
+    if (auto50A4A60C_val == libBBF65E58_ge_KL_GameProperty_MineralGain) {
+    }
+    else if (auto50A4A60C_val == libBBF65E58_ge_KL_GameProperty_LifeLoss) {
+    }
+    else {
+    }
+}
+
 void libBBF65E58_gf_TD_SetGameDifficulty (int lp_gameDifficulty) {
     // Automatic Variable Declarations
     int autoDAD44416_val;
@@ -500,6 +520,21 @@ string libBBF65E58_gf_ReturnGameDifficultyasInteger () {
     }
 }
 
+void libBBF65E58_gf_DefinePlayableAreas (region lp_playableArea) {
+    // Automatic Variable Declarations
+    // Implementation
+    PlayerSetBounds(libBBF65E58_gv_pLAYER_01_USER, lp_playableArea);
+    CameraSetBounds(PlayerGroupSingle(libBBF65E58_gv_pLAYER_01_USER), lp_playableArea, true);
+}
+
+void libBBF65E58_gf_SetTurretSlots (point lp_point) {
+    // Automatic Variable Declarations
+    // Implementation
+    libBBF65E58_gv_tD_TurretsInUse += 1;
+    UnitCreate(1, "EmptySlot", 0, libBBF65E58_gv_pLAYER_01_USER, lp_point, 270.0);
+    libBBF65E58_gv_tD_TurretSlots[libBBF65E58_gv_tD_TurretsInUse] = UnitLastCreated();
+}
+
 void libBBF65E58_gf_InitializeStageSettings (string lp_stage) {
     // Automatic Variable Declarations
     string auto683D607B_val;
@@ -509,13 +544,18 @@ void libBBF65E58_gf_InitializeStageSettings (string lp_stage) {
     if (auto683D607B_val == "Bootcamp 00") {
         libBBF65E58_gf_EnableDisableHUDPanels(libBBF65E58_ge_HUDPanels_HeroPanel, false);
         libBBF65E58_gf_EnableDisableHUDPanels(libBBF65E58_ge_HUDPanels_InfoPanel, false);
+        libNtve_gf_SetAllianceOneWay(1, 2, libNtve_ge_AllianceSetting_Enemy);
+        libNtve_gf_SetAllianceOneWay(2, 1, libNtve_ge_AllianceSetting_Neutral);
     }
     else {
     }
 }
 
-void libBBF65E58_gf_InitializeStage (string lp_gameDifficulty) {
+void libBBF65E58_gf_InitializeStage (string lp_stage) {
     // Automatic Variable Declarations
+    // Implementation
+    libNtve_gf_SetAllSoundChannelVolumes(libNtve_ge_VolumeChannelMode_Game, PlayerGroupAll(), 0.0);
+    libBBF65E58_gf_InitializeStageSettings("Bootcamp 00");
 }
 
 // Triggers
@@ -696,6 +736,10 @@ void libBBF65E58_gt_PlayBtnPressed_Init () {
 //--------------------------------------------------------------------------------------------------
 bool libBBF65E58_gt_Intialization_Func (bool testConds, bool runActions) {
     // Automatic Variable Declarations
+    unitgroup auto6F7A3A56_g;
+    int auto6F7A3A56_u;
+    unit auto6F7A3A56_var;
+
     // Actions
     if (!runActions) {
         return true;
@@ -720,6 +764,16 @@ bool libBBF65E58_gt_Intialization_Func (bool testConds, bool runActions) {
     libBBF65E58_gf_PreloadBanks();
     libBBF65E58_gf_OpenBanks();
     libBBF65E58_gf_LoadBankData();
+    libBBF65E58_gv_tD_AmbientSoundtrack = "Ambience_Starship";
+    SoundtrackPlay(PlayerGroupAll(), c_soundtrackCategoryAmbience, libBBF65E58_gv_tD_AmbientSoundtrack, c_soundtrackCueAny, c_soundtrackIndexAny, true);
+    auto6F7A3A56_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    auto6F7A3A56_u = UnitGroupCount(auto6F7A3A56_g, c_unitCountAll);
+    for (;; auto6F7A3A56_u -= 1) {
+        auto6F7A3A56_var = UnitGroupUnitFromEnd(auto6F7A3A56_g, auto6F7A3A56_u);
+        if (auto6F7A3A56_var == null) { break; }
+        libNtve_gf_PauseUnit(auto6F7A3A56_var, true);
+        libNtve_gf_ShowHideUnit(auto6F7A3A56_var, false);
+    }
     return true;
 }
 

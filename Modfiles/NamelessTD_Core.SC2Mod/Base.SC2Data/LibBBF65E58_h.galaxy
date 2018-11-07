@@ -15,6 +15,8 @@ const int libBBF65E58_ge_HUDPanels_HeroPanel = 0x00000010;
 const int libBBF65E58_ge_HUDPanels_MinimapPanel = 0x00000020;
 const int libBBF65E58_ge_TransitionType_Full = 0;
 const int libBBF65E58_ge_TransitionType_Half = 1;
+const int libBBF65E58_ge_KL_GameProperty_LifeLoss = 0x00000001;
+const int libBBF65E58_ge_KL_GameProperty_MineralGain = 0x00000002;
 const int libBBF65E58_ge_TD_GameDifficulty_Easy = 0x00000001;
 const int libBBF65E58_ge_TD_GameDifficulty_Normal = 0x00000002;
 const int libBBF65E58_ge_TD_GameDifficulty_Hard = 0x00000004;
@@ -86,6 +88,8 @@ string libBBF65E58_gv_kL_Path1IDString;
 string libBBF65E58_gv_kL_Path2IDString;
 int libBBF65E58_gv_kL_Path1MaxPoints;
 int libBBF65E58_gv_kL_Path2MaxPoints;
+string libBBF65E58_gv_tD_AmbientSoundtrack;
+string libBBF65E58_gv_tD_GameSoundtrack;
 bank libBBF65E58_gv_tD_PlayerDataBank;
 bool libBBF65E58_gv_tD_GameUIHooked;
 libBBF65E58_gs_TD_GameUI libBBF65E58_gv_tD_GameUI;
@@ -95,6 +99,8 @@ string libBBF65E58_gv_tD_SelectedStage;
 int libBBF65E58_gv_tD_SelectedLevel;
 libBBF65E58_gs_TD_HUDSettings libBBF65E58_gv_tD_HUDSettings;
 int libBBF65E58_gv_tD_GameDifficulty;
+unit[51] libBBF65E58_gv_tD_TurretSlots;
+int libBBF65E58_gv_tD_TurretsInUse;
 
 // Function Declarations
 bool libBBF65E58_gf_GamePaused ();
@@ -111,11 +117,15 @@ void libBBF65E58_gf_TD_UpdateInfoPanel (string lp_level);
 void libBBF65E58_gf_ShowHideHUD (bool lp_showHide);
 void libBBF65E58_gf_EnableDisableHUDPanels (int lp_panel, bool lp_enableDisable);
 void libBBF65E58_gf_ResetHUDPanelStates ();
+void libBBF65E58_gf_TD_SetWaveData ();
 void libBBF65E58_gf_PlayTransitionAnimation (int lp_type, bool lp_showHide);
+void libBBF65E58_gf_TurnGamePropertyOnOff (int lp_property, bool lp_onOff);
 void libBBF65E58_gf_TD_SetGameDifficulty (int lp_gameDifficulty);
 string libBBF65E58_gf_ReturnGameDifficultyasInteger ();
+void libBBF65E58_gf_DefinePlayableAreas (region lp_playableArea);
+void libBBF65E58_gf_SetTurretSlots (point lp_point);
 void libBBF65E58_gf_InitializeStageSettings (string lp_stage);
-void libBBF65E58_gf_InitializeStage (string lp_gameDifficulty);
+void libBBF65E58_gf_InitializeStage (string lp_stage);
 
 // Trigger Declarations
 trigger libBBF65E58_gt_TD_FIrstRunCheck;

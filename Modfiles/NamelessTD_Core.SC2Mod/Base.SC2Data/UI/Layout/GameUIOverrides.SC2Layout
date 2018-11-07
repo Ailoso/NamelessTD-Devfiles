@@ -14,6 +14,8 @@
     </Frame>
 
     <Frame type="MinimapPanel" name="GameUI/UIContainer/ConsoleUIContainer/MinimapPanel" file="GameUI">
+        <Anchor side="Bottom" relative="$parent" pos="Max" offset="-20"/>
+        <Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
 
         <Frame type="Image" name="MinimapBackground">
             <Anchor side="Top" relative="$parent/Minimap" pos="Mid" offset="0"/>
@@ -27,15 +29,46 @@
         <Frame type="Minimap" name="Minimap">
             <RenderPriority val="510"/>
 
+            <Frame type="Model" name="PingFrame">
+                <AcceptsMouse val="False"/>
+            </Frame>
+
+            <Frame type="MinimapCameraViewFrustumFrame" name="CameraViewFrustumFrame">
+                <Alpha val="0"/>
+                <AcceptsMouse val="False"/>
+            </Frame>
+
+            <Constant name="BorderLightColor" val="279fff"/>
+            <Constant name="BorderDarkColor" val="08386f"/>
+        
+            <Frame type="Image" name="ViewFrustumImage">
+                <Alpha val="200"/>
+                <Texture val="Assets/Textures/minimap-viewfinder.dds"/>
+                <TextureType val="Nineslice"/>
+                <AcceptsMouse val="False"/>
+                <DarkAdjustColor val="#BorderDarkColor"/>
+                <LightAdjustColor val="#BorderLightColor"/>
+                <ColorAdjustMode val="Colorize"/>
+            </Frame>
+
             <Animation name="Hover">
                 <Event event="OnMouseEnter" action="DirectionForward,Play"/>
                 <Event event="OnMouseExit" action="DirectionReverse,Play"/>
                     
-                <Controller type="Fade" end="Stop" frame="$parent/HoverButton">
+                <Controller type="Fade" end="Pause" frame="$parent/Border">
                     <Key type="Curve" time="0.0" value="150"/>
                     <Key type="Curve" time="0.2" value="255"/>
                 </Controller>
             </Animation>
+        </Frame>
+
+        <Frame type="Image" name="Border">
+            <Anchor side="Top" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
+            <Anchor side="Bottom" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
+            <Anchor side="Left" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
+            <Anchor side="Right" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
+            <Texture val="Assets/Textures/ui_nameless_minimap_lv1_hover.dds"/>
+            <Alpha val="150"/>
         </Frame>
 
         <Animation name="Show/Hide">
@@ -59,26 +92,6 @@
             </Controller>
         </Animation>
 		
-		<Frame type="Image" name="HoverButton">
-			<Anchor side="Top" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
-			<Anchor side="Bottom" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
-			<Anchor side="Left" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
-            <Anchor side="Right" relative="$parent/MinimapBackground" pos="Mid" offset="0"/>
-            <Texture val="Assets/Textures/ui_nameless_minimap_lv1_hover.dds"/>
-            <Alpha val="150"/>
-                
-            <!--Frame type="Image" name="HoverImage">
-                <Anchor side="Top" relative="$parent/$parent/MinimapBackground" pos="Mid" offset="0"/>
-                <Anchor side="Bottom" relative="$parent/$parent/MinimapBackground" pos="Mid" offset="0"/>
-                <Anchor side="Left" relative="$parent/$parent/MinimapBackground" pos="Mid" offset="0"/>
-                <Anchor side="Right" relative="$parent/$parent/MinimapBackground" pos="Mid" offset="0"/>
-                <Texture val="Assets/Textures/ui_nameless_minimap_lv1_hover.dds"/>
-                <Alpha val="150"/>
-            </Frame-->
-				
-
-		</Frame>
-
         <Animation name="Override">
             <Event event="OverrideMinimap" action="Reset,Play"/>
              
@@ -88,10 +101,6 @@
 			
             <Controller type="Property" property="HitTestPrecision" end="Pause" frame="$this/Minimap">
                 <Key type="Property" time="0" value="128"/>
-            </Controller>
-			
-            <Controller type="Property" property="HitTestRequireValidTarget" end="Pause" frame="$this/Minimap">
-                <Key type="Property" time="0" value="true"/>
             </Controller>
 			
             <Controller type="Property" property="AlphaMaskTexture" end="Pause" frame="$this/Minimap">
