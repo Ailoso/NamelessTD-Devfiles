@@ -2101,28 +2101,6 @@ void lib08CCADF9_gt_IntroCleanup_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
-// Trigger: Global Initialization
-//--------------------------------------------------------------------------------------------------
-bool lib08CCADF9_gt_GlobalInitialization_Func (bool testConds, bool runActions) {
-    // Automatic Variable Declarations
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    TriggerExecute(lib08CCADF9_gt__1Settings, true, true);
-    TriggerExecute(lib08CCADF9_gt__2UI, true, true);
-    TriggerExecute(lib08CCADF9_gt__3IntroQ, true, true);
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void lib08CCADF9_gt_GlobalInitialization_Init () {
-    lib08CCADF9_gt_GlobalInitialization = TriggerCreate("lib08CCADF9_gt_GlobalInitialization_Func");
-    TriggerAddEventMapInit(lib08CCADF9_gt_GlobalInitialization);
-}
-
-//--------------------------------------------------------------------------------------------------
 // Trigger: 1. Settings
 //--------------------------------------------------------------------------------------------------
 bool lib08CCADF9_gt__1Settings_Func (bool testConds, bool runActions) {
@@ -2133,7 +2111,6 @@ bool lib08CCADF9_gt__1Settings_Func (bool testConds, bool runActions) {
     }
 
     TriggerExecute(lib08CCADF9_gt_KL_SetupCalloutPositions, true, false);
-    TriggerExecute(lib08CCADF9_gt_KL_StandardUIOverrides, true, false);
     return true;
 }
 
@@ -2182,45 +2159,6 @@ bool lib08CCADF9_gt__3IntroQ_Func (bool testConds, bool runActions) {
 //--------------------------------------------------------------------------------------------------
 void lib08CCADF9_gt__3IntroQ_Init () {
     lib08CCADF9_gt__3IntroQ = TriggerCreate("lib08CCADF9_gt__3IntroQ_Func");
-}
-
-//--------------------------------------------------------------------------------------------------
-// Trigger: KL_StandardUIOverrides
-//--------------------------------------------------------------------------------------------------
-bool lib08CCADF9_gt_KL_StandardUIOverrides_Func (bool testConds, bool runActions) {
-    // Automatic Variable Declarations
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    lib08CCADF9_gf_KL_GameUIInitialize();
-    UISetWorldVisible(PlayerGroupAll(), false);
-    CameraLockInput(1, true);
-    VisRevealerCreate(1, RegionEntireMap());
-    UISetDragSelectEnabled(PlayerGroupAll(), false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeConsolePanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeControlGroupPanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMinimapPanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMinimapPanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMissionTimePanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeIdleWorkerButton, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeArmyButton, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeAllianceButton, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeInfoPanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeMenuBar, false);
-    PlayerOptionOverride(1, "gametooltips", "0");
-    PlayerOptionOverride(1, "showunitpoints", "0");
-    PlayerOptionOverride(1, "simplecommandcard", "0");
-    lib08CCADF9_gf_KL_LoadPlayerDataBank();
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void lib08CCADF9_gt_KL_StandardUIOverrides_Init () {
-    lib08CCADF9_gt_KL_StandardUIOverrides = TriggerCreate("lib08CCADF9_gt_KL_StandardUIOverrides_Func");
-    TriggerAddEventMapInit(lib08CCADF9_gt_KL_StandardUIOverrides);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -3562,11 +3500,9 @@ void lib08CCADF9_InitTriggers () {
     lib08CCADF9_gt_IntroStart_Init();
     lib08CCADF9_gt_IntroEnd_Init();
     lib08CCADF9_gt_IntroCleanup_Init();
-    lib08CCADF9_gt_GlobalInitialization_Init();
     lib08CCADF9_gt__1Settings_Init();
     lib08CCADF9_gt__2UI_Init();
     lib08CCADF9_gt__3IntroQ_Init();
-    lib08CCADF9_gt_KL_StandardUIOverrides_Init();
     lib08CCADF9_gt_KL_SetupCalloutPositions_Init();
     lib08CCADF9_gt_KL_UnitReachesEnd_Init();
     lib08CCADF9_gt_KL_StartGame_Init();

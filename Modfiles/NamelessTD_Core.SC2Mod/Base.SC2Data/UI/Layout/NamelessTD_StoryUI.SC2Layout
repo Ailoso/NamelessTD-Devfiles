@@ -107,15 +107,11 @@
             </Controller>
 
             <Controller type="Event" end="Stop" frame="$this">
-                <Key type="Event" time="0.4" event="Level0"/>
-            </Controller>
-
-            <Controller type="Event" end="Stop" frame="$this">
-                <Key type="Event" time="4.5" event="BlinkingStop"/>
+                <Key type="Event" time="5" event="BlinkingStop"/>
             </Controller>
 
                 <Controller type="Event" end="Stop" frame="$this">
-                    <Key type="Event" time="5" event="HidePanel"/>
+                    <Key type="Event" time="6" event="HidePanel"/>
                 </Controller>
 
                 <Controller type="Text" end="Stop" frame="$this/CrawlingTextFrame/Title">

@@ -1001,49 +1001,93 @@
 
 	<Frame type="Button" name="WaveCalloutTemplate">
 		<Anchor relative="$parent"/>
-		<NormalImage val="NormalImage"/>
-		<HoverImage val="HoverImage"/>
-		<HitTestFrame val="HitTestFrame"/>
 
 		<Animation name="Show">
-			<Event event="OnShown" action="Reset,Play"/>
+            <Event event="OnShown" action="DirectionForward,Play"/>
+            <Event event="HideCallout" action="DirectionReverse,Play"/>
 				 
 			<Controller type="Fade" end="Pause">
 				<Key type="Curve" time="0" value="0" out="Fast"/>
-				<Key type="Curve" time=".3" value="255" in="Slow"/>
-			</Controller>
+				<Key type="Curve" time="0.2" value="255" in="Slow"/>
+            </Controller>
+            
+            <Controller type="Visibility" end="Pause" frame="$this">
+                <Key type="Bool" time="0.0" value="False"/>
+                <Key type="Bool" time="0.01" value="True"/>
+                <Key type="Bool" time="0.2" value="True"/>
+            </Controller>
 		</Animation>
+        
+        <StateGroup name="Direction">
+            <DefaultState val="Top"/>
+        
+            <State name="Top">
+                <When type="AnimationState" frame="$this" Direction="Top"/>
+                <Action type="SetProperty" frame="$this/DirectionCaller" Rotation="45"/>
+            </State>
+        
+            <State name="Bottom">
+                <When type="AnimationState" frame="$this" Direction="Bottom"/>
+                <Action type="SetProperty" frame="$this/DirectionCaller" Rotation="225"/>
+            </State>
+        
+            <State name="Left">
+                <When type="AnimationState" frame="$this" Direction="Left"/>
+                <Action type="SetProperty" frame="$this/DirectionCaller" Rotation="-45"/>
+            </State>
+        
+            <State name="Right">
+                <When type="AnimationState" frame="$this" Direction="Right"/>
+                <Action type="SetProperty" frame="$this/DirectionCaller" Rotation="135"/>
+            </State>
 
-		<Animation name="Hide">
-			<Event event="HideCallout" action="Reset,Play"/>
-				 
-			<Controller type="Fade" end="Pause">
-				<Key type="Curve" time="0" value="255" out="Fast"/>
-				<Key type="Curve" time=".2" value="0" in="Slow"/>
-			</Controller>
-		</Animation>
+            <State name="TopLeft">
+                <When type="AnimationState" frame="$this" Direction="TopLeft"/>
+                <Action type="SetProperty" frame="$this/DirectionCaller" Rotation="0"/>
+            </State>
 
-		<Frame type="Image" name="NormalImage">
+            <State name="TopRight">
+                <When type="AnimationState" frame="$this" Direction="TopRight"/>
+                <Action type="SetProperty" frame="$this/DirectionCaller" Rotation="90"/>
+            </State>
+            
+            <State name="BottomLeft">
+                <When type="AnimationState" frame="$this" Direction="BottomLeft"/>
+                <Action type="SetProperty" frame="$this/DirectionCaller" Rotation="-90"/>
+            </State>
+
+            <State name="BottomRight">
+                <When type="AnimationState" frame="$this" Direction="BottomRight"/>
+                <Action type="SetProperty" frame="$this/DirectionCaller" Rotation="180"/>
+            </State>
+        </StateGroup>
+
+		<Frame type="Image" name="Background">
 			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
 			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
 			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
 			<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
-			<Width val="100"/>
-			<Height val="100"/>
+			<Width val="105"/>
+			<Height val="105"/>
 			<Texture val="Assets/Textures/ui_nameless_headsup_circlebutton_normal.dds"/>
             <DisabledAlpha val="128"/>
-		</Frame>
-		
-		<Frame type="Image" name="HoverImage">
-			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
-			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
-			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
-			<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
-			<Width val="100"/>
-			<Height val="100"/>
-			<Texture val="Assets/Textures/ui_nameless_headsup_circlebutton_over.dds"/>
-            <DisabledAlpha val="128"/>
-		</Frame>
+        </Frame>
+        
+        <Animation name="Hover">
+            <Event event="OnMouseEnter" action="DirectionForward,Play" frame="$this"/>
+            <Event event="OnMouseExit" action="DirectionReverse,Play" frame="$this"/>
+
+            <Controller type="Texture" end="Stop" frame="$this/Background">
+                <Key type="Image" time="0.0" image="Assets/Textures/ui_nameless_headsup_circlebutton_over.dds"/>
+            </Controller>
+        </Animation>
+
+        <Frame type="Frame" name="HitTestFrame">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="-30"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="-30"/>
+        </Frame>
 
 		<Frame type="Image" name="RaceIndicator">
 			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
@@ -1055,7 +1099,7 @@
 			<Texture val="Assets\Textures\sc2_ui_collection_warchest_purchasedialog_racebadge_icon_zerg.dds"/>
 		</Frame>
 	 
-		<Frame type="ProgressBar" name="Fill">
+		<Frame type="ProgressBar" name="CircleProgress">
 			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
 			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
 			<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
@@ -1079,15 +1123,15 @@
 		</Frame>
 
 		<Frame type="Image" name="DirectionCaller">
-			<Anchor relative="$parent"/>
+            <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+            <Width val="110"/>
+            <Height val="110"/>
+            <Rotation val="0"/>
+            <Texture val="Assets/Textures/ui_nameless_headsup_timerarrow.dds"/>
 		</Frame>
-
-        <Frame type="Frame" name="HitTestFrame">
-            <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-            <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
-            <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-            <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
-        </Frame>
 	</Frame>
 	
 	<!-- Turret Panel -->

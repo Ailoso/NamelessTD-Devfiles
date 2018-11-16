@@ -369,6 +369,9 @@
 					</Controller>
 				</Animation>
 
+				<Frame type="ScoreValueFrame" name="MineralValue">
+				</Frame>
+
 				<Frame type="Image" name="Background">
 					<Anchor relative="$parent"/>
 					<Texture val="Assets\Textures\ui_nameless_headsup_resourcepanel.dds"/>
@@ -553,7 +556,7 @@
 			<Height val="70"/>
             <Visible val="False"/>
 
-			<Animation name="Show">
+			<Animation name="Show/Hide">
 				<Event event="OnShown" action="DirectionForward,Play"/>
 				<Event event="Hide" action="DirectionReverse,Play"/>
 				 
